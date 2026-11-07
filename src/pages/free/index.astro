@@ -1,0 +1,481 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import {
+    freeQuickVerdicts,
+    freeVsBudgetComparisonRows,
+    freeDeepChapters,
+    freeDecisionBranches,
+    freeConversionProducts,
+    freeFaqs,
+} from "../../data/free";
+
+const siteUrl = Astro.site ?? new URL("https://xiaohuojian.homes");
+const pageUrl = new URL("/free", siteUrl).href;
+
+const pageTitle = "2026 免费梯子与机场试用全景避坑指南：白嫖节点真相、WARP 脚本与 6.5 元专线转化精算";
+const pageDescription =
+    "小火箭评测智库免费网络资源专著：深度揭秘 GitHub/TG 免费节点六大中间人安全黑幕、手把手教配置官方正规 Cloudflare WARP 优选 IP 脚本，以及如何用每天两毛钱（¥6.5/月）彻底告别找节点的焦虑与封号风险。";
+
+const pageSchema = {
+    "@context": "https://schema.org",
+    "@graph": [
+        {
+            "@type": "TechArticle",
+            "@id": `${pageUrl}#article`,
+            "headline": pageTitle,
+            "description": pageDescription,
+            "url": pageUrl,
+            "datePublished": "2026-08-11",
+            "dateModified": "2026-11-07",
+            "inLanguage": "zh-CN",
+            "proficiencyLevel": "Beginner to Expert",
+            "author": {
+                "@type": "Organization",
+                "name": "小火箭网络基础设施评测智库 (xiaohuojian.homes)",
+                "url": siteUrl.href
+            },
+            "publisher": {
+                "@type": "Organization",
+                "name": "小火箭评测智库",
+                "logo": {
+                    "@type": "ImageObject",
+                    "url": new URL("/favicon.svg", siteUrl).href
+                }
+            },
+            "mainEntityOfPage": {
+                "@type": "WebPage",
+                "@id": pageUrl
+            }
+        },
+        {
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+                {
+                    "@type": "ListItem",
+                    "position": 1,
+                    "name": "首页",
+                    "item": siteUrl.href
+                },
+                {
+                    "@type": "ListItem",
+                    "position": 2,
+                    "name": "免费资源与试用全景避坑指南",
+                    "item": pageUrl
+                }
+            ]
+        },
+        {
+            "@type": "FAQPage",
+            "mainEntity": freeFaqs.map((faq) => ({
+                "@type": "Question",
+                "name": faq.question,
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": `${faq.conclusion} ${faq.details}`
+                }
+            }))
+        }
+    ]
+};
+---
+
+<Layout
+    title={pageTitle}
+    description={pageDescription}
+    currentPage="free"
+    structuredData={pageSchema}
+>
+    <!-- Hero 头部：明确核心定位、核查日期与页内稳定锚点目录 -->
+    <section class="section section-hero pb-5">
+        <div class="container">
+            <div class="has-text-centered mb-5">
+                <p class="tag is-danger is-medium mb-3">FREE RESOURCES & SECURITY AUDIT (2026 EDITION)</p>
+                <h1 class="title is-1">
+                    2026 免费梯子与机场试用全景避坑指南<br />
+                    <span class="has-text-primary is-size-3">白嫖节点黑幕、WARP 优选脚本与每天两毛钱终极精算</span>
+                </h1>
+                <p class="subtitle is-5 mt-3 u-constrained has-text-grey-light">
+                    在充斥着「永久免费」「无限流量」钓鱼陷阱的市场中，小火箭实验室带您穿透迷雾：<strong>为什么网上免费节点会盗取 Cookie 与封禁 ChatGPT？</strong>、<strong>如何正规配置 Cloudflare WARP 官方免费备用节点？</strong>，以及<strong>为什么每天两毛钱（¥6.5/月）的特惠专线是划算 100 倍的终极解法？</strong>
+                </p>
+                <div class="tags is-centered mt-3">
+                    <span class="tag is-dark">🔍 免费节点中间人嗅探风险实测</span>
+                    <span class="tag is-dark">🛡️ 官方正规 Cloudflare WARP 优选配置</span>
+                    <span class="tag is-dark">💰 每天两毛钱（¥6.5/月）极低成本专线精算</span>
+                    <span class="tag is-dark">📅 2026-10-19 / 2026-11-07 验证维护</span>
+                </div>
+            </div>
+
+            <!-- 页内目录导航 (Topic Cluster 稳定锚点) -->
+            <nav class="box p-4 mb-2" aria-label="免费专题页内章节目录" style="background: var(--sp-bg-card); border: 1px solid var(--sp-border); border-radius: 14px;">
+                <div class="is-flex is-justify-content-space-between is-align-items-center is-flex-wrap-wrap mb-3">
+                    <strong class="is-size-6">🧭 本页专著级导航（点击直达对应避坑与实战模块）：</strong>
+                    <span class="is-size-7 has-text-grey">支持 375px 移动端安全滑动阅读</span>
+                </div>
+                <div class="buttons are-small mb-0">
+                    <a href="#quick-verdicts" class="button is-primary is-light">1. 四大类免费资源速查结论</a>
+                    <a href="#comparison-matrix" class="button is-dark">2. 免费节点 vs 专线核心参数对比表</a>
+                    <a href="#chapter-free-traps" class="button is-dark">3. 免费节点六大黑色产业链揭秘</a>
+                    <a href="#chapter-cloudflare-warp" class="button is-dark">4. Cloudflare WARP 官方免费方案与优选</a>
+                    <a href="#chapter-trials-audit" class="button is-dark">5. 商业机场试用政策深度审计</a>
+                    <a href="#chapter-math-of-budget" class="button is-dark">6. 每天两毛钱（¥6.5/月）终极精算</a>
+                    <a href="#decision-matrix" class="button is-dark">7. 读者行动决策路径 (3大分支)</a>
+                    <a href="#budget-conversion-cards" class="button is-dark">8. 4 大百元内年付特惠专线卡片</a>
+                    <a href="#free-faq" class="button is-dark">9. 免费资源常见问题 FAQ (8问)</a>
+                </div>
+            </nav>
+        </div>
+    </section>
+
+    <!-- 模块一：开头直接提供答案 (四大类免费资源的真实可信度与选择结论) -->
+    <section class="section has-bg-elevated py-6" id="quick-verdicts" aria-labelledby="quick-verdicts-heading">
+        <div class="container">
+            <div class="mb-5">
+                <p class="u-label-overline">DIRECT VERDICTS ON FREE PROXIES</p>
+                <h2 id="quick-verdicts-heading" class="title is-2 mt-1 mb-2">
+                    一、30 秒看透真相：市面上 4 类常见「免费网络」真实可信度与结论
+                </h2>
+                <p class="has-text-grey-light is-size-6">
+                    当您在搜索引擎寻找免费梯子时，最迫切的问题是：<strong>网上的免费节点真的能用吗？有没有既免费又安全的工具？</strong> 实验室给出的权威定性结论如下：
+                </p>
+            </div>
+
+            <div class="columns is-multiline">
+                {freeQuickVerdicts.map((card) => (
+                    <div class="column is-6-tablet is-3-desktop mb-4">
+                        <div class="card h-100" style="background: var(--sp-bg-card); border: 1px solid var(--sp-border); border-radius: 14px; display: flex; flex-direction: column; justify-content: space-between;">
+                            <div class="card-content">
+                                <span class={`tag is-small mb-2 ${card.badge.includes('极高') ? 'is-danger' : card.badge.includes('最优') ? 'is-primary has-text-weight-bold' : 'is-dark'}`}>
+                                    {card.badge}
+                                </span>
+                                <h3 class="title is-5 mb-2">{card.headline}</h3>
+                                <div class="is-size-7 has-text-grey mb-3">类别：{card.type}</div>
+                                <p class="is-size-7 mb-3" style="line-height: 1.7;">
+                                    {card.verdict}
+                                </p>
+                                <div class="p-3 has-background-dark mb-3 is-size-7" style="border-radius: 8px; line-height: 1.65;">
+                                    <div><strong>⏳ 每日维护耗时：</strong>{card.dailyMaintenanceTime}</div>
+                                    <div class="mt-1"><strong>🎯 合理适用场景：</strong>{card.suitableTask}</div>
+                                </div>
+                                <a href={card.anchor} class="button is-small is-outlined is-fullwidth">
+                                    查看本方案深度剖析 ↓
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                ))}
+            </div>
+        </div>
+    </section>
+
+    <!-- 模块二：有依据的核心对比表 (免费节点 vs 官方WARP vs 试用包 vs 6.5元年付专线) -->
+    <section class="section py-6" id="comparison-matrix" aria-labelledby="comparison-heading">
+        <div class="container">
+            <div class="mb-5">
+                <p class="u-label-overline">RIGOROUS PARAMETER COMPARISON</p>
+                <h2 id="comparison-heading" class="title is-2 mt-1 mb-2">
+                    二、硬核参数对决：公共免费节点 vs 官方 WARP vs 商业试用 vs ¥6.5/月 专线
+                </h2>
+                <p class="has-text-grey-light is-size-6 mb-3">
+                    以下数据由小火箭实验室基于 <code>2026-10-19</code> 抓包测试与成本模型推导整理，将<strong>价格、链路拓扑、延迟、流媒体、安全风险及维护周期</strong>进行全方位横向对比：
+                </p>
+                <div class="notification is-dark is-size-7 py-2 px-3 mb-4">
+                    💡 <strong>移动端阅读提示：</strong> 在 375px 手机屏幕下，下方对比表支持<strong>区域内左右平滑滑动</strong>，不会撑破页面整体宽度。
+                </div>
+            </div>
+
+            <div class="table-container box p-0 mb-6" style="overflow-x: auto; -webkit-overflow-scrolling: touch; border-radius: 12px; border: 1px solid var(--sp-border);">
+                <table class="table is-fullwidth is-striped is-hoverable mb-0" style="min-width: 1120px; font-size: 0.85rem;">
+                    <thead>
+                        <tr>
+                            <th style="min-width: 140px;">评测维度</th>
+                            <th style="min-width: 180px;">公共免费节点 (TG/GitHub)</th>
+                            <th style="min-width: 180px;">Cloudflare WARP (官方)</th>
+                            <th style="min-width: 180px;">商业机场免费试用包</th>
+                            <th style="min-width: 220px;" class="has-text-primary">¥6.5–¥8/月 品牌专线年付小包</th>
+                            <th style="min-width: 220px;">实验室工程级判定结论</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {freeVsBudgetComparisonRows.map((row) => (
+                            <tr>
+                                <td class="has-text-weight-bold">{row.dimension}</td>
+                                <td class="is-size-7 has-text-danger">{row.freePublicNodes}</td>
+                                <td class="is-size-7">{row.cloudflareWarp}</td>
+                                <td class="is-size-7">{row.airportTrialPacks}</td>
+                                <td class="is-size-7 has-text-success has-text-weight-bold">{row.budgetDedicatedLine}</td>
+                                <td class="is-size-7 has-text-grey-light">{row.engineeringVerdict}</td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- 模块三：围绕用户核心问题展开的四大专著级深度章节 (H2/H3) -->
+    <section class="section has-bg-elevated py-6" id="deep-chapters" aria-labelledby="chapters-heading">
+        <div class="container">
+            <div class="mb-5">
+                <p class="u-label-overline">DEEP INVESTIGATION & CONFIGURATION</p>
+                <h2 id="chapters-heading" class="title is-2 mt-1 mb-2">
+                    三、深度调研与实战：免费陷阱揭秘、WARP 优选配置与终极经济精算
+                </h2>
+                <p class="has-text-grey-light is-size-6">
+                    以下四个章节严格围绕<strong>「是什么问题与何时关注 → 实验室工程解释 → 真实审计证据 → 安全红线与下一步行动」</strong>展开：
+                </p>
+            </div>
+
+            {freeDeepChapters.map((ch) => (
+                <article class="box p-5 mb-6" id={ch.id} style="background: var(--sp-bg-card); border: 1px solid var(--sp-border); border-radius: 16px;">
+                    <div class="is-flex is-justify-content-space-between is-align-items-center is-flex-wrap-wrap mb-3">
+                        <div class="tags mb-0">
+                            <span class="tag is-primary has-text-weight-bold">{ch.number}</span>
+                            <span class="tag is-dark">{ch.tag}</span>
+                        </div>
+                        <span class="is-size-7 has-text-grey">安全审计与测速已更新至 2026-10-19</span>
+                    </div>
+
+                    <h3 class="title is-3 mb-2">{ch.title}</h3>
+                    <p class="is-size-7 has-text-grey-light mb-3"><strong>核心意图：</strong>{ch.searchIntent}</p>
+
+                    <div class="notification is-dark p-4 mb-4" style="border-left: 4px solid var(--sp-primary);">
+                        <p class="is-size-6 mb-0" style="line-height: 1.75;">
+                            {ch.painPointAndTiming}
+                        </p>
+                    </div>
+
+                    <div class="columns is-multiline mb-4">
+                        <div class="column is-7">
+                            <div class="p-4 has-background-dark h-100" style="border-radius: 12px; border: 1px solid var(--sp-border);">
+                                <h4 class="title is-5 mb-3">🔬 底层原理与工程解释</h4>
+                                <ul class="is-size-6" style="line-height: 1.8; list-style: none; padding-left: 0;">
+                                    {ch.coreEngineeringExplanation.map((point) => (
+                                        <li class="mb-3 pb-2" style="border-bottom: 1px dashed var(--sp-border);">
+                                            {point}
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="column is-5">
+                            <div class="p-4 has-background-dark h-100" style="border-radius: 12px; border: 1px solid var(--sp-border);">
+                                <div class="p-3 mb-4" style="background: rgba(255,255,255,0.03); border-radius: 8px; border: 1px solid var(--sp-border);">
+                                    <h5 class="title is-6 mb-2">📌 {ch.realCaseEvidence.title}</h5>
+                                    <p class="is-size-7 mb-0" style="line-height: 1.7;">
+                                        {ch.realCaseEvidence.details}
+                                    </p>
+                                </div>
+
+                                <h4 class="title is-6 mb-2">🛡️ 实验室给出的安全与操作红线</h4>
+                                <ul class="is-size-7 pl-4 mb-3" style="line-height: 1.7;">
+                                    {ch.securityOrAuditGuidelines.map((g) => <li class="mb-1">{g}</li>)}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    {ch.id === "chapter-cloudflare-warp" && (
+                        <div class="p-4 has-background-dark mb-4" style="border-radius: 12px; border: 1px solid var(--sp-border);">
+                            <h4 class="title is-5 mb-2">💻 读者可复制：Windows / Mac 本地 Cloudflare 优选 IP 脚本命令与配置方法</h4>
+                            <p class="is-size-7 has-text-grey-light mb-2">
+                                在终端中运行开源测速脚本，即可在 1 分钟内挑出本地运营商连接延迟最低、丢包率最低的 Cloudflare 节点：
+                            </p>
+                            <pre class="p-3 is-size-7 mb-3" style="background: #111622; color: #e2e8f0; border-radius: 8px; overflow-x: auto;"><code># 下载并运行 CloudflareSpeedTest 自动化测速工具
+# Windows PowerShell 或 Linux/macOS 终端：
+# 测速命令将自动输出 RTT 最低且下载速度最高的 Anycast 端点 IP
+./CloudflareST -tp 443 -url https://speed.cloudflare.com/__down?bytes=100000000
+
+# 将测出的最优 IP（例如 162.159.192.88:2408）填入小火箭或 WireGuard 的 Endpoint 栏即可！</code></pre>
+
+                            <h5 class="title is-6 mb-2">🎓 补充：高校学生与科研工作者校园网 IPv6 免翻学术白嫖指南</h5>
+                            <p class="is-size-7 has-text-grey-light mb-2" style="line-height: 1.75;">
+                                如果您在国内高校或科研院所（通过教育网 CERNET2 上网），电脑和手机默认分配了全球唯一的公网 IPv6 地址。由于国际学术组织对 IPv6 普遍提供无阻断的原生路由支持，您只需在系统或浏览器中将针对特定学术域名的 DNS 解析指定为纯 IPv6 地址，无需开启任何代理软件即可直接访问和下载：
+                            </p>
+                            <div class="p-3 has-background-black-bis is-size-7" style="border-radius: 6px;">
+                                <div>• <strong>支持 IPv6 直连的高价值学术资源：</strong>Google Scholar 镜像、IEEE Xplore、SpringerLink、Nature、ScienceDirect、arXiv 预印本库、GitHub 静态镜像与 Wikipedia 多语言词条。</div>
+                                <div class="mt-1">• <strong>推荐配置方式：</strong>在本地操作系统的 Hosts 文件中，将上述学术域名的解析 IP 替换为中国教育网推荐的学术镜像 IPv6 地址（或在 Clash Verge Rev 中配置针对 `DOMAIN-SUFFIX,scholar.google.com` 的 DIRECT 直连策略），既合规合法，又零流量损耗！</div>
+                            </div>
+                        </div>
+                    )}
+
+                    <div class="p-3 has-background-dark is-size-6" style="border-radius: 8px;">
+                        <strong>👉 行动建议：</strong> {ch.actionRecommendation}
+                    </div>
+                </article>
+            ))}
+        </div>
+    </section>
+
+    <!-- 模块四：读者行动决策树 (3大分支引导读者理性选择) -->
+    <section class="section py-6" id="decision-matrix" aria-labelledby="decision-heading">
+        <div class="container">
+            <div class="mb-5">
+                <p class="u-label-overline">READER DECISION PATHWAYS</p>
+                <h2 id="decision-heading" class="title is-2 mt-1 mb-2">
+                    四、读者行动决策树：根据您的预算与需求快速定案
+                </h2>
+                <p class="has-text-grey-light is-size-6">
+                    究竟是继续用官方免费 WARP 应急，还是花一杯奶茶钱转正？请对照以下三大决策分支：
+                </p>
+            </div>
+
+            <div class="columns is-multiline">
+                {freeDecisionBranches.map((br) => (
+                    <div class="column is-4-desktop is-12-tablet mb-4" id={br.id}>
+                        <div class="box p-5 h-100" style="background: var(--sp-bg-card); border: 1px solid var(--sp-border); border-radius: 14px; display: flex; flex-direction: column; justify-content: space-between;">
+                            <div>
+                                <span class="tag is-primary is-light is-small mb-2">决策分支</span>
+                                <h3 class="title is-5 mb-2">{br.userStatus}</h3>
+                                <div class="is-size-7 mb-2"><strong>预算要求：</strong><span class="has-text-success">{br.budgetRequirement}</span></div>
+                                <div class="is-size-7 mb-3"><strong>容忍边界：</strong>{br.riskTolerance}</div>
+                                <div class="p-3 has-background-dark mb-3 is-size-7" style="border-radius: 8px;">
+                                    <strong>🚀 推荐执行路径：</strong>
+                                    <div class="has-text-primary has-text-weight-bold mt-1">{br.recommendedPath}</div>
+                                </div>
+                                <ul class="is-size-7 pl-4 mb-3" style="line-height: 1.7;">
+                                    {br.stepChecklist.map((s) => <li class="mb-1">{s}</li>)}
+                                </ul>
+                            </div>
+                            <a href={br.targetUrl} class="button is-small is-primary is-fullwidth has-text-weight-bold">
+                                直达该方案落实细节 →
+                            </a>
+                        </div>
+                    </div>
+                ))}
+            </div>
+        </div>
+    </section>
+
+    <!-- 模块五：真实且相关的极低门槛转化卡片 (4大百元内年付特惠专线) -->
+    <section class="section has-bg-elevated py-6" id="budget-conversion-cards" aria-labelledby="conversion-heading">
+        <div class="container">
+            <div class="mb-5">
+                <p class="u-label-overline">AFFORDABLE DEDICATED LINE ENTRIES</p>
+                <h2 id="conversion-heading" class="title is-2 mt-1 mb-2">
+                    五、每天两毛钱的解药：4 大百元内品牌专线年付特惠与月付实测入口
+                </h2>
+                <p class="has-text-grey-light is-size-6">
+                    彻底省去每天找免费节点的痛苦，以下 4 家均为运营 3 年以上的老牌物理专线，提供<strong>百元内年付小包（¥78–¥80/年）与低至 ¥15 的月付试错档</strong>，全节点 1.0x 倍率，实测 ChatGPT/Claude 全解锁：
+                </p>
+                <div class="notification is-dark is-size-7 py-2 px-3 mb-4">
+                    ⚖️ <strong>透明合规声明：</strong> 下方卡片中的「查看特惠套餐」按钮包含推广参数（已标注 <code>rel="nofollow sponsored noopener"</code>），通过链接注册不会增加您一分钱支付金额，且可享受本站核实过的专属折扣码。
+                </div>
+            </div>
+
+            <div class="columns is-multiline">
+                {freeConversionProducts.map((p) => (
+                    <div class="column is-6-tablet is-3-desktop mb-4" id={p.id}>
+                        <div class="box p-4 h-100" style="background: var(--sp-bg-card); border: 1px solid var(--sp-border); border-radius: 14px; display: flex; flex-direction: column; justify-content: space-between;">
+                            <div>
+                                <div class="tags mb-1">
+                                    <span class="tag is-primary has-text-weight-bold">#{p.rank}</span>
+                                    <span class="tag is-warning is-light">{p.badge}</span>
+                                </div>
+                                <h3 class="title is-5 mb-1">
+                                    <a href={`/airports/${p.id.replace('conv-', '')}`} class="hover-text-primary">{p.name}</a>
+                                </h3>
+                                <div class="notification is-dark py-2 px-3 mb-3 is-size-7" style="border-radius: 8px;">
+                                    <div class="has-text-success has-text-weight-bold is-size-6">{p.dailyCost}</div>
+                                    <div><strong>年付特惠：</strong>{p.annualConvertedPrice}</div>
+                                    <div class="mt-1"><strong>单月试水：</strong>{p.monthlyRealPrice}</div>
+                                </div>
+                                <ul class="is-size-7 mb-3" style="line-height: 1.7; list-style: none; padding-left: 0;">
+                                    <li class="mb-1"><strong>📊 流量倍率：</strong>{p.trafficAndMultiplier}</li>
+                                    <li class="mb-1"><strong>⚡ 实测参数：</strong>{p.speedtestSnapshot}</li>
+                                    <li class="mb-2"><strong>💡 完胜免费理由：</strong>{p.whyBeatFree}</li>
+                                    <li class="mb-1"><strong>🏷️ 优惠码：</strong><code>{p.couponCode}</code> ({p.couponRule})</li>
+                                </ul>
+                            </div>
+
+                            <div>
+                                <a
+                                    href={p.affUrl}
+                                    target="_blank"
+                                    rel="nofollow sponsored noopener"
+                                    class="button is-primary is-fullwidth has-text-weight-bold mb-2 is-small"
+                                >
+                                    查看特惠套餐与注册 ↗
+                                </a>
+                                <a
+                                    href={`/airports/${p.id.replace('conv-', '')}`}
+                                    class="button is-dark is-outlined is-fullwidth is-small"
+                                >
+                                    查看独立测评与测速图 →
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                ))}
+            </div>
+        </div>
+    </section>
+
+    <!-- 模块六：常见问题与边界解答 FAQ (8个深度问答) -->
+    <section class="section py-6" id="free-faq" aria-labelledby="faq-heading">
+        <div class="container">
+            <div class="mb-5">
+                <p class="u-label-overline">FREQUENTLY ASKED QUESTIONS</p>
+                <h2 id="faq-heading" class="title is-2 mt-1 mb-2">
+                    六、常见问题与避坑指南 (FAQ)
+                </h2>
+                <p class="has-text-grey-light is-size-6">
+                    针对「永久免费真实性」「ChatGPT 封号根源」「WARP 能否替代专线」「50GB 流量到底够不够用」等 8 个核心疑难，先给明确结论，再讲工程细节：
+                </p>
+            </div>
+
+            <div class="columns is-multiline">
+                {freeFaqs.map((faq) => (
+                    <div class="column is-6-desktop is-12-tablet mb-3">
+                        <div class="box p-4 h-100" style="background: var(--sp-bg-card); border: 1px solid var(--sp-border); border-radius: 12px;">
+                            <h3 class="title is-5 mb-2">{faq.question}</h3>
+                            <p class="is-size-6 has-text-weight-semibold has-text-primary mb-2">
+                                {faq.conclusion}
+                            </p>
+                            <p class="is-size-7 has-text-grey-light mb-2" style="line-height: 1.75;">
+                                {faq.details}
+                            </p>
+                            {faq.relatedAnchor && (
+                                <a href={faq.relatedAnchor} class="is-size-7 has-text-primary">
+                                    🔗 查看对应章节解析 ↑
+                                </a>
+                            )}
+                        </div>
+                    </div>
+                ))}
+            </div>
+        </div>
+    </section>
+
+    <!-- 模块七：权威声明与总结 -->
+    <section class="section has-bg-elevated py-6">
+        <div class="container">
+            <div class="box p-5" style="background: var(--sp-bg-card); border: 1px solid var(--sp-border); border-radius: 16px;">
+                <p class="u-label-overline">SAFETY & INDEPENDENCE SUMMARY</p>
+                <h2 class="title is-3 mt-1 mb-3">
+                    七、小火箭实验室终极忠告：珍爱时间与账号资产，远离黑灰产免费节点
+                </h2>
+                <div class="content is-size-7 has-text-grey-light" style="line-height: 1.8;">
+                    <p>
+                        在数字资产日益重要的今天，您的个人 Google 账号、海外社交主页、代码仓库与 AI 办公工具是极高价值的生产力凭证。使用来历不明的公共免费节点，如同把自己的家门钥匙挂在公用走廊上。
+                    </p>
+                    <p>
+                        对于极端零预算用户，我们只推荐官方出品的 <strong>Cloudflare WARP</strong> 与高校 IPv6 学术直连；而对于追求效率与稳定的朋友，每天两毛钱（折合 ¥6.5/月）的品牌 IEPL/IPLC 物理专线年付小包，是帮您节约每天半小时找节点时间、保障 4K 秒播与账号绝对安全的终极答案。
+                    </p>
+                    <h3 class="title is-5 mt-4 mb-2 text-primary">📚 延伸阅读与全网协同验证导航</h3>
+                    <ul class="pl-4">
+                        <li><strong>核验实测证据：</strong> 前往 <a href="/reviews" class="has-text-primary">《真实测评图库 (/reviews)》</a> 查阅光速云、暮光加速等品牌在 2026-10-19 的五地延迟与 500Mbps 下行测速原图。</li>
+                        <li><strong>对比双轨价格：</strong> 前往 <a href="/guides#core-comparison-table" class="has-text-primary">《场景化专线选型指南 (/guides)》</a> 对比 16 家主力专线机场的单月实价与年付折算价格。</li>
+                        <li><strong>客户端安全下载：</strong> 前往 <a href="/clients" class="has-text-primary">《全平台客户端指南 (/clients)》</a> 获取正版 iOS 小火箭与 Windows Clash Verge Rev 开源下载源。</li>
+                        <li><strong>实验室准则与免责：</strong> 前往 <a href="/about" class="has-text-primary">《评测标准与方法论 (/about)》</a> 了解本站四级证据分类制度与 E-E-A-T 独立审计准则。</li>
+                    </ul>
+                </div>
+                <div class="has-text-centered mt-4">
+                    <a class="button is-primary is-medium has-text-weight-bold" href="/guides#core-comparison-table">
+                        查阅 16 家主力专线机场双轨价格总表 →
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+</Layout>
