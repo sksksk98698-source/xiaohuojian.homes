@@ -2,20 +2,30 @@
 import Layout from "../layouts/Layout.astro";
 ---
 
-<Layout title="404 — Page Not Found" description="The page you are looking for does not exist or has been moved.">
-	<section class="section section-hero" aria-labelledby="not-found-heading">
-		<div class="container has-text-centered">
-			<p class="tag is-primary is-medium mb-5">404 Error</p>
-			<h1 id="not-found-heading" class="title is-1">
-				Signal Lost
-			</h1>
-			<p class="subtitle is-4 mt-4 u-constrained">
-				We couldn't find the page you're searching for. It may have moved or no longer exists.
-			</p>
-			<div class="buttons is-centered mt-6">
-				<a class="button is-primary is-large" href="/">Return Home</a>
-				<a class="button is-outlined is-large" href="/blog">Browse Journal</a>
-			</div>
-		</div>
-	</section>
+<Layout
+    title="404 — 页面未找到"
+    description="抱歉，您访问的页面不存在或已被移除。请返回小火箭评测智库首页或查看42家机场品牌库。"
+>
+    <section class="section section-hero" aria-labelledby="not-found-heading">
+        <div class="container has-text-centered">
+            <p class="tag is-primary is-medium mb-4">404 NOT FOUND</p>
+            <h1 id="not-found-heading" class="title is-1">
+                网络信号中断 · 页面不存在
+            </h1>
+            <p class="subtitle is-4 mt-3 u-constrained has-text-grey-light">
+                您访问的链接可能已经下线、移动或输入有误。您可以返回首页或前往核心评测数据库。
+            </p>
+            <div class="buttons is-centered mt-5">
+                <a class="button is-primary is-medium has-text-weight-bold" href="/">
+                    返回首页
+                </a>
+                <a class="button is-dark is-medium" href="/airports">
+                    查看 42 家机场品牌库
+                </a>
+                <a class="button is-dark is-medium" href="/free">
+                    免费资源避坑指南
+                </a>
+            </div>
+        </div>
+    </section>
 </Layout>
