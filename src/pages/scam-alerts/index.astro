@@ -1,0 +1,509 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import {
+    scamQuickAlerts,
+    scamSignalRows,
+    monitoredBrandStatusRows,
+    scamDeepChapters,
+    emergencyEscapeSteps,
+    antiScamConversionCards,
+    scamFaqs,
+} from "../../data/scamAlerts";
+
+const siteUrl = Astro.site ?? new URL("https://xiaohuojian.homes");
+const pageUrl = new URL("/scam-alerts", siteUrl).href;
+
+const pageTitle = "2026 机场跑路预警与避坑黑名单：失联监测、跑路前兆排查与资金止损逃生手册";
+const pageDescription =
+    "小火箭评测智库全网跑路预警与黑名单数据库：实时通报 42 家机场存续与失联状态（如宇宙云 #11 失联实测）、深度拆解 8 大跑路套路与全员禁言特征、突发断网排障四步法，以及如何建立双梯冗余容灾防线。";
+
+const pageSchema = {
+    "@context": "https://schema.org",
+    "@graph": [
+        {
+            "@type": "TechArticle",
+            "@id": `${pageUrl}#article`,
+            "headline": pageTitle,
+            "description": pageDescription,
+            "url": pageUrl,
+            "datePublished": "2026-08-11",
+            "dateModified": "2026-11-07",
+            "inLanguage": "zh-CN",
+            "proficiencyLevel": "Beginner to Expert",
+            "author": {
+                "@type": "Organization",
+                "name": "小火箭网络基础设施评测智库 (xiaohuojian.homes)",
+                "url": siteUrl.href
+            },
+            "publisher": {
+                "@type": "Organization",
+                "name": "小火箭评测智库",
+                "logo": {
+                    "@type": "ImageObject",
+                    "url": new URL("/favicon.svg", siteUrl).href
+                }
+            },
+            "mainEntityOfPage": {
+                "@type": "WebPage",
+                "@id": pageUrl
+            }
+        },
+        {
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+                {
+                    "@type": "ListItem",
+                    "position": 1,
+                    "name": "首页",
+                    "item": siteUrl.href
+                },
+                {
+                    "@type": "ListItem",
+                    "position": 2,
+                    "name": "机场跑路预警与避坑黑名单",
+                    "item": pageUrl
+                }
+            ]
+        },
+        {
+            "@type": "FAQPage",
+            "mainEntity": scamFaqs.map((faq) => ({
+                "@type": "Question",
+                "name": faq.question,
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": `${faq.conclusion} ${faq.details}`
+                }
+            }))
+        }
+    ]
+};
+---
+
+<Layout
+    title={pageTitle}
+    description={pageDescription}
+    currentPage="scam-alerts"
+    structuredData={pageSchema}
+>
+    <!-- Hero 头部：强化专业避坑定位、核查日期与页内稳定锚点目录 -->
+    <section class="section section-hero pb-5">
+        <div class="container">
+            <div class="has-text-centered mb-5">
+                <p class="tag is-danger is-medium mb-3">SCAM ALERTS & BLACKLIST MONITORING (2026 EDITION)</p>
+                <h1 class="title is-1">
+                    2026 机场跑路预警与避坑黑名单数据库<br />
+                    <span class="has-text-primary is-size-3">失联巡检通报、跑路前兆排查与资金止损逃生手册</span>
+                </h1>
+                <p class="subtitle is-5 mt-3 u-constrained has-text-grey-light">
+                    拒绝充值即跑路！小火箭实验室以<strong>自动化探针定时巡检</strong>与<strong>真实抓包审计</strong>为后盾，深度揭秘商家跑路前兆、公开发布失联品牌通报（如宇宙云 #11 实测异常），并为您提供突发断网排障自检与双梯冗余容灾 SOP。
+                </p>
+                <div class="tags is-centered mt-3">
+                    <span class="tag is-dark">🚨 自动化探针持续监测</span>
+                    <span class="tag is-dark">📊 42 家机场存续与失联审计跟踪</span>
+                    <span class="tag is-dark">🛡️ 支付争议与维权申诉指南</span>
+                    <span class="tag is-dark">📅 2026-10-19 / 2026-11-07 验证维护</span>
+                </div>
+            </div>
+
+            <!-- 页内目录导航 (Topic Cluster 稳定锚点) -->
+            <nav class="box p-4 mb-2" aria-label="跑路预警页内章节目录" style="background: var(--sp-bg-card); border: 1px solid var(--sp-border); border-radius: 14px;">
+                <div class="is-flex is-justify-content-space-between is-align-items-center is-flex-wrap-wrap mb-3">
+                    <strong class="is-size-6">🧭 本页专著级导航（点击直达对应预警与实战模块）：</strong>
+                    <span class="is-size-7 has-text-grey">支持 375px 移动端安全滑动阅读</span>
+                </div>
+                <div class="buttons are-small mb-0">
+                    <a href="#quick-alerts" class="button is-danger is-light">1. 最新失联预警快报</a>
+                    <a href="#scam-signals-table" class="button is-dark">2. 8 大跑路套路排查总表</a>
+                    <a href="#blacklist-monitoring-table" class="button is-dark">3. 42 家机场存续与失联跟踪表</a>
+                    <a href="#chapter-scam-mechanics" class="button is-dark">4. 跑路底层经济学与死因</a>
+                    <a href="#chapter-early-warning-signs" class="button is-dark">5. 6 大跑路前兆确定性痕迹</a>
+                    <a href="#chapter-emergency-troubleshooting" class="button is-dark">6. 突发断网排障四步法</a>
+                    <a href="#chapter-stop-loss-and-escape" class="button is-dark">7. 资金止损与双梯冗余防线</a>
+                    <a href="#emergency-escape-playbook" class="button is-dark">8. 4 步标准应急逃生流程</a>
+                    <a href="#anti-scam-conversion" class="button is-dark">9. 4 大抗跑路老牌基石专线</a>
+                    <a href="#scam-faq" class="button is-dark">10. 跑路疑难问答 FAQ (10问)</a>
+                </div>
+            </nav>
+        </div>
+    </section>
+
+    <!-- 模块一：开头直接提供答案 (最新失联预警快报与即时处置建议) -->
+    <section class="section has-bg-elevated py-6" id="quick-alerts" aria-labelledby="quick-alerts-heading">
+        <div class="container">
+            <div class="mb-5">
+                <p class="u-label-overline">REAL-TIME INSPECTION BULLETINS</p>
+                <h2 id="quick-alerts-heading" class="title is-2 mt-1 mb-2">
+                    一、30 秒自检：当前最新失联风险快报与即时处置建议
+                </h2>
+                <p class="has-text-grey-light is-size-6">
+                    当您的梯子突然断流时，最核心的关切是：<strong>我的机场是不是跑路了？现在该怎么处理？</strong> 以下是实验室基于最新巡检给出的定性结论与紧急行动建议：
+                </p>
+            </div>
+
+            <div class="columns is-multiline">
+                {scamQuickAlerts.map((alert) => (
+                    <div class="column is-6-tablet is-3-desktop mb-4">
+                        <div class="card h-100" style="background: var(--sp-bg-card); border: 1px solid var(--sp-border); border-radius: 14px; display: flex; flex-direction: column; justify-content: space-between;">
+                            <div class="card-content">
+                                <span class={`tag is-small mb-2 ${alert.statusLevel.includes('高危') ? 'is-danger has-text-weight-bold' : alert.statusLevel.includes('平稳') ? 'is-success' : 'is-warning'}`}>
+                                    {alert.badge}
+                                </span>
+                                <h3 class="title is-5 mb-2">{alert.brandOrPattern}</h3>
+                                <p class="is-size-7 has-text-danger mb-2">
+                                    <strong>异常表象：</strong>{alert.symptom}
+                                </p>
+                                <p class="is-size-7 mb-3" style="line-height: 1.65;">
+                                    {alert.labVerdict}
+                                </p>
+                                <div class="p-3 has-background-dark mb-3 is-size-7" style="border-radius: 8px;">
+                                    <strong class="has-text-primary">👉 即刻处置：</strong>{alert.escapeAction}
+                                </div>
+                                <a href={alert.anchor} class="button is-small is-outlined is-fullwidth">
+                                    查看本项技术溯源细节 ↓
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                ))}
+            </div>
+        </div>
+    </section>
+
+    <!-- 模块二：有依据的核心对比表一 (8 大跑路套路与前兆特征排查总表) -->
+    <section class="section py-6" id="scam-signals-table" aria-labelledby="signals-heading">
+        <div class="container">
+            <div class="mb-5">
+                <p class="u-label-overline">EARLY WARNING DETECTION MATRIX</p>
+                <h2 id="signals-heading" class="title is-2 mt-1 mb-2">
+                    二、8 大常见跑路套路与前兆特征排查总表
+                </h2>
+                <p class="has-text-grey-light is-size-6 mb-3">
+                    根据对行业数百起机场跑路案例的逆向技术解构，下表总结出操盘手在卷款逃跑前 48 小时至 2 周内的<strong>典型异常行为、底层技术真相、公关托词与读者推荐处置方案</strong>：
+                </p>
+                <div class="notification is-dark is-size-7 py-2 px-3 mb-4">
+                    💡 <strong>移动端阅读提示：</strong> 在 375px 手机屏幕下，下方表格支持<strong>区域内左右平滑滑动</strong>，不会撑破页面整体宽度。
+                </div>
+            </div>
+
+            <div class="table-container box p-0 mb-6" style="overflow-x: auto; -webkit-overflow-scrolling: touch; border-radius: 12px; border: 1px solid var(--sp-border);">
+                <table class="table is-fullwidth is-striped is-hoverable mb-0" style="min-width: 1120px; font-size: 0.85rem;">
+                    <thead>
+                        <tr>
+                            <th style="min-width: 170px;">异常前兆特征</th>
+                            <th style="min-width: 140px;">危险等级</th>
+                            <th style="min-width: 220px;">典型行为表象</th>
+                            <th style="min-width: 220px;">底层技术真相</th>
+                            <th style="min-width: 180px;">运营者常见借口</th>
+                            <th style="min-width: 190px;">读者推荐处置动作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {scamSignalRows.map((row) => (
+                            <tr>
+                                <td class="has-text-weight-bold">{row.signalName}</td>
+                                <td>
+                                    <span class={`tag is-small ${row.dangerRank.includes('极度') ? 'is-danger has-text-weight-bold' : row.dangerRank.includes('高度') ? 'is-warning' : 'is-dark'}`}>
+                                        {row.dangerRank}
+                                    </span>
+                                </td>
+                                <td class="is-size-7">{row.behaviorPattern}</td>
+                                <td class="is-size-7 has-text-grey-light">{row.technicalReality}</td>
+                                <td class="is-size-7 has-text-grey">{row.operatorExcuses}</td>
+                                <td class="is-size-7 has-text-primary has-text-weight-semibold">{row.recommendedAction}</td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- 模块二分项：42 家机场存续与失联跟踪总表 -->
+    <section class="section has-bg-elevated py-6" id="blacklist-monitoring-table" aria-labelledby="monitoring-heading">
+        <div class="container">
+            <div class="mb-5">
+                <p class="u-label-overline">42 AIRPORTS SURVIVAL AUDIT</p>
+                <h2 id="monitoring-heading" class="title is-2 mt-1 mb-2">
+                    三、42 家机场巡检状态与失联/存续审计跟踪总表
+                </h2>
+                <p class="has-text-grey-light is-size-6 mb-3">
+                    本表记录了小火箭实验室在 <code>2026-10-19</code> 统一巡检中对各品牌<strong>节点可达性、官网解析状态、失联预警等级与建议处置方案</strong>的跟踪记录，严禁跨品牌推断：
+                </p>
+            </div>
+
+            <div class="table-container box p-0 mb-6" style="overflow-x: auto; -webkit-overflow-scrolling: touch; border-radius: 12px; border: 1px solid var(--sp-border);">
+                <table class="table is-fullwidth is-striped is-hoverable mb-0" style="min-width: 1100px; font-size: 0.85rem;">
+                    <thead>
+                        <tr>
+                            <th style="min-width: 140px;">品牌名称</th>
+                            <th style="min-width: 110px;">综合排名/梯队</th>
+                            <th style="min-width: 100px;">创世年份</th>
+                            <th style="min-width: 150px;">当前网络状态</th>
+                            <th style="min-width: 250px;">实验室观察到的异常与参数记录</th>
+                            <th style="min-width: 140px;">综合风险评估</th>
+                            <th style="min-width: 190px;">建议处置措施</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {monitoredBrandStatusRows.map((row) => (
+                            <tr>
+                                <td>
+                                    <strong class="has-text-primary">{row.brandName}</strong>
+                                    <div class="is-size-7 has-text-grey mt-1">巡检日: {row.latestInspectionDate}</div>
+                                </td>
+                                <td>{row.rankOrPosition}</td>
+                                <td>{row.foundedYear}</td>
+                                <td>
+                                    <span class={`tag is-small ${row.networkStatus.includes('失联') ? 'is-danger has-text-weight-bold' : row.networkStatus.includes('正常') ? 'is-success' : 'is-dark'}`}>
+                                        {row.networkStatus}
+                                    </span>
+                                </td>
+                                <td class="is-size-7">{row.observedAnomalies}</td>
+                                <td>
+                                    <strong class={row.riskEvaluation.includes('极高') ? 'has-text-danger' : row.riskEvaluation.includes('极低') ? 'has-text-success' : 'has-text-warning'}>
+                                        {row.riskEvaluation}
+                                    </strong>
+                                </td>
+                                <td class="is-size-7">{row.suggestedAction}</td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- 模块三：围绕核心问题展开的四大专著级深度治理章节 (H2/H3) -->
+    <section class="section py-6" id="deep-chapters" aria-labelledby="chapters-heading">
+        <div class="container">
+            <div class="mb-5">
+                <p class="u-label-overline">DEEP RISK INVESTIGATION & RECOVERY</p>
+                <h2 id="chapters-heading" class="title is-2 mt-1 mb-2">
+                    四、深度剖析：跑路底层死因、6 大预警信号、排障四步法与止损 SOP
+                </h2>
+                <p class="has-text-grey-light is-size-6">
+                    以下四个章节严格围绕<strong>「是什么问题与何时关注 → 实验室工程解释 → 真实案例证据 → 读者操作核对清单与行动建议」</strong>展开：
+                </p>
+            </div>
+
+            {scamDeepChapters.map((ch) => (
+                <article class="box p-5 mb-6" id={ch.id} style="background: var(--sp-bg-card); border: 1px solid var(--sp-border); border-radius: 16px;">
+                    <div class="is-flex is-justify-content-space-between is-align-items-center is-flex-wrap-wrap mb-3">
+                        <div class="tags mb-0">
+                            <span class="tag is-primary has-text-weight-bold">{ch.number}</span>
+                            <span class="tag is-dark">{ch.tag}</span>
+                        </div>
+                        <span class="is-size-7 has-text-grey">安全合规审计更新至 2026-10-19</span>
+                    </div>
+
+                    <h3 class="title is-3 mb-2">{ch.title}</h3>
+                    <p class="is-size-7 has-text-grey-light mb-3"><strong>核心意图：</strong>{ch.searchIntent}</p>
+
+                    <div class="notification is-dark p-4 mb-4" style="border-left: 4px solid var(--sp-primary);">
+                        <p class="is-size-6 mb-0" style="line-height: 1.75;">
+                            {ch.painPointAndTiming}
+                        </p>
+                    </div>
+
+                    <div class="columns is-multiline mb-4">
+                        <div class="column is-7">
+                            <div class="p-4 has-background-dark h-100" style="border-radius: 12px; border: 1px solid var(--sp-border);">
+                                <h4 class="title is-5 mb-3">🔬 底层原理与工程解释</h4>
+                                <ul class="is-size-6" style="line-height: 1.8; list-style: none; padding-left: 0;">
+                                    {ch.coreEngineeringExplanation.map((point) => (
+                                        <li class="mb-3 pb-2" style="border-bottom: 1px dashed var(--sp-border);">
+                                            {point}
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="column is-5">
+                            <div class="p-4 has-background-dark h-100" style="border-radius: 12px; border: 1px solid var(--sp-border);">
+                                <div class="p-3 mb-4" style="background: rgba(255,255,255,0.03); border-radius: 8px; border: 1px solid var(--sp-border);">
+                                    <h5 class="title is-6 mb-2">📌 {ch.realCaseEvidence.title}</h5>
+                                    <p class="is-size-7 mb-0" style="line-height: 1.7;">
+                                        {ch.realCaseEvidence.details}
+                                    </p>
+                                </div>
+
+                                <h4 class="title is-6 mb-2">📋 读者操作核对清单</h4>
+                                <ul class="is-size-7 pl-4 mb-3" style="line-height: 1.7;">
+                                    {ch.operationalChecklist.map((item) => (
+                                        <li class="mb-2">{item}</li>
+                                    ))}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="p-3 has-background-dark is-size-6" style="border-radius: 8px;">
+                        <strong>👉 行动建议：</strong> {ch.actionRecommendation}
+                    </div>
+                </article>
+            ))}
+        </div>
+    </section>
+
+    <!-- 模块四：读者自测与逃生操作指引 (4步标准应急流程) -->
+    <section class="section has-bg-elevated py-6" id="emergency-escape-playbook" aria-labelledby="playbook-heading">
+        <div class="container">
+            <div class="mb-5">
+                <p class="u-label-overline">STANDARDIZED EVACUATION WORKFLOW</p>
+                <h2 id="playbook-heading" class="title is-2 mt-1 mb-2">
+                    五、突发失联 4 步标准逃生与资产隔离指引
+                </h2>
+                <p class="has-text-grey-light is-size-6">
+                    当确认某家机场失联后，请严格按以下标准化 SOP 依序操作，防止二次受损：
+                </p>
+            </div>
+
+            <div class="columns is-multiline">
+                {emergencyEscapeSteps.map((step) => (
+                    <div class="column is-6-desktop is-12-tablet mb-4">
+                        <div class="box p-5 h-100" style="background: var(--sp-bg-card); border: 1px solid var(--sp-border); border-radius: 14px; display: flex; flex-direction: column; justify-content: space-between;">
+                            <div>
+                                <div class="is-flex is-align-items-center mb-2">
+                                    <span class="tag is-primary has-text-weight-bold mr-2">STEP {step.stepNumber}</span>
+                                    <h3 class="title is-5 mb-0">{step.title}</h3>
+                                </div>
+                                <p class="is-size-7 has-text-grey-light mb-3" style="line-height: 1.75;">
+                                    {step.actionGuideline}
+                                </p>
+                                {step.technicalCodeOrCmd && (
+                                    <pre class="p-3 mb-3 is-size-7" style="background: #111622; color: #e2e8f0; border-radius: 8px; overflow-x: auto;"><code>{step.technicalCodeOrCmd}</code></pre>
+                                )}
+                            </div>
+                            <div class="p-2 has-background-dark is-size-7" style="border-radius: 6px;">
+                                <strong class="has-text-warning">⚠️ 警示提示：</strong>{step.warningNote}
+                            </div>
+                        </div>
+                    </div>
+                ))}
+            </div>
+        </div>
+    </section>
+
+    <!-- 模块五：真实且相关的抗跑路老牌稳定品牌转化卡片 (4大坚挺标杆) -->
+    <section class="section py-6" id="anti-scam-conversion" aria-labelledby="conversion-heading">
+        <div class="container">
+            <div class="mb-5">
+                <p class="u-label-overline">STABLE TIME-TESTED ALTERNATIVES</p>
+                <h2 id="conversion-heading" class="title is-2 mt-1 mb-2">
+                    六、安全港湾：4 大运营 3–6 年老牌稳定专线（抗跑路基石）
+                </h2>
+                <p class="has-text-grey-light is-size-6">
+                    在遭遇小机场跑路后，切忌盲目乱投医。以下 4 家品牌均已连续稳健运营 3–6 年，具备<strong>海外分布式容灾架构、多地 BGP 专线冗余、现金流充沛且支持小额月付试水</strong>：
+                </p>
+                <div class="notification is-dark is-size-7 py-2 px-3 mb-4">
+                    ⚖️ <strong>透明声明：</strong> 卡片包含推广参数（已标记 <code>rel="nofollow sponsored noopener"</code>），通过链接注册不会增加支付金额，并可使用专属折扣码。
+                </div>
+            </div>
+
+            <div class="columns is-multiline">
+                {antiScamConversionCards.map((card) => (
+                    <div class="column is-6-tablet is-3-desktop mb-4" id={card.id}>
+                        <div class="box p-4 h-100" style="background: var(--sp-bg-card); border: 1px solid var(--sp-border); border-radius: 14px; display: flex; flex-direction: column; justify-content: space-between;">
+                            <div>
+                                <span class="tag is-success is-light is-small mb-2">{card.badge}</span>
+                                <h3 class="title is-5 mb-1">
+                                    <a href={`/airports/${card.id.replace('conv-', '')}`} class="hover-text-primary">{card.name}</a>
+                                </h3>
+                                <div class="is-size-7 has-text-grey mb-2">{card.longevityRecord}</div>
+                                <div class="notification is-dark py-2 px-3 mb-3 is-size-7" style="border-radius: 8px;">
+                                    <div><strong>月付试水：</strong><span class="has-text-success">{card.monthlyRealPrice}</span></div>
+                                    <div class="mt-1"><strong>年付特惠：</strong>{card.annualConvertedPrice}</div>
+                                </div>
+                                <ul class="is-size-7 mb-3" style="line-height: 1.7; list-style: none; padding-left: 0;">
+                                    <li class="mb-1"><strong>⚡ 实测参数：</strong>{card.speedtestSummary}</li>
+                                    <li class="mb-2"><strong>🛡️ 抗跑路优势：</strong>{card.antiRunAdvantage}</li>
+                                    <li class="mb-1"><strong>🏷️ 专属优惠码：</strong><code>{card.couponCode}</code> ({card.couponRule})</li>
+                                </ul>
+                            </div>
+
+                            <div>
+                                <a
+                                    href={card.affUrl}
+                                    target="_blank"
+                                    rel="nofollow sponsored noopener"
+                                    class="button is-primary is-fullwidth has-text-weight-bold mb-2 is-small"
+                                >
+                                    直达官网月付试水 ↗
+                                </a>
+                                <a
+                                    href={`/airports/${card.id.replace('conv-', '')}`}
+                                    class="button is-dark is-outlined is-fullwidth is-small"
+                                >
+                                    查看独立测评详情 →
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                ))}
+            </div>
+        </div>
+    </section>
+
+    <!-- 模块六：常见高频疑问与跑路排障 FAQ (10 题) -->
+    <section class="section has-bg-elevated py-6" id="scam-faq" aria-labelledby="faq-heading">
+        <div class="container">
+            <div class="mb-5">
+                <p class="u-label-overline">SCAM & BLACKLIST FAQ</p>
+                <h2 id="faq-heading" class="title is-2 mt-1 mb-2">
+                    七、常见问题与跑路边界答疑 (FAQ)
+                </h2>
+                <p class="has-text-grey-light is-size-6">
+                    针对「群内全员禁言是否必跑路」「微信支付宝退款成功率」「假绿测速原理」「双梯冗余容灾」等 10 个核心疑问，给出明确工程解释：
+                </p>
+            </div>
+
+            <div class="columns is-multiline">
+                {scamFaqs.map((faq) => (
+                    <div class="column is-6-desktop is-12-tablet mb-3">
+                        <div class="box p-4 h-100" style="background: var(--sp-bg-card); border: 1px solid var(--sp-border); border-radius: 12px;">
+                            <h3 class="title is-5 mb-2">{faq.question}</h3>
+                            <p class="is-size-6 has-text-weight-semibold has-text-primary mb-2">
+                                {faq.conclusion}
+                            </p>
+                            <p class="is-size-7 has-text-grey-light mb-2" style="line-height: 1.75;">
+                                {faq.details}
+                            </p>
+                            {faq.relatedAnchor && (
+                                <a href={faq.relatedAnchor} class="is-size-7 has-text-primary">
+                                    🔗 查看对应章节解析 ↑
+                                </a>
+                            )}
+                        </div>
+                    </div>
+                ))}
+            </div>
+        </div>
+    </section>
+
+    <!-- 模块七：总结与倡议 -->
+    <section class="section py-6">
+        <div class="container">
+            <div class="box p-5" style="background: var(--sp-bg-card); border: 1px solid var(--sp-border); border-radius: 16px;">
+                <p class="u-label-overline">LABORATORY ADVOCACY</p>
+                <h2 class="title is-3 mt-1 mb-3">
+                    八、小火箭实验室呼吁：携手共建真实透明的网络可观测性环境
+                </h2>
+                <div class="content is-size-7 has-text-grey-light" style="line-height: 1.8;">
+                    <p>
+                        代理服务市场的繁荣离不开技术创新，但坑蒙拐骗的杀猪盘严重侵害了消费者的知情权与财产安全。小火箭评测智库（<code>xiaohuojian.homes</code>）将长期保持自动化探针巡检机制，持续追踪 42 家收录品牌的真实网络状态。
+                    </p>
+                    <p>
+                        如果您在使用某家机场时发现其官方群开启全员禁言、工单超过 48 小时失联、或出现大规模虚假响应欺骗，欢迎随时通过 <a href="/contact" class="has-text-primary">【联系与线索反馈中心 (/contact)】</a> 向实验室提交抓包证据。核实后我们将在 24 小时内向全网发布通报，保护更多读者的利益！
+                    </p>
+                </div>
+                <div class="has-text-centered mt-4">
+                    <a class="button is-primary is-medium has-text-weight-bold" href="/airports">
+                        前往 42 家机场品牌库查验全部状态 →
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+</Layout>
