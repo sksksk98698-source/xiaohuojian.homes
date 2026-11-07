@@ -82,16 +82,16 @@ import { speedtestedAirports } from "../../data/airports";
                             </div>
 
                             <!-- 解锁概览 -->
-                            <div class="p-3 mb-4 has-background-dark is-size-7" style="border-radius: 6px;">
+                            <div class="p-3 mb-4 feature-highlight-box is-size-7" style="background: var(--sp-surface); border: 1px solid var(--sp-border); border-radius: 8px; color: var(--sp-text);">
                                 <div class="columns is-mobile is-multiline">
-                                    <div class="column is-6">
-                                        <strong>ChatGPT 解锁：</strong> <span class="has-text-success">{airport.unlockStatus.chatgpt}</span>
+                                    <div class="column is-6" style="color: var(--sp-text);">
+                                        <strong style="color: var(--sp-text);">ChatGPT 解锁：</strong> <span class="has-text-success">{airport.unlockStatus.chatgpt}</span>
                                     </div>
-                                    <div class="column is-6">
-                                        <strong>Claude 解锁：</strong> <span class="has-text-success">{airport.unlockStatus.claude}</span>
+                                    <div class="column is-6" style="color: var(--sp-text);">
+                                        <strong style="color: var(--sp-text);">Claude 解锁：</strong> <span class="has-text-success">{airport.unlockStatus.claude}</span>
                                     </div>
-                                    <div class="column is-6">
-                                        <strong>Netflix 4K：</strong> <span class="has-text-success">{airport.unlockStatus.netflix}</span>
+                                    <div class="column is-6" style="color: var(--sp-text);">
+                                        <strong style="color: var(--sp-text);">Netflix 4K：</strong> <span class="has-text-success">{airport.unlockStatus.netflix}</span>
                                     </div>
                                     <div class="column is-6">
                                         <strong>TikTok 出海：</strong> <span class="has-text-success">{airport.unlockStatus.tiktok}</span>

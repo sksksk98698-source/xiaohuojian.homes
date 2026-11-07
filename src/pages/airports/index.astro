@@ -105,9 +105,9 @@ import { airports } from "../../data/airports";
                                     {airport.summary}
                                 </p>
 
-                                <div class="p-2 mb-3 has-background-dark is-size-7" style="border-radius: 6px;">
-                                    <div class="is-truncate"><strong>解锁：</strong> ChatGPT: {airport.unlockStatus.chatgpt} | Netflix: {airport.unlockStatus.netflix}</div>
-                                    <div class="is-truncate mt-1"><strong>亮点：</strong> {airport.features[0]}</div>
+                                <div class="p-2 mb-3 feature-highlight-box is-size-7" style="background: var(--sp-surface); border: 1px solid var(--sp-border); border-radius: 8px; color: var(--sp-text);">
+                                    <div class="is-truncate" style="color: var(--sp-text);"><strong style="color: var(--sp-text);">解锁：</strong> <span style="color: var(--sp-text);">ChatGPT: {airport.unlockStatus.chatgpt} | Netflix: {airport.unlockStatus.netflix}</span></div>
+                                    <div class="is-truncate mt-1" style="color: var(--sp-text);"><strong style="color: var(--sp-text);">亮点：</strong> <span style="color: var(--sp-text);">{airport.features[0]}</span></div>
                                 </div>
 
                                 <div class="buttons is-flex is-justify-content-space-between mt-auto">

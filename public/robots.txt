@@ -3,8 +3,22 @@
 User-agent: *
 Allow: /
 
+# Explicit rules for major search engines
+User-agent: Googlebot
+Allow: /
+
+User-agent: bingbot
+Allow: /
+
+User-agent: Baiduspider
+Allow: /
+
+User-agent: yisouspider
+Allow: /
+
 # Disallow private build artifacts and temporary assets
 Disallow: /_astro/
 
 # XML Sitemaps
 Sitemap: https://xiaohuojian.homes/sitemap-index.xml
+Sitemap: https://xiaohuojian.homes/sitemap.xml

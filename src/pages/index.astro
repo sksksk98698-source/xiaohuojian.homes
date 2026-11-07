@@ -155,9 +155,9 @@ const otherTopPicks = topPickAirports.slice(1, 10);
                                 {airport.summary}
                             </p>
 
-                            <div class="p-3 mb-4 has-background-dark is-size-7" style="border-radius: 6px;">
-                                <div class="mb-1"><strong>核心特点：</strong> {airport.features[0]}</div>
-                                <div><strong>解锁概况：</strong> ChatGPT {airport.unlockStatus.chatgpt} · Netflix {airport.unlockStatus.netflix}</div>
+                            <div class="p-3 mb-4 feature-highlight-box is-size-7" style="background: var(--sp-surface); border: 1px solid var(--sp-border); border-radius: 8px; color: var(--sp-text);">
+                                <div class="mb-1" style="color: var(--sp-text);"><strong style="color: var(--sp-text);">核心特点：</strong> <span style="color: var(--sp-text);">{airport.features[0]}</span></div>
+                                <div style="color: var(--sp-text);"><strong style="color: var(--sp-text);">解锁概况：</strong> <span style="color: var(--sp-text);">ChatGPT {airport.unlockStatus.chatgpt} · Netflix {airport.unlockStatus.netflix}</span></div>
                             </div>
 
                             <div class="buttons is-flex is-justify-content-space-between mt-auto">
