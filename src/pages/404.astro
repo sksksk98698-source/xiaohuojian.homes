@@ -1,0 +1,21 @@
+---
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout title="404 — Page Not Found" description="The page you are looking for does not exist or has been moved.">
+	<section class="section section-hero" aria-labelledby="not-found-heading">
+		<div class="container has-text-centered">
+			<p class="tag is-primary is-medium mb-5">404 Error</p>
+			<h1 id="not-found-heading" class="title is-1">
+				Signal Lost
+			</h1>
+			<p class="subtitle is-4 mt-4 u-constrained">
+				We couldn't find the page you're searching for. It may have moved or no longer exists.
+			</p>
+			<div class="buttons is-centered mt-6">
+				<a class="button is-primary is-large" href="/">Return Home</a>
+				<a class="button is-outlined is-large" href="/blog">Browse Journal</a>
+			</div>
+		</div>
+	</section>
+</Layout>

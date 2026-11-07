@@ -1,0 +1,16 @@
+{
+  "name": "Studio Pulse",
+  "short_name": "StudioPulse",
+  "description": "Full-service communication agency specializing in brand strategy, creative direction, and digital experiences.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0C0E14",
+  "theme_color": "#FF4D36",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}

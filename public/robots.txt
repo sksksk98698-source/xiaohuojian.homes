@@ -1,0 +1,10 @@
+# Robots.txt for Studio Pulse
+# Allow all compliant search engine web crawlers
+User-agent: *
+Allow: /
+
+# Disallow private build artifacts and temporary assets
+Disallow: /_astro/
+
+# XML Sitemaps
+Sitemap: https://xiaohuojian.homes/sitemap-index.xml
