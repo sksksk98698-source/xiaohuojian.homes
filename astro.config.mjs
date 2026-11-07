@@ -6,5 +6,13 @@ import sitemap from '@astrojs/sitemap';
 export default defineConfig({
   site: process.env.SITE_URL || 'https://xiaohuojian.homes',
   trailingSlash: 'ignore',
+  server: {
+    port: 4330,
+    host: true,
+  },
+  preview: {
+    port: 4330,
+    host: true,
+  },
   integrations: [sitemap()],
 });
