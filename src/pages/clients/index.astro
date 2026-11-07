@@ -1,93 +1,472 @@
 ---
 import Layout from "../../layouts/Layout.astro";
-import { platformClients } from "../../data/clients";
+import {
+    clientQuickAnswers,
+    clientComparisonRows,
+    clientChapters,
+    clientDecisionNodes,
+    clientFaqs,
+} from "../../data/clients";
+
+const siteUrl = Astro.site ?? new URL("https://xiaohuojian.homes");
+const pageUrl = new URL("/clients", siteUrl).href;
+
+const pageTitle = "2026 全平台代理客户端下载与订阅配置实战：小火箭、Clash Verge Rev、v2rayNG 与 OpenClash 深度专著指南";
+const pageDescription =
+    "小火箭评测智库全平台客户端工程级专著：涵盖 iOS (Shadowrocket/Stash)、Windows (Clash Verge Rev/v2rayN)、Android (v2rayNG/FlClash)、macOS、Linux 及软路由 OpenClash 的官方安全下载源、TUN 虚拟网卡配置、Fake-IP 防污染、分流避坑与终端排障实战。";
+
+const pageSchema = {
+    "@context": "https://schema.org",
+    "@graph": [
+        {
+            "@type": "TechArticle",
+            "@id": `${pageUrl}#article`,
+            "headline": pageTitle,
+            "description": pageDescription,
+            "url": pageUrl,
+            "datePublished": "2026-08-11",
+            "dateModified": "2026-11-07",
+            "inLanguage": "zh-CN",
+            "proficiencyLevel": "Beginner to Expert",
+            "author": {
+                "@type": "Organization",
+                "name": "小火箭网络基础设施评测智库 (xiaohuojian.homes)",
+                "url": siteUrl.href
+            },
+            "publisher": {
+                "@type": "Organization",
+                "name": "小火箭评测智库",
+                "logo": {
+                    "@type": "ImageObject",
+                    "url": new URL("/favicon.svg", siteUrl).href
+                }
+            },
+            "mainEntityOfPage": {
+                "@type": "WebPage",
+                "@id": pageUrl
+            }
+        },
+        {
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+                {
+                    "@type": "ListItem",
+                    "position": 1,
+                    "name": "首页",
+                    "item": siteUrl.href
+                },
+                {
+                    "@type": "ListItem",
+                    "position": 2,
+                    "name": "全平台代理客户端下载与订阅配置实战",
+                    "item": pageUrl
+                }
+            ]
+        },
+        {
+            "@type": "FAQPage",
+            "mainEntity": clientFaqs.map((faq) => ({
+                "@type": "Question",
+                "name": faq.question,
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": `${faq.conclusion} ${faq.details}`
+                }
+            }))
+        }
+    ]
+};
 ---
 
 <Layout
-    title="第三方代理客户端大全 · 小火箭 Shadowrocket & Clash 下载与配置"
-    description="2026 全平台代理客户端官方下载与订阅导入指南。包含 iOS Shadowrocket（小火箭）购买与导入教程、Windows Clash Verge Rev TUN 模式、Android v2rayNG 与软路由 OpenClash 配置。"
+    title={pageTitle}
+    description={pageDescription}
     currentPage="clients"
+    structuredData={pageSchema}
 >
-    <section class="section section-hero">
-        <div class="container has-text-centered">
-            <p class="tag is-primary is-medium mb-4">CLIENT DIRECTORY & SETUP</p>
-            <h1 class="title is-1">
-                全平台客户端下载与订阅配置实战
-            </h1>
-            <p class="subtitle is-4 mt-3 u-constrained has-text-grey-light">
-                针对 iOS、Windows、Android、macOS 及软路由，精选经过安全审计的开源主流代理客户端，手把手带您完成订阅导入与规则分流。
-            </p>
-        </div>
-    </section>
-
-    <section class="section has-bg-elevated py-6">
-        <div class="container u-constrained">
-            <!-- 快速平台锚点导航 -->
-            <div class="box p-3 mb-6 has-text-centered" style="background: var(--sp-bg-card); border: 1px solid var(--sp-border); border-radius: 9999px;">
-                <div class="buttons is-centered mb-0">
-                    {platformClients.map((p) => (
-                        <a href={`#${p.slug}`} class="button is-small is-dark">
-                            <span class="mr-1">{p.icon}</span> {p.platform.split(" ")[0]}
-                        </a>
-                    ))}
+    <!-- Hero 头部：强化专业定位、核查日期与页内锚点目录 -->
+    <section class="section section-hero pb-5">
+        <div class="container">
+            <div class="has-text-centered mb-5">
+                <p class="tag is-primary is-medium mb-3">CLIENT DIRECTORY & SETUP (2026 MONOGRAPH)</p>
+                <h1 class="title is-1">
+                    全平台代理客户端下载与订阅配置实战<br />
+                    <span class="has-text-primary is-size-3">从小白极速入门到软路由全屋透明代理</span>
+                </h1>
+                <p class="subtitle is-5 mt-3 u-constrained has-text-grey-light">
+                    针对 <strong>iOS (小火箭 / Stash)</strong>、<strong>Windows (Clash Verge Rev / v2rayN)</strong>、<strong>Android (v2rayNG / FlClash)</strong>、<strong>macOS</strong>、<strong>Linux</strong> 及 <strong>OpenWrt 软路由</strong>，精选经过开源安全审计的主流梯子客户端，手把手带您完成正版安装、TUN 虚拟网卡接管、Fake-IP 防 DNS 污染分流与排障。
+                </p>
+                <div class="tags is-centered mt-3">
+                    <span class="tag is-dark">🛡️ 官方安全源码审计</span>
+                    <span class="tag is-dark">⚡ 彻底淘汰停更 CFW 漏洞版本</span>
+                    <span class="tag is-dark">🚀 深度适配 Mihomo / Xray / sing-box 三大现代内核</span>
+                    <span class="tag is-dark">📅 2026-10-19 / 2026-11-07 验证维护</span>
                 </div>
             </div>
 
-            <!-- 分平台指南详情 -->
-            {platformClients.map((item) => (
-                <article class="box p-6 mb-6" id={item.slug} style="background: var(--sp-bg-card); border: 1px solid var(--sp-border); border-radius: 16px;">
+            <!-- 页内目录导航 (Topic Cluster 稳定锚点) -->
+            <nav class="box p-4 mb-2" aria-label="客户端指南页内章节目录" style="background: var(--sp-bg-card); border: 1px solid var(--sp-border); border-radius: 14px;">
+                <div class="is-flex is-justify-content-space-between is-align-items-center is-flex-wrap-wrap mb-3">
+                    <strong class="is-size-6">🧭 本页专著级导航（点击直达对应平台与实战模块）：</strong>
+                    <span class="is-size-7 has-text-grey">支持 375px 移动端安全滑动阅读</span>
+                </div>
+                <div class="buttons are-small mb-0">
+                    <a href="#quick-platform-answers" class="button is-primary is-light">1. 六大平台首选速查结论</a>
+                    <a href="#core-comparison-table" class="button is-dark">2. 20+ 款客户端参数横评总表</a>
+                    <a href="#ios-playbook" class="button is-dark">3. iOS 小火箭实战指南</a>
+                    <a href="#windows-playbook" class="button is-dark">4. Windows Clash Verge Rev 实战</a>
+                    <a href="#android-playbook" class="button is-dark">5. Android v2rayNG / FlClash 实战</a>
+                    <a href="#macos-playbook" class="button is-dark">6. macOS 原生与 M 芯片优化</a>
+                    <a href="#linux-playbook" class="button is-dark">7. Linux 桌面与无头服务器</a>
+                    <a href="#openwrt-playbook" class="button is-dark">8. OpenWrt 软路由全屋透明代理</a>
+                    <a href="#decision-matrix" class="button is-dark">9. 五大场景读者选型决策树</a>
+                    <a href="#client-faq" class="button is-dark">10. 客户端高频疑难 FAQ (8问)</a>
+                </div>
+            </nav>
+        </div>
+    </section>
+
+    <!-- 模块一：开头直接提供答案 (6大操作系统客户端首选与排坑决策卡) -->
+    <section class="section has-bg-elevated py-6" id="quick-platform-answers" aria-labelledby="quick-answers-heading">
+        <div class="container">
+            <div class="mb-5">
+                <p class="u-label-overline">UPFRONT SELECTION ANSWERS</p>
+                <h2 id="quick-answers-heading" class="title is-2 mt-1 mb-2">
+                    一、30 秒选对工具：六大操作系统主流代理客户端首选结论
+                </h2>
+                <p class="has-text-grey-light is-size-6">
+                    面对琳琅满目的代理工具，很多用户一上来就挑花眼。下表直接给出小火箭实验室经过跨年度长期稳定性测试后，针对各大操作系统的<strong>最佳推荐、次选平替、核心优势、获取成本与致命避坑底线</strong>：
+                </p>
+            </div>
+
+            <div class="columns is-multiline">
+                {clientQuickAnswers.map((card) => (
+                    <div class="column is-6-tablet is-4-desktop mb-4">
+                        <div class="card h-100" style="background: var(--sp-bg-card); border: 1px solid var(--sp-border); border-radius: 14px; display: flex; flex-direction: column; justify-content: space-between;">
+                            <div class="card-content">
+                                <div class="is-flex is-align-items-center mb-2">
+                                    <span class="is-size-3 mr-2">{card.icon}</span>
+                                    <div>
+                                        <span class="tag is-primary is-light has-text-weight-bold">{card.platform}</span>
+                                    </div>
+                                </div>
+                                <h3 class="title is-5 mb-2">
+                                    首选：<span class="has-text-primary">{card.recommendedTool}</span>
+                                </h3>
+                                <p class="is-size-7 has-text-grey mb-3">
+                                    备选平替：{card.secondaryTool}
+                                </p>
+                                <div class="p-3 has-background-dark mb-3 is-size-7" style="border-radius: 8px; line-height: 1.7;">
+                                    <div><strong>💡 核心优势：</strong>{card.coreAdvantage}</div>
+                                    <div class="mt-1"><strong>💰 价格与获取：</strong><span class="has-text-success">{card.pricingOrAcquisition}</span></div>
+                                    <div class="mt-1"><strong>⚠️ 避坑底线：</strong><span class="has-text-danger">{card.avoidPitfall}</span></div>
+                                </div>
+                                <a href={card.anchor} class="button is-small is-outlined is-fullwidth">
+                                    查看 {card.platform} 深度配置指南 ↓
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                ))}
+            </div>
+        </div>
+    </section>
+
+    <!-- 模块二：有依据的核心对比表 (20+ 款客户端全景参数横评总表) -->
+    <section class="section py-6" id="core-comparison-table" aria-labelledby="comparison-heading">
+        <div class="container">
+            <div class="mb-5">
+                <p class="u-label-overline">CLIENT MASTER COMPARISON MATRIX</p>
+                <h2 id="comparison-heading" class="title is-2 mt-1 mb-2">
+                    二、20+ 款主流梯子客户端深度横向对比与技术参数总表
+                </h2>
+                <p class="has-text-grey-light is-size-6 mb-3">
+                    本表严格整理自《第三方代理客户端资料库》与各开源项目的最新代码仓库，涵盖<strong>支持平台、软件属性、底层内核架构、现代协议兼容度、TUN 虚拟网卡支持、分流机制、授权售价与官方正版获取渠道</strong>：
+                </p>
+                <div class="notification is-dark is-size-7 py-2 px-3 mb-4">
+                    💡 <strong>移动端阅读提示：</strong> 在 375px 手机屏幕下，下方表格支持<strong>区域内左右平滑滑动</strong>，不会撑破页面整体宽度。点击「官方源码/下载」按钮可直达项目官方 Releases 仓库。
+                </div>
+            </div>
+
+            <div class="table-container box p-0 mb-6" style="overflow-x: auto; -webkit-overflow-scrolling: touch; border-radius: 12px; border: 1px solid var(--sp-border);">
+                <table class="table is-fullwidth is-striped is-hoverable mb-0" style="min-width: 1180px; font-size: 0.85rem;">
+                    <thead>
+                        <tr>
+                            <th style="min-width: 140px;">客户端名称</th>
+                            <th style="min-width: 125px;">支持平台</th>
+                            <th style="min-width: 130px;">核心引擎 / 内核</th>
+                            <th style="min-width: 180px;">协议兼容性</th>
+                            <th style="min-width: 110px;">TUN 模式</th>
+                            <th style="min-width: 150px;">规则分流能力</th>
+                            <th style="min-width: 110px;">价格与授权</th>
+                            <th style="min-width: 180px;">最适宜人群与定位</th>
+                            <th style="min-width: 110px;">官方正规渠道</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {clientComparisonRows.map((row) => (
+                            <tr>
+                                <td>
+                                    <strong class="has-text-primary">{row.name}</strong>
+                                    <div class="is-size-7 has-text-grey mt-1">{row.category}</div>
+                                </td>
+                                <td>{row.platform}</td>
+                                <td>
+                                    <span class="tag is-dark is-small">{row.coreEngine}</span>
+                                </td>
+                                <td class="is-size-7">{row.supportedProtocols}</td>
+                                <td>{row.tunModeSupport}</td>
+                                <td class="is-size-7">{row.ruleSplitCapability}</td>
+                                <td>
+                                    <span class="tag is-success is-light is-small">{row.licenseAndPrice}</span>
+                                </td>
+                                <td class="is-size-7">{row.bestAudience}</td>
+                                <td>
+                                    <a href={row.officialSource} target="_blank" rel="noopener noreferrer" class="button is-small is-outlined">
+                                        官方链接 ↗
+                                    </a>
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- 模块三：围绕 6 大核心平台展开的深度配置与实战指南 (按痛点、步骤、原理与排障展开) -->
+    <section class="section has-bg-elevated py-6" id="platform-deep-guides" aria-labelledby="deep-guides-heading">
+        <div class="container">
+            <div class="mb-5">
+                <p class="u-label-overline">PLATFORM-SPECIFIC ENGINEERING PLAYBOOKS</p>
+                <h2 id="deep-guides-heading" class="title is-2 mt-1 mb-2">
+                    三、六大平台客户端官方安装、订阅导入与防坑实战手册
+                </h2>
+                <p class="has-text-grey-light is-size-6">
+                    针对不同系统底层的网络权限与分流差异，每个平台均严格按照<strong>「核心痛点与关注时机 → 推荐软件清单 → 4 步无坑实操指南 → 底层 TUN/DNS 原理解析 → 高频故障诊断」</strong>逐一展开：
+                </p>
+            </div>
+
+            {clientChapters.map((ch, idx) => (
+                <article class="box p-5 mb-6" id={ch.id} style="background: var(--sp-bg-card); border: 1px solid var(--sp-border); border-radius: 16px;">
+                    <div class="is-flex is-justify-content-space-between is-align-items-center is-flex-wrap-wrap mb-3">
+                        <div class="tags mb-0">
+                            <span class="tag is-primary has-text-weight-bold">实战指南 #{idx + 1}</span>
+                            <span class="tag is-dark">{ch.platform}</span>
+                        </div>
+                        <span class="is-size-7 has-text-grey">内核与配置规范已同步至 2026 最新版</span>
+                    </div>
+
                     <div class="is-flex is-align-items-center mb-3">
-                        <span class="is-size-2 mr-3">{item.icon}</span>
+                        <span class="is-size-2 mr-3">{ch.icon}</span>
                         <div>
-                            <span class="tag is-primary is-light mb-1">{item.platform}</span>
-                            <h2 class="title is-3 mb-0">{item.headline}</h2>
+                            <h3 class="title is-3 mb-1">{ch.headline}</h3>
+                            <p class="is-size-7 has-text-grey-light mb-0"><strong>搜索意图：</strong>{ch.searchIntent}</p>
                         </div>
                     </div>
 
-                    <p class="is-size-5 has-text-grey-light mb-5">
-                        {item.description}
-                    </p>
+                    <div class="notification is-dark p-4 mb-4" style="border-left: 4px solid var(--sp-primary);">
+                        <p class="is-size-6 mb-2">
+                            <strong>🎯 核心选型结论：</strong>{ch.coreDecision}
+                        </p>
+                        <p class="is-size-7 has-text-grey-light mb-0">
+                            {ch.painPointAndTiming}
+                        </p>
+                    </div>
 
-                    <!-- 推荐工具列表 -->
-                    <h3 class="title is-5 mb-3 has-text-white">推荐使用的客户端软件</h3>
-                    <div class="columns is-multiline mb-5">
-                        {item.tools.map((tool) => (
+                    <!-- 推荐工具卡片列表 -->
+                    <h4 class="title is-5 mb-3">🛠️ {ch.platform} 精选经过安全审计的客户端软件</h4>
+                    <div class="columns is-multiline mb-4">
+                        {ch.recommendedToolsList.map((tool) => (
                             <div class="column is-6">
-                                <div class="box p-4 h-100 has-background-dark" style="border: 1px solid var(--sp-border); border-radius: 8px;">
+                                <div class="box p-4 h-100 has-background-dark" style="border: 1px solid var(--sp-border); border-radius: 10px;">
                                     <div class="is-flex is-justify-content-space-between is-align-items-start mb-2">
-                                        <h4 class="title is-5 mb-0 has-text-white">{tool.name}</h4>
+                                        <div>
+                                            <h5 class="title is-5 mb-0 has-text-white">{tool.name}</h5>
+                                            <span class="is-size-7 has-text-grey">内核: {tool.architectureOrKernel}</span>
+                                        </div>
                                         <span class={`tag is-small ${tool.isRecommended ? 'is-primary has-text-weight-bold' : 'is-dark'}`}>
                                             {tool.tag}
                                         </span>
                                     </div>
-                                    <p class="is-size-7 has-text-grey-light mb-3">
-                                        {tool.features}
-                                    </p>
-                                    <a class="button is-small is-outlined" href={tool.downloadUrl} target="_blank" rel="noopener noreferrer">
-                                        官方下载与项目地址 ↗
+                                    <div class="mb-3">
+                                        <strong class="is-size-7 has-text-success">✅ 核心特性：</strong>
+                                        <ul class="is-size-7 mt-1 pl-4" style="line-height: 1.65;">
+                                            {tool.features.map((f) => <li class="mb-1">{f}</li>)}
+                                        </ul>
+                                    </div>
+                                    <div class="mb-3">
+                                        <strong class="is-size-7 has-text-danger">⚠️ 注意限制：</strong>
+                                        <ul class="is-size-7 mt-1 pl-4" style="line-height: 1.65;">
+                                            {tool.limitations.map((l) => <li class="mb-1">{l}</li>)}
+                                        </ul>
+                                    </div>
+                                    <a class="button is-small is-outlined is-fullwidth" href={tool.downloadUrl} target="_blank" rel="noopener noreferrer">
+                                        官方正版下载与项目地址 ↗
                                     </a>
                                 </div>
                             </div>
                         ))}
                     </div>
 
-                    <!-- 订阅配置手把手步骤 -->
-                    <h3 class="title is-5 mb-3 has-text-success">🛠️ 订阅导入与分流配置实操步骤</h3>
-                    <div class="notification is-dark p-4" style="border-radius: 8px; border: 1px solid var(--sp-border);">
-                        <ol class="content has-text-grey-light is-size-6 pl-4 mb-0" style="line-height: 1.8;">
-                            {item.setupSteps.map((step) => (
-                                <li class="mb-2">{step}</li>
-                            ))}
-                        </ol>
+                    <!-- 手把手 4 步无坑配置步骤 -->
+                    <h4 class="title is-5 mb-3">📋 手把手 4 步实操步骤（从下载到连通）</h4>
+                    <div class="p-4 has-background-dark mb-4" style="border-radius: 12px; border: 1px solid var(--sp-border);">
+                        {ch.stepByStepPlaybook.map((step, sIdx) => (
+                            <div class="mb-3 pb-3" style="border-bottom: 1px dashed var(--sp-border);">
+                                <strong class="has-text-primary is-size-6">{sIdx + 1}. {step.stepTitle}</strong>
+                                <p class="is-size-7 has-text-grey-light mt-1 mb-2" style="line-height: 1.75;">
+                                    {step.instruction}
+                                </p>
+                                {step.codeSnippet && (
+                                    <pre class="p-2 is-size-7" style="background: #111622; color: #e2e8f0; border-radius: 6px;"><code>{step.codeSnippet}</code></pre>
+                                )}
+                            </div>
+                        ))}
                     </div>
 
-                    <div class="has-text-centered mt-5">
-                        <a class="button is-primary is-medium has-text-weight-bold" href="/airports">
-                            获取适配本平台的优质机场订阅（首推光速云） →
-                        </a>
+                    <!-- 底层网络原理拆解 (TUN / Fake-IP / VpnService) -->
+                    <div class="p-4 has-background-dark mb-4" style="border-radius: 12px; border: 1px solid var(--sp-border);">
+                        <h4 class="title is-6 mb-2">🔬 底层技术原理解析：{ch.platform} 是如何实现接管与分流的？</h4>
+                        <p class="is-size-7 has-text-grey-light mb-0" style="line-height: 1.8;">
+                            {ch.protocolAndTunMechanics}
+                        </p>
+                    </div>
+
+                    <!-- 高频故障与排障速查 -->
+                    <h4 class="title is-5 mb-3">🔧 该平台常见典型报错与排障解决手册</h4>
+                    <div class="columns is-multiline mb-4">
+                        {ch.commonErrorsAndTroubleshooting.map((err) => (
+                            <div class="column is-6">
+                                <div class="p-3 has-background-dark h-100" style="border-radius: 8px; border: 1px solid var(--sp-border);">
+                                    <div class="has-text-danger has-text-weight-bold is-size-7 mb-1">
+                                        ❌ 现象：{err.symptom}
+                                    </div>
+                                    <div class="is-size-7 has-text-grey mb-1">
+                                        <strong>原因：</strong>{err.cause}
+                                    </div>
+                                    <div class="is-size-7 has-text-success">
+                                        <strong>解决：</strong>{err.solution}
+                                    </div>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+
+                    <div class="p-3 has-background-dark is-size-6" style="border-radius: 8px;">
+                        <strong>🔗 推荐搭配专线机场：</strong> {ch.relatedAirportAnchor}
+                        <div class="mt-2">
+                            <a href="/airports" class="button is-small is-primary is-light mr-2">去 42 家机场库筛选适配订阅 →</a>
+                            <a href="/guides#core-comparison-table" class="button is-small is-dark">查看 16 家专线双轨价格对比表 →</a>
+                        </div>
                     </div>
                 </article>
             ))}
+        </div>
+    </section>
+
+    <!-- 模块四：读者选型决策树 (根据预算、设备生态与技术水平匹配方案) -->
+    <section class="section py-6" id="decision-matrix" aria-labelledby="decision-matrix-heading">
+        <div class="container">
+            <div class="mb-5">
+                <p class="u-label-overline">DECISION MATRIX FOR USERS</p>
+                <h2 id="decision-matrix-heading" class="title is-2 mt-1 mb-2">
+                    四、读者选型决策树：按您的设备生态与技能水平量身匹配
+                </h2>
+                <p class="has-text-grey-light is-size-6">
+                    不同的用户场景决定了最优的工具组合。以下 5 大典型决策分支帮助您在 1 分钟内锁定最适合自己的客户端与机场组合：
+                </p>
+            </div>
+
+            <div class="columns is-multiline">
+                {clientDecisionNodes.map((node) => (
+                    <div class="column is-6-desktop is-12-tablet mb-4" id={node.scenarioId}>
+                        <div class="box p-5 h-100" style="background: var(--sp-bg-card); border: 1px solid var(--sp-border); border-radius: 14px; display: flex; flex-direction: column; justify-content: space-between;">
+                            <div>
+                                <span class="tag is-primary is-light is-small mb-2">决策分支</span>
+                                <h3 class="title is-4 mb-2">{node.userProfile}</h3>
+                                <p class="is-size-7 has-text-grey mb-3">
+                                    <strong>预算与技能：</strong>{node.budgetAndSkill}
+                                </p>
+                                <div class="notification is-dark p-3 mb-3 is-size-6" style="border-radius: 8px;">
+                                    <strong>🚀 推荐落地组合：</strong>
+                                    <div class="has-text-success has-text-weight-bold mt-1">{node.recommendedCombination}</div>
+                                </div>
+                                <p class="is-size-7 has-text-grey-light mb-3" style="line-height: 1.75;">
+                                    <strong>💡 为什么这样选：</strong>{node.whyThisChoice}
+                                </p>
+                            </div>
+                            <div class="p-2 has-background-dark is-size-7" style="border-radius: 6px;">
+                                <strong>👉 执行路线：</strong>{node.actionRoute}
+                            </div>
+                        </div>
+                    </div>
+                ))}
+            </div>
+        </div>
+    </section>
+
+    <!-- 模块五：常见问题与边界解答 FAQ (8个高价值问答) -->
+    <section class="section has-bg-elevated py-6" id="client-faq" aria-labelledby="faq-heading">
+        <div class="container">
+            <div class="mb-5">
+                <p class="u-label-overline">CLIENT TROUBLESHOOTING FAQ</p>
+                <h2 id="faq-heading" class="title is-2 mt-1 mb-2">
+                    五、常见高频问题与排障解答 (FAQ)
+                </h2>
+                <p class="has-text-grey-light is-size-6">
+                    针对「小火箭与 Clash 对比」「老旧 CFW 风险」「TUN 模式原理」「国内微信转圈原因」「Fake-IP 机制」等 8 个核心疑问，先给结论，再讲工程细节：
+                </p>
+            </div>
+
+            <div class="columns is-multiline">
+                {clientFaqs.map((faq) => (
+                    <div class="column is-6-desktop is-12-tablet mb-3">
+                        <div class="box p-4 h-100" style="background: var(--sp-bg-card); border: 1px solid var(--sp-border); border-radius: 12px;">
+                            <h3 class="title is-5 mb-2">{faq.question}</h3>
+                            <p class="is-size-6 has-text-weight-semibold has-text-primary mb-2">
+                                {faq.conclusion}
+                            </p>
+                            <p class="is-size-7 has-text-grey-light mb-2" style="line-height: 1.75;">
+                                {faq.details}
+                            </p>
+                            {faq.relatedAnchor && (
+                                <a href={faq.relatedAnchor} class="is-size-7 has-text-primary">
+                                    🔗 查看对应实战章节 ↑
+                                </a>
+                            )}
+                        </div>
+                    </div>
+                ))}
+            </div>
+        </div>
+    </section>
+
+    <!-- 模块六：安全声明与防伪警告 -->
+    <section class="section py-6" id="security-disclaimer" aria-labelledby="security-heading">
+        <div class="container">
+            <div class="box p-5" style="background: var(--sp-bg-card); border: 1px solid var(--sp-border); border-radius: 16px;">
+                <p class="u-label-overline">SECURITY & VERIFICATION DISCLAIMER</p>
+                <h2 id="security-heading" class="title is-3 mt-1 mb-3">
+                    六、开源安全审计声明与防假冒钓鱼警告
+                </h2>
+                <div class="content is-size-7 has-text-grey-light" style="line-height: 1.8;">
+                    <p>
+                        1. <strong>认准官方 Releases 源码渠道：</strong> 本站（xiaohuojian.homes）所列出的所有桌面与安卓客户端项目，均直接指向 GitHub 官方开源 Releases 页面或 Apple 官方 App Store，绝不提供任何经过第三方二次打包、篡改签名的安装包，确保 100% 纯净无后门。
+                    </p>
+                    <p>
+                        2. <strong>防范高仿钓鱼网站：</strong> 近年来搜索引擎存在大量冒充「Clash 官方中文网」「小火箭官网下载」的流氓钓鱼网站，部分网站会利用伪造证书注入恶意木马。下载软件请务必核对本站提供的官方项目仓库地址。
+                    </p>
+                    <p>
+                        3. <strong>软路由硬件兼容性注意：</strong> 在 OpenWrt 安装插件时，请务必核对路由器 CPU 架构与剩余闪存容量，切勿在小 ROM 设备上盲目安装体积过大的内核导致系统崩溃或变砖。
+                    </p>
+                </div>
+                <div class="has-text-centered mt-4">
+                    <a class="button is-primary is-medium has-text-weight-bold" href="/airports">
+                        搭配经过 L1 实测的专线机场（如光速云、暮光加速） →
+                    </a>
+                </div>
+            </div>
         </div>
     </section>
 </Layout>
