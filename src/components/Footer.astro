@@ -1,10 +1,72 @@
+---
+const currentYear = new Date().getFullYear();
+---
+
 <footer class="footer">
-    <div class="content has-text-centered">
-        <p class="mb-2">
-            <strong class="has-text-white">Studio Pulse</strong>
-        </p>
-        <p>
-            &copy; {new Date().getFullYear()} Studio Pulse. All rights reserved.
-        </p>
+    <div class="container">
+        <div class="columns is-multiline mb-6">
+            <div class="column is-4">
+                <div class="is-flex is-align-items-center mb-3">
+                    <span class="is-size-3" aria-hidden="true">🚀</span>
+                    <strong class="has-text-white is-size-4 ml-2">小火箭</strong>
+                    <span class="tag is-primary is-small ml-2">xiaohuojian.homes</span>
+                </div>
+                <p class="has-text-grey-light is-size-6 mb-4">
+                    全球网络基础设施与精选代理节点独立观测平台。聚焦 IEPL/IPLC 物理专线、晚高峰实测带宽、流媒体与 AI 大模型原生解锁测评。
+                </p>
+                <div class="notification is-dark is-size-7 p-3" style="border: 1px solid var(--sp-border);">
+                    ⚖️ <strong>透明合规声明：</strong> 本站评测包含第三方品牌推广转介链接。通过链接访问注册可能为本实验室维护带来小额支持，但不影响您的实际购买价格，所有测试数据均坚持客观记录。
+                </div>
+            </div>
+
+            <div class="column is-2 is-offset-1">
+                <h4 class="title is-6 has-text-white mb-3">核心栏目</h4>
+                <ul class="is-size-6" style="line-height: 2;">
+                    <li><a href="/airports" class="has-text-grey-light hover-text-primary">42家机场品牌库</a></li>
+                    <li><a href="/reviews" class="has-text-grey-light hover-text-primary">实测实验室</a></li>
+                    <li><a href="/clients" class="has-text-grey-light hover-text-primary">客户端下载配置</a></li>
+                    <li><a href="/guides" class="has-text-grey-light hover-text-primary">GEO 专题矩阵</a></li>
+                    <li><a href="/about" class="has-text-grey-light hover-text-primary">评测标准与免责</a></li>
+                </ul>
+            </div>
+
+            <div class="column is-2">
+                <h4 class="title is-6 has-text-white mb-3">高意向专题</h4>
+                <ul class="is-size-6" style="line-height: 2;">
+                    <li><a href="/guides#ai-chatgpt-claude-unlock" class="has-text-grey-light hover-text-primary">ChatGPT/Claude 解锁</a></li>
+                    <li><a href="/guides#streaming-4k-netflix-disney" class="has-text-grey-light hover-text-primary">4K Netflix/Disney+</a></li>
+                    <li><a href="/guides#cross-border-tiktok-ecommerce" class="has-text-grey-light hover-text-primary">TikTok 出海专线</a></li>
+                    <li><a href="/guides#iepl-vs-iplc-architecture" class="has-text-grey-light hover-text-primary">IEPL vs IPLC 专线科普</a></li>
+                    <li><a href="/clients#ios" class="has-text-grey-light hover-text-primary">Shadowrocket 小火箭教程</a></li>
+                </ul>
+            </div>
+
+            <div class="column is-3">
+                <h4 class="title is-6 has-text-white mb-3">首推精选品牌</h4>
+                <div class="tags">
+                    <a href="/airports/guangsu" class="tag is-primary has-text-weight-bold">光速云 (主推)</a>
+                    <a href="/airports/muguang" class="tag is-dark">暮光加速</a>
+                    <a href="/airports/feimao" class="tag is-dark">飞猫云</a>
+                    <a href="/airports/weifeng" class="tag is-dark">微风网络</a>
+                    <a href="/airports/dalaoyun" class="tag is-dark">大佬云</a>
+                    <a href="/airports/xingdaomeng" class="tag is-dark">星岛梦</a>
+                    <a href="/airports/ermao" class="tag is-dark">二猫云</a>
+                    <a href="/airports/wuyou" class="tag is-dark">无忧链接</a>
+                    <a href="/airports/weitu" class="tag is-dark">唯兔云</a>
+                    <a href="/airports/firefly" class="tag is-dark">Firefly</a>
+                </div>
+                <p class="is-size-7 has-text-grey mt-3">
+                    更新时间：2026年10月最新实测批次 · 覆盖 42+ 主流品牌
+                </p>
+            </div>
+        </div>
+
+        <div class="has-text-centered pt-5" style="border-top: 1px solid var(--sp-border);">
+            <p class="is-size-7 has-text-grey">
+                &copy; {currentYear} 小火箭 (xiaohuojian.homes) 评测实验室 · 保留所有权利 · 
+                <a href="/rss.xml" class="has-text-grey-light ml-2">RSS 订阅</a> · 
+                <a href="/sitemap-index.xml" class="has-text-grey-light ml-2">XML 网站地图</a>
+            </p>
+        </div>
     </div>
 </footer>

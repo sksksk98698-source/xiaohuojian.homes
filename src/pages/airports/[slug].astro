@@ -1,0 +1,270 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import { airports } from "../../data/airports";
+
+export async function getStaticPaths() {
+    return airports.map((airport) => ({
+        params: { slug: airport.id },
+        props: { airport },
+    }));
+}
+
+const { airport } = Astro.props;
+
+const siteUrl = Astro.site ?? new URL("https://xiaohuojian.homes");
+const pageCanonical = new URL(`/airports/${airport.id}`, siteUrl).href;
+
+const reviewSchema = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": `${airport.name} 机场网络代理服务`,
+    "description": airport.summary,
+    "brand": {
+        "@type": "Brand",
+        "name": airport.name
+    },
+    "review": {
+        "@type": "Review",
+        "reviewRating": {
+            "@type": "Rating",
+            "ratingValue": airport.isTopPick ? "4.9" : "4.5",
+            "bestRating": "5"
+        },
+        "author": {
+            "@type": "Organization",
+            "name": "小火箭评测实验室"
+        }
+    }
+};
+---
+
+<Layout
+    title={`${airport.name} 评测与实测数据 · 2026 最新套餐与优惠码`}
+    description={`${airport.name} 真实评测：线路特点【${airport.lineType}】、协议【${airport.protocol}】、最低【${airport.priceStarting}】。附真实测速与流媒体/AI解锁测试。`}
+    currentPage="airports"
+    schema={reviewSchema}
+>
+    <!-- 顶部面包屑与头部 -->
+    <section class="section section-hero py-5">
+        <div class="container u-constrained">
+            <nav class="breadcrumb is-small mb-4" aria-label="breadcrumbs">
+                <ul>
+                    <li><a href="/" class="has-text-grey-light">首页</a></li>
+                    <li><a href="/airports" class="has-text-grey-light">机场品牌库</a></li>
+                    <li class="is-active"><a href="#" aria-current="page" class="has-text-primary">{airport.name}</a></li>
+                </ul>
+            </nav>
+
+            <div class="columns is-vcentered">
+                <div class="column is-8">
+                    <div class="tags mb-2">
+                        <span class="tag is-primary has-text-weight-bold">全网综合排名 #{airport.rank}</span>
+                        {airport.isTopPick && <span class="tag is-danger has-text-weight-bold">精选主推</span>}
+                        <span class="tag is-dark">{airport.foundedYear}</span>
+                        <span class="tag is-dark">{airport.lineType}</span>
+                        <span class="tag is-dark">{airport.protocol}</span>
+                    </div>
+                    <h1 class="title is-1 mb-3">
+                        {airport.name} 深度测评与使用指南
+                    </h1>
+                    <p class="is-size-5 has-text-grey-light mb-4">
+                        {airport.summary}
+                    </p>
+                </div>
+                <div class="column is-4 has-text-centered-mobile has-text-right-tablet">
+                    <div class="box p-4" style="background: var(--sp-bg-card); border: 2px solid var(--sp-primary); border-radius: 12px;">
+                        <div class="is-size-7 has-text-grey">起步价格</div>
+                        <div class="is-size-3 has-text-weight-bold has-text-primary mb-1">{airport.priceStarting}</div>
+                        <div class="is-size-7 has-text-grey-light mb-3">{airport.entryPriceNote}</div>
+                        
+                        {airport.coupon && (
+                            <div class="notification is-warning is-light py-2 px-3 mb-3 is-size-7">
+                                优惠码：<strong>{airport.coupon}</strong>
+                            </div>
+                        )}
+
+                        <a class="button is-primary is-fullwidth has-text-weight-bold mb-2" href={airport.affUrl} target="_blank" rel="nofollow sponsored noopener">
+                            直达官网注册选购 →
+                        </a>
+                        <p class="is-size-7 has-text-grey" style="font-size: 0.72rem;">
+                            含推广转介链接，不影响支付价格
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 核心指标大盘 -->
+    <section class="section has-bg-elevated py-5">
+        <div class="container u-constrained">
+            <h2 class="title is-3 mb-4">核心规格参数</h2>
+            <div class="columns is-multiline">
+                <div class="column is-3-tablet is-6-mobile">
+                    <div class="box p-4 h-100 has-background-dark" style="border: 1px solid var(--sp-border);">
+                        <span class="has-text-grey is-size-7">线路架构</span>
+                        <p class="title is-5 mt-1 has-text-white">{airport.lineType}</p>
+                    </div>
+                </div>
+                <div class="column is-3-tablet is-6-mobile">
+                    <div class="box p-4 h-100 has-background-dark" style="border: 1px solid var(--sp-border);">
+                        <span class="has-text-grey is-size-7">支持协议</span>
+                        <p class="title is-5 mt-1 has-text-white">{airport.protocol}</p>
+                    </div>
+                </div>
+                <div class="column is-3-tablet is-6-mobile">
+                    <div class="box p-4 h-100 has-background-dark" style="border: 1px solid var(--sp-border);">
+                        <span class="has-text-grey is-size-7">客户端生态</span>
+                        <p class="title is-6 mt-1 has-text-white">{airport.clientSupport}</p>
+                    </div>
+                </div>
+                <div class="column is-3-tablet is-6-mobile">
+                    <div class="box p-4 h-100 has-background-dark" style="border: 1px solid var(--sp-border);">
+                        <span class="has-text-grey is-size-7">计费周期</span>
+                        <p class="title is-6 mt-1 has-text-white">{airport.billingType}</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 流媒体与 AI 解锁测试矩阵 -->
+            <div class="box mt-5 p-4" style="background: var(--sp-bg-card); border: 1px solid var(--sp-border); border-radius: 12px;">
+                <h3 class="title is-4 mb-3">🎬 流媒体与 AI 大模型可用性矩阵</h3>
+                <div class="columns is-mobile is-multiline">
+                    <div class="column is-2-desktop is-4-tablet is-6-mobile">
+                        <div class="p-2 has-background-dark has-text-centered" style="border-radius: 6px;">
+                            <div class="is-size-7 has-text-grey">ChatGPT</div>
+                            <div class="has-text-weight-semibold is-size-7 mt-1 has-text-success">{airport.unlockStatus.chatgpt}</div>
+                        </div>
+                    </div>
+                    <div class="column is-2-desktop is-4-tablet is-6-mobile">
+                        <div class="p-2 has-background-dark has-text-centered" style="border-radius: 6px;">
+                            <div class="is-size-7 has-text-grey">Claude</div>
+                            <div class="has-text-weight-semibold is-size-7 mt-1 has-text-success">{airport.unlockStatus.claude}</div>
+                        </div>
+                    </div>
+                    <div class="column is-2-desktop is-4-tablet is-6-mobile">
+                        <div class="p-2 has-background-dark has-text-centered" style="border-radius: 6px;">
+                            <div class="is-size-7 has-text-grey">Netflix 奈飞</div>
+                            <div class="has-text-weight-semibold is-size-7 mt-1 has-text-success">{airport.unlockStatus.netflix}</div>
+                        </div>
+                    </div>
+                    <div class="column is-2-desktop is-4-tablet is-6-mobile">
+                        <div class="p-2 has-background-dark has-text-centered" style="border-radius: 6px;">
+                            <div class="is-size-7 has-text-grey">Disney+</div>
+                            <div class="has-text-weight-semibold is-size-7 mt-1 has-text-success">{airport.unlockStatus.disney}</div>
+                        </div>
+                    </div>
+                    <div class="column is-2-desktop is-4-tablet is-6-mobile">
+                        <div class="p-2 has-background-dark has-text-centered" style="border-radius: 6px;">
+                            <div class="is-size-7 has-text-grey">YouTube</div>
+                            <div class="has-text-weight-semibold is-size-7 mt-1 has-text-success">{airport.unlockStatus.youtube}</div>
+                        </div>
+                    </div>
+                    <div class="column is-2-desktop is-4-tablet is-6-mobile">
+                        <div class="p-2 has-background-dark has-text-centered" style="border-radius: 6px;">
+                            <div class="is-size-7 has-text-grey">TikTok 出海</div>
+                            <div class="has-text-weight-semibold is-size-7 mt-1 has-text-success">{airport.unlockStatus.tiktok}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 实测测速图展示 -->
+            {airport.speedtestImage && (
+                <div class="box mt-5 p-4" style="background: var(--sp-bg-card); border: 1px solid var(--sp-border); border-radius: 12px;">
+                    <div class="is-flex is-justify-content-space-between is-align-items-center mb-3">
+                        <h3 class="title is-4 mb-0">📊 节点测速实测报告</h3>
+                        <span class="tag is-success is-light">MAI-TEST-BOT 实测抓包</span>
+                    </div>
+                    <p class="has-text-grey-light is-size-6 mb-3">
+                        以下测速图为实验室在真实宽带网络环境下针对 {airport.name} 各大核心出口节点的实测抓图，记录了晚高峰丢包、下载速率与延迟表现：
+                    </p>
+                    <figure class="image mb-3">
+                        <img
+                            src={airport.speedtestImage}
+                            alt={`${airport.name} 节点测速实测报告图`}
+                            style="border-radius: 8px; width: 100%; border: 1px solid var(--sp-border);"
+                            loading="lazy"
+                        />
+                    </figure>
+                </div>
+            )}
+
+            <!-- 解锁测试图展示（如光速云、无忧链接） -->
+            {airport.unlockImages && airport.unlockImages.length > 0 && (
+                <div class="box mt-5 p-4" style="background: var(--sp-bg-card); border: 1px solid var(--sp-border); border-radius: 12px;">
+                    <h3 class="title is-4 mb-3">🛡️ 流媒体与服务解锁验证切片</h3>
+                    <div class="columns is-multiline">
+                        {airport.unlockImages.map((imgUrl, i) => (
+                            <div class="column is-6">
+                                <figure class="image">
+                                    <img src={imgUrl} alt={`${airport.name} 流媒体与服务解锁测试报告图 ${i + 1}`} style="border-radius: 6px; border: 1px solid var(--sp-border);" loading="lazy" />
+                                </figure>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            )}
+
+            <!-- 套餐价格明细表 -->
+            <div class="box mt-5 p-4" style="background: var(--sp-bg-card); border: 1px solid var(--sp-border); border-radius: 12px;">
+                <h3 class="title is-4 mb-3">💳 套餐与价格参考表</h3>
+                <div class="table-container">
+                    <table class="table is-fullwidth is-striped" style="background: transparent;">
+                        <thead>
+                            <tr>
+                                <th>套餐名称</th>
+                                <th>价格</th>
+                                <th>高速流量</th>
+                                <th>计费周期</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {airport.plans.map((plan) => (
+                                <tr>
+                                    <td class="has-text-weight-semibold">{plan.name}</td>
+                                    <td class="has-text-primary has-text-weight-bold">{plan.price}</td>
+                                    <td>{plan.traffic}</td>
+                                    <td><span class="tag is-dark is-small">{plan.cycle}</span></td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- 优缺点与适用人群 -->
+            <div class="columns mt-4">
+                <div class="column is-6">
+                    <div class="box h-100 p-4" style="background: var(--sp-bg-card); border: 1px solid var(--sp-border); border-radius: 12px;">
+                        <h4 class="title is-5 has-text-success mb-3">✅ 突出优势</h4>
+                        <ul class="content">
+                            {airport.advantages ? airport.advantages.map((adv) => <li>{adv}</li>) : <li>{airport.features[0]}</li>}
+                        </ul>
+                    </div>
+                </div>
+                <div class="column is-6">
+                    <div class="box h-100 p-4" style="background: var(--sp-bg-card); border: 1px solid var(--sp-border); border-radius: 12px;">
+                        <h4 class="title is-5 has-text-danger mb-3">⚠️ 局限性与注意事项</h4>
+                        <ul class="content">
+                            {airport.limitations ? airport.limitations.map((lim) => <li>{lim}</li>) : <li>特殊节点可能视网络状况调整，建议先以小额月付测试。</li>}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 底部转介行动呼吁 -->
+            <div class="box mt-6 p-5 has-text-centered" style="background: radial-gradient(circle at center, hsl(4 90% 50% / 0.15), transparent 70%), var(--sp-bg-card); border: 1px solid var(--sp-primary); border-radius: 12px;">
+                <h3 class="title is-3 mb-2">立即体验 {airport.name}</h3>
+                <p class="subtitle is-5 has-text-grey-light mb-4">
+                    起步价 {airport.priceStarting} · {airport.lineType} · 高速防封
+                </p>
+                <div class="buttons is-centered">
+                    <a class="button is-primary is-large has-text-weight-bold" href={airport.affUrl} target="_blank" rel="nofollow sponsored noopener">
+                        直达 {airport.name} 官网开通服务 →
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+</Layout>

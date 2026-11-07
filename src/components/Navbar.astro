@@ -12,7 +12,11 @@ function isCurrent(page: string) {
 
 <nav class="navbar is-dark" aria-label="main navigation">
     <div class="navbar-brand">
-        <a class="navbar-item" href="/"> Studio Pulse </a>
+        <a class="navbar-item brand-logo" href="/">
+            <span class="brand-icon" aria-hidden="true">🚀</span>
+            <span class="has-text-weight-bold ml-2">小火箭</span>
+            <span class="tag is-primary is-light ml-2 is-hidden-mobile">评测智库</span>
+        </a>
         <button
             type="button"
             class="navbar-burger"
@@ -27,15 +31,18 @@ function isCurrent(page: string) {
     </div>
     <div id="mainNavbar" class="navbar-menu">
         <div class="navbar-end">
-            <a class="navbar-item" href="/" {...isCurrent("home")}>Home</a>
-            <a class="navbar-item" href="/about" {...isCurrent("about")}>About</a>
-            <a class="navbar-item" href="/blog" {...isCurrent("blog")}>Blog</a>
-            <a class="navbar-item" href="/contact" {...isCurrent("contact")}>Contact</a>
+            <a class="navbar-item" href="/" {...isCurrent("home")}>首页</a>
+            <a class="navbar-item" href="/airports" {...isCurrent("airports")}>42家机场库</a>
+            <a class="navbar-item" href="/reviews" {...isCurrent("reviews")}>实测实验室</a>
+            <a class="navbar-item" href="/clients" {...isCurrent("clients")}>客户端指南</a>
+            <a class="navbar-item" href="/guides" {...isCurrent("guides")}>GEO专题矩阵</a>
+            <a class="navbar-item" href="/about" {...isCurrent("about")}>评测标准</a>
             <div class="navbar-item">
                 <button
                     class="theme-toggle"
                     type="button"
                     aria-label="Toggle dark mode"
+                    title="切换明暗主题"
                 >
                     <span class="icon-sun" aria-hidden="true">☀️</span>
                     <span class="icon-moon" aria-hidden="true">🌙</span>

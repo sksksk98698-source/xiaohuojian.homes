@@ -1,0 +1,219 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import { airports } from "../../data/airports";
+---
+
+<Layout
+    title="42家机场品牌库 · 完整档案与全网选型大厅"
+    description="2026 最新收录 42 家主流机场品牌完整档案。涵盖光速云、暮光加速、飞猫云、微风、二猫云等，支持按专线架构、月付价格、优惠码与实测数据即时筛选。"
+    currentPage="airports"
+>
+    <section class="section section-hero">
+        <div class="container has-text-centered">
+            <p class="tag is-primary is-medium mb-4">OBSERVATORY DIRECTORY</p>
+            <h1 class="title is-1">
+                42 家机场品牌库完整档案
+            </h1>
+            <p class="subtitle is-4 mt-3 u-constrained has-text-grey-light">
+                汇聚全网主流网络加速服务商真实参数。拒绝虚标价格与虚假承诺，提供价格、线路、协议、实测图表与注册直达一站式检索。
+            </p>
+        </div>
+    </section>
+
+    <section class="section has-bg-elevated py-5">
+        <div class="container">
+            <!-- 搜索与筛选控制台 -->
+            <div class="box p-4 mb-6" style="background: var(--sp-bg-card); border: 1px solid var(--sp-border); border-radius: 12px;">
+                <div class="columns is-vcentered">
+                    <div class="column is-4">
+                        <div class="field mb-0">
+                            <div class="control has-icons-left">
+                                <input
+                                    id="brandSearch"
+                                    class="input is-medium"
+                                    type="text"
+                                    placeholder="搜索机场名称、协议或特性 (如: 光速云, VLESS, IEPL)..."
+                                />
+                                <span class="icon is-left" aria-hidden="true">🔍</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column is-8">
+                        <div class="is-flex is-flex-wrap-wrap gap-2 is-align-items-center" id="filterTags">
+                            <span class="has-text-grey is-size-7 mr-2">快速筛选:</span>
+                            <button class="button is-small is-primary filter-btn is-active" data-filter="all">全部 (42)</button>
+                            <button class="button is-small filter-btn" data-filter="toppick">🏆 首推精选 (10)</button>
+                            <button class="button is-small filter-btn" data-filter="iepl">⚡ IEPL专线</button>
+                            <button class="button is-small filter-btn" data-filter="iplc">🛡️ IPLC纯专线</button>
+                            <button class="button is-small filter-btn" data-filter="cheap">💰 10元内低价</button>
+                            <button class="button is-small filter-btn" data-filter="permanent">⏳ 永久不限时</button>
+                            <button class="button is-small filter-btn" data-filter="speedtested">📊 含实测测速图</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 品牌卡片网格 -->
+            <div class="columns is-multiline" id="airportsGrid">
+                {airports.map((airport) => {
+                    const isCheap = airport.priceStarting.includes("5.6") || airport.priceStarting.includes("6") || airport.priceStarting.includes("7") || airport.priceStarting.includes("8");
+                    const hasPermanent = airport.entryPriceNote.includes("永久") || airport.summary.includes("不限时");
+                    const isIepl = airport.lineType.includes("IEPL");
+                    const isIplc = airport.lineType.includes("IPLC");
+                    const hasTest = !!airport.speedtestImage;
+
+                    return (
+                        <div
+                            class="column is-4-desktop is-6-tablet airport-card-item"
+                            data-name={airport.name.toLowerCase()}
+                            data-protocol={airport.protocol.toLowerCase()}
+                            data-line={airport.lineType.toLowerCase()}
+                            data-toppick={airport.isTopPick ? "true" : "false"}
+                            data-cheap={isCheap ? "true" : "false"}
+                            data-permanent={hasPermanent ? "true" : "false"}
+                            data-iepl={isIepl ? "true" : "false"}
+                            data-iplc={isIplc ? "true" : "false"}
+                            data-speedtested={hasTest ? "true" : "false"}
+                        >
+                            <div class="box is-flex is-flex-direction-column h-100" style="background: var(--sp-bg-card); border: 1px solid var(--sp-border); border-radius: 12px; transition: transform 0.2s, border-color 0.2s;">
+                                <div class="is-flex is-justify-content-space-between is-align-items-start mb-2">
+                                    <div>
+                                        <div class="is-flex is-align-items-center gap-2 mb-1">
+                                            <span class="tag is-dark is-small has-text-weight-bold">#{airport.rank}</span>
+                                            {airport.rank === 1 && <span class="tag is-danger is-light is-small has-text-weight-bold">第一主推</span>}
+                                            {hasTest && <span class="tag is-success is-light is-small">有实测图</span>}
+                                        </div>
+                                        <h2 class="title is-4 mb-0">
+                                            <a href={`/airports/${airport.id}`} class="has-text-white hover-text-primary">
+                                                {airport.name}
+                                            </a>
+                                        </h2>
+                                    </div>
+                                    <div class="has-text-right">
+                                        <span class="has-text-primary has-text-weight-bold is-size-5">{airport.priceStarting}</span>
+                                        <div class="is-size-7 has-text-grey">{airport.billingType}</div>
+                                    </div>
+                                </div>
+
+                                <div class="tags mb-3">
+                                    <span class="tag is-dark is-small">{airport.lineType}</span>
+                                    <span class="tag is-dark is-small">{airport.protocol}</span>
+                                    {airport.coupon && <span class="tag is-warning is-light is-small">券: {airport.coupon}</span>}
+                                </div>
+
+                                <p class="is-size-6 has-text-grey-light mb-3 is-flex-grow-1" style="display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;">
+                                    {airport.summary}
+                                </p>
+
+                                <div class="p-2 mb-3 has-background-dark is-size-7" style="border-radius: 6px;">
+                                    <div class="is-truncate"><strong>解锁：</strong> ChatGPT: {airport.unlockStatus.chatgpt} | Netflix: {airport.unlockStatus.netflix}</div>
+                                    <div class="is-truncate mt-1"><strong>亮点：</strong> {airport.features[0]}</div>
+                                </div>
+
+                                <div class="buttons is-flex is-justify-content-space-between mt-auto">
+                                    <a class="button is-primary is-small has-text-weight-bold" href={airport.affUrl} target="_blank" rel="nofollow sponsored noopener">
+                                        直达注册 →
+                                    </a>
+                                    <a class="button is-outlined is-small" href={`/airports/${airport.id}`}>
+                                        详细评测报告
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    );
+                })}
+            </div>
+
+            <!-- 搜索无结果占位 -->
+            <div id="noResults" class="box has-text-centered py-6 is-hidden" style="background: var(--sp-bg-card); border: 1px dashed var(--sp-border);">
+                <p class="is-size-3 mb-2">🔍</p>
+                <h3 class="title is-4 mb-2">未找到符合条件的机场品牌</h3>
+                <p class="has-text-grey">请尝试更换搜索关键词，或重置筛选条件。</p>
+                <button class="button is-primary is-small mt-3" id="resetFilters">重置所有筛选</button>
+            </div>
+        </div>
+    </section>
+</Layout>
+
+<script>
+    (() => {
+        function initSearchAndFilter() {
+            const searchInput = document.getElementById("brandSearch") as HTMLInputElement;
+            const filterButtons = document.querySelectorAll(".filter-btn");
+            const cards = document.querySelectorAll(".airport-card-item");
+            const noResults = document.getElementById("noResults");
+            let activeFilter = "all";
+
+            function filterItems() {
+                const query = searchInput ? searchInput.value.toLowerCase().trim() : "";
+                let visibleCount = 0;
+
+                cards.forEach((card) => {
+                    const el = card as HTMLElement;
+                    const name = el.getAttribute("data-name") || "";
+                    const protocol = el.getAttribute("data-protocol") || "";
+                    const line = el.getAttribute("data-line") || "";
+
+                    const matchesQuery = !query || name.includes(query) || protocol.includes(query) || line.includes(query);
+                    let matchesFilter = true;
+
+                    if (activeFilter === "toppick") matchesFilter = el.getAttribute("data-toppick") === "true";
+                    else if (activeFilter === "iepl") matchesFilter = el.getAttribute("data-iepl") === "true";
+                    else if (activeFilter === "iplc") matchesFilter = el.getAttribute("data-iplc") === "true";
+                    else if (activeFilter === "cheap") matchesFilter = el.getAttribute("data-cheap") === "true";
+                    else if (activeFilter === "permanent") matchesFilter = el.getAttribute("data-permanent") === "true";
+                    else if (activeFilter === "speedtested") matchesFilter = el.getAttribute("data-speedtested") === "true";
+
+                    if (matchesQuery && matchesFilter) {
+                        el.style.display = "";
+                        visibleCount++;
+                    } else {
+                        el.style.display = "none";
+                    }
+                });
+
+                if (noResults) {
+                    if (visibleCount === 0) {
+                        noResults.classList.remove("is-hidden");
+                    } else {
+                        noResults.classList.add("is-hidden");
+                    }
+                }
+            }
+
+            if (searchInput) {
+                searchInput.addEventListener("input", filterItems);
+            }
+
+            filterButtons.forEach((btn) => {
+                btn.addEventListener("click", () => {
+                    filterButtons.forEach((b) => {
+                        b.classList.remove("is-primary", "is-active");
+                    });
+                    btn.classList.add("is-primary", "is-active");
+                    activeFilter = btn.getAttribute("data-filter") || "all";
+                    filterItems();
+                });
+            });
+
+            const resetBtn = document.getElementById("resetFilters");
+            if (resetBtn) {
+                resetBtn.addEventListener("click", () => {
+                    if (searchInput) searchInput.value = "";
+                    filterButtons.forEach((b) => {
+                        if (b.getAttribute("data-filter") === "all") {
+                            b.classList.add("is-primary", "is-active");
+                        } else {
+                            b.classList.remove("is-primary", "is-active");
+                        }
+                    });
+                    activeFilter = "all";
+                    filterItems();
+                });
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", initSearchAndFilter);
+        document.addEventListener("astro:page-load", initSearchAndFilter);
+    })();
+</script>

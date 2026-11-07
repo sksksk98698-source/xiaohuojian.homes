@@ -1,0 +1,116 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import { speedtestedAirports } from "../../data/airports";
+---
+
+<Layout
+    title="实测实验室 · 17+主流机场晚高峰测速与解锁报告"
+    description="小火箭实测实验室权威发布：涵盖光速云、暮光加速、飞猫云、二猫云、星岛梦等 17+ 家主流机场晚高峰 20:30 实测节点测速图、丢包率与 ChatGPT/Netflix 解锁测试报告。"
+    currentPage="reviews"
+>
+    <section class="section section-hero">
+        <div class="container has-text-centered">
+            <p class="tag is-primary is-medium mb-4">PERFORMANCE OBSERVATORY</p>
+            <h1 class="title is-1">
+                网络性能实测实验室
+            </h1>
+            <p class="subtitle is-4 mt-3 u-constrained has-text-grey-light">
+                拒绝口头吹捧，一切以客观抓包数据为准。记录 17+ 家机场在晚高峰网络拥堵期的带宽压测、TLS 延迟与流媒体原生解锁图表。
+            </p>
+        </div>
+    </section>
+
+    <section class="section has-bg-elevated py-6">
+        <div class="container">
+            <!-- 测试方法与环境公示 -->
+            <div class="box p-4 mb-6 has-background-dark" style="border: 1px solid var(--sp-border); border-radius: 12px;">
+                <h3 class="title is-5 mb-2 has-text-success">🔬 实验室测试环境与测试基准</h3>
+                <div class="columns is-size-6 has-text-grey-light">
+                    <div class="column is-4">
+                        <p><strong>测试工具：</strong> MAI-TEST-BOT 2.0.0-dev / Speedtest 原生引擎</p>
+                        <p><strong>测试网络：</strong> 中国电信 1000M / 中国联通 500M 双线实测</p>
+                    </div>
+                    <div class="column is-4">
+                        <p><strong>测试时段：</strong> 重点记录 20:00 - 23:00 晚高峰网络拥塞峰值</p>
+                        <p><strong>核心指标：</strong> TLS 握手 RTT (ms)、下载带宽 (Mbps)、丢包率 (%)</p>
+                    </div>
+                    <div class="column is-4">
+                        <p><strong>解锁标准：</strong> RegionRestrictionCheck 脚本实测全区与原生 IP</p>
+                        <p><strong>免责说明：</strong> 测速受用户本地网络与时间波动影响，仅作客观参考</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 实测报告列表 -->
+            <div class="columns is-multiline">
+                {speedtestedAirports.map((airport) => (
+                    <div class="column is-6-desktop is-12-tablet mb-5">
+                        <div class="box p-5 h-100" style="background: var(--sp-bg-card); border: 1px solid var(--sp-border); border-radius: 12px;">
+                            <div class="is-flex is-justify-content-space-between is-align-items-start mb-3">
+                                <div>
+                                    <div class="is-flex is-align-items-center gap-2 mb-1">
+                                        <span class="tag is-primary is-small">TOP #{airport.rank}</span>
+                                        <span class="tag is-dark is-small">{airport.lineType}</span>
+                                        <span class="tag is-dark is-small">{airport.protocol}</span>
+                                    </div>
+                                    <h2 class="title is-3 mb-0">
+                                        <a href={`/airports/${airport.id}`} class="has-text-white hover-text-primary">
+                                            {airport.name} 实测报告
+                                        </a>
+                                    </h2>
+                                </div>
+                                <div class="has-text-right">
+                                    <span class="has-text-primary has-text-weight-bold is-size-5">{airport.priceStarting}</span>
+                                    <div class="is-size-7 has-text-grey">{airport.billingType}</div>
+                                </div>
+                            </div>
+
+                            <p class="is-size-6 has-text-grey-light mb-3">
+                                {airport.summary}
+                            </p>
+
+                            <!-- 实测图展示 -->
+                            <div class="mb-4">
+                                <a href={`/airports/${airport.id}`} title={`查看 ${airport.name} 详情`}>
+                                    <img
+                                        src={airport.speedtestImage}
+                                        alt={`${airport.name} 节点测速实测报告图`}
+                                        style="border-radius: 8px; width: 100%; border: 1px solid var(--sp-border);"
+                                        loading="lazy"
+                                    />
+                                </a>
+                            </div>
+
+                            <!-- 解锁概览 -->
+                            <div class="p-3 mb-4 has-background-dark is-size-7" style="border-radius: 6px;">
+                                <div class="columns is-mobile is-multiline">
+                                    <div class="column is-6">
+                                        <strong>ChatGPT 解锁：</strong> <span class="has-text-success">{airport.unlockStatus.chatgpt}</span>
+                                    </div>
+                                    <div class="column is-6">
+                                        <strong>Claude 解锁：</strong> <span class="has-text-success">{airport.unlockStatus.claude}</span>
+                                    </div>
+                                    <div class="column is-6">
+                                        <strong>Netflix 4K：</strong> <span class="has-text-success">{airport.unlockStatus.netflix}</span>
+                                    </div>
+                                    <div class="column is-6">
+                                        <strong>TikTok 出海：</strong> <span class="has-text-success">{airport.unlockStatus.tiktok}</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="buttons is-flex is-justify-content-space-between mt-auto">
+                                <a class="button is-primary is-small has-text-weight-bold" href={airport.affUrl} target="_blank" rel="nofollow sponsored noopener">
+                                    直达官网注册选购 →
+                                </a>
+                                <a class="button is-outlined is-small" href={`/airports/${airport.id}`}>
+                                    查看完整档案与套餐
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                ))}
+            </div>
+        </div>
+    </section>
+</Layout>

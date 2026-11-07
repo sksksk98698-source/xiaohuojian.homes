@@ -1,91 +1,293 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import Card from "../components/Card.astro";
+import { airports, topPickAirports } from "../data/airports";
+
+const guangsu = airports[0];
+const otherTopPicks = topPickAirports.slice(1, 10);
 ---
 
-<Layout title="Home" currentPage="home">
-	<section class="section section-hero" aria-labelledby="hero-heading">
-		<div class="container has-text-centered">
-			<p class="tag is-primary is-medium mb-5">Creative Studio</p>
-			<h1 id="hero-heading" class="title is-1">
-				We make brands<br /> impossible to ignore
-			</h1>
-			<p class="subtitle is-4 mt-4 u-constrained">
-				Studio Pulse is a full-service communication agency that
-				blends creative direction, brand strategy, and digital craft
-				to build experiences that demand attention.
-			</p>
-			<div class="buttons is-centered mt-6">
-				<a class="button is-primary is-large" href="/contact">Start a project</a>
-				<a class="button is-outlined is-large" href="/about">Our work</a>
-			</div>
-		</div>
-	</section>
+<Layout title="首页" currentPage="home">
+    <!-- Hero Section -->
+    <section class="section section-hero" aria-labelledby="hero-heading">
+        <div class="container has-text-centered">
+            <div class="is-inline-flex is-align-items-center mb-4 px-3 py-1" style="background: var(--sp-surface); border: 1px solid var(--sp-border); border-radius: 9999px;">
+                <span class="has-text-success mr-2">●</span>
+                <span class="is-size-7 has-text-weight-semibold">2026 最新批次 · 42家机场品牌可观测性评测</span>
+            </div>
+            <h1 id="hero-heading" class="title is-1 mb-4">
+                打破信息迷雾<br />客观甄别每一条国际专线
+            </h1>
+            <p class="subtitle is-4 mt-3 u-constrained has-text-grey-light">
+                小火箭评测实验室基于真实网络环境、晚高峰抗压测速与流媒体/AI 严格解锁测试，为您剔除虚假虚标，精选高可用性 IEPL/IPLC 跨境网络加速方案。
+            </p>
+            <div class="buttons is-centered mt-5">
+                <a class="button is-primary is-medium has-text-weight-bold" href="/airports">
+                    浏览 42 家机场完整库 →
+                </a>
+                <a class="button is-outlined is-medium" href="/reviews">
+                    查看真实测速报告
+                </a>
+                <a class="button is-text is-medium has-text-grey-light" href="/clients">
+                    客户端下载与小火箭教程
+                </a>
+            </div>
+        </div>
+    </section>
 
-	<section class="section has-bg-elevated" aria-labelledby="services-heading">
-		<div class="container">
-			<div class="has-text-centered mb-6">
-				<p class="u-label-overline">
-					What we do
-				</p>
-				<h2 id="services-heading" class="title is-2 mt-3">
-					Everything your brand needs,<br /> under one roof
-				</h2>
-			</div>
-			<ul class="columns is-multiline">
-				<li class="column is-one-third">
-					<Card title="Brand Strategy" icon="🎯">
-						Positioning, architecture, and narrative frameworks that
-						give your brand clarity and conviction in crowded markets.
-					</Card>
-				</li>
-				<li class="column is-one-third">
-					<Card title="Creative Direction" icon="✨">
-						Visual identity, art direction, and campaign concepts that
-						stop the scroll and stick in memory.
-					</Card>
-				</li>
-				<li class="column is-one-third">
-					<Card title="Digital & Motion" icon="⚡">
-						Websites, apps, and motion design built for performance,
-						crafted to feel as good as they look.
-					</Card>
-				</li>
-				<li class="column is-one-third">
-					<Card title="Content & Social" icon="📣">
-						Editorial strategy, copywriting, and social campaigns
-						that turn audiences into communities.
-					</Card>
-				</li>
-				<li class="column is-one-third">
-					<Card title="UX & Product Design" icon="📐">
-						Research-driven interfaces, design systems, and prototypes
-						that ship fast and scale gracefully.
-					</Card>
-				</li>
-				<li class="column is-one-third">
-					<Card title="Video Production" icon="🎬">
-						From concept to final cut — commercial, branded content,
-						and storytelling that moves people.
-					</Card>
-				</li>
-			</ul>
-		</div>
-	</section>
+    <!-- 主推核心展台：光速云 (Dark Observatory Dashboard) -->
+    <section class="section has-bg-elevated py-6" aria-labelledby="flagship-heading">
+        <div class="container">
+            <div class="box is-spacious" style="background: radial-gradient(circle at top right, hsl(4 90% 50% / 0.12), transparent 40%), var(--sp-bg-card); border: 2px solid var(--sp-primary); border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.3);">
+                <div class="columns is-vcentered">
+                    <div class="column is-7">
+                        <div class="tags mb-2">
+                            <span class="tag is-primary has-text-weight-bold is-medium">🏆 实验室首推旗舰</span>
+                            <span class="tag is-dark">2020年稳定运营</span>
+                            <span class="tag is-dark">双线路架构</span>
+                            <span class="tag is-dark">自研客户端</span>
+                        </div>
+                        <h2 id="flagship-heading" class="title is-2 mb-3">
+                            光速云 · 企业级 IEPL 专线
+                        </h2>
+                        <p class="is-size-5 has-text-grey-light mb-4">
+                            兼具极低入门门槛与硬核企业内网架构。结合 IPLC/IEPL 双专线，单节点最高 2.5Gbps 带宽，全面覆盖亚太欧美 11+ 热门核心地区。
+                        </p>
+                        
+                        <!-- 核心数据看板 -->
+                        <div class="columns is-mobile is-multiline mb-4">
+                            <div class="column is-4-tablet is-6-mobile">
+                                <div class="p-3 has-background-dark" style="border-radius: 8px; border: 1px solid var(--sp-border);">
+                                    <div class="is-size-7 has-text-grey">入门价格</div>
+                                    <div class="is-size-4 has-text-weight-bold has-text-primary">¥8<span class="is-size-7">/月起</span></div>
+                                    <div class="is-size-7 has-text-grey-light">年付折算 ¥99/年</div>
+                                </div>
+                            </div>
+                            <div class="column is-4-tablet is-6-mobile">
+                                <div class="p-3 has-background-dark" style="border-radius: 8px; border: 1px solid var(--sp-border);">
+                                    <div class="is-size-7 has-text-grey">香港实测延迟</div>
+                                    <div class="is-size-4 has-text-weight-bold has-text-success">22ms</div>
+                                    <div class="is-size-7 has-text-grey-light">下行 529 Mbps</div>
+                                </div>
+                            </div>
+                            <div class="column is-4-tablet is-12-mobile">
+                                <div class="p-3 has-background-dark" style="border-radius: 8px; border: 1px solid var(--sp-border);">
+                                    <div class="is-size-7 has-text-grey">专属优惠码</div>
+                                    <div class="is-size-5 has-text-weight-bold has-text-warning">AMM</div>
+                                    <div class="is-size-7 has-text-grey-light">新人专享立减券</div>
+                                </div>
+                            </div>
+                        </div>
 
-	<section class="section" aria-labelledby="cta-heading">
-		<div class="container has-text-centered">
-			<p class="tag is-primary is-medium mb-5">Let's talk</p>
-			<h2 id="cta-heading" class="title is-2">
-				Ready to make noise?
-			</h2>
-			<p class="subtitle is-4 mt-3 u-constrained-sm">
-				The best brands don't whisper. Let's build something that
-				gets heard.
-			</p>
-			<a class="button is-primary is-large mt-5" href="/contact">
-				Get in touch
-			</a>
-		</div>
-	</section>
+                        <div class="content is-size-6 has-text-grey-light mb-5">
+                            <p class="mb-1">✅ <strong>特色永久套餐：</strong> 致敬斯诺克147永久套餐（¥147/247GB一次性买断，长期备用无过期焦虑）</p>
+                            <p class="mb-1">✅ <strong>全场景原生解锁：</strong> Claude 免降级直连、Netflix 4K 全区、TikTok 海外直播专用</p>
+                            <p class="mb-0">✅ <strong>协议与客户端：</strong> VLESS 新一代协议，提供专属客户端，同时支持 Clash/小火箭一键导入</p>
+                        </div>
+
+                        <div class="buttons">
+                            <a class="button is-primary is-large has-text-weight-bold" href={guangsu.affUrl} target="_blank" rel="nofollow sponsored noopener">
+                                直达光速云官网开启测试 →
+                            </a>
+                            <a class="button is-outlined is-large" href="/airports/guangsu">
+                                查看深度实测报告与测速图
+                            </a>
+                        </div>
+                        <p class="is-size-7 has-text-grey mt-2">
+                            * 优惠提示：结算时输入优惠码 <code>AMM</code> 即可享受折上优惠。含推广转介链接。
+                        </p>
+                    </div>
+
+                    <div class="column is-5">
+                        <div class="box p-3 has-background-black-ter" style="border: 1px solid var(--sp-border); border-radius: 12px;">
+                            <div class="is-flex is-justify-content-space-between is-align-items-center mb-2 px-2">
+                                <span class="is-size-7 has-text-grey">节点测速实测切片</span>
+                                <span class="tag is-success is-light is-small">已核实验收</span>
+                            </div>
+                            <a href="/airports/guangsu" title="点击查看光速云大图实测">
+                                <img src="/images/reviews/guangsu-speedtest-2026.png" alt="光速云节点测速实测报告" style="border-radius: 8px; width: 100%; object-fit: cover;" loading="lazy" />
+                            </a>
+                            <div class="is-flex is-justify-content-space-between is-size-7 has-text-grey px-2 mt-2">
+                                <span>测试工具: MAI-TEST-BOT</span>
+                                <span>丢包率: 0.0%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 前十梯队精选榜单 -->
+    <section class="section" aria-labelledby="top10-heading">
+        <div class="container">
+            <div class="has-text-centered mb-6">
+                <p class="u-label-overline">EXCELLENCE MATRIX</p>
+                <h2 id="top10-heading" class="title is-2 mt-2">
+                    前十精选梯队 · 针对性差异化推荐
+                </h2>
+                <p class="subtitle is-5 has-text-grey-light">
+                    根据线路架构、实测表现与用户预算，为您甄选综合素质优异的代表性品牌。
+                </p>
+            </div>
+
+            <div class="columns is-multiline">
+                {otherTopPicks.map((airport) => (
+                    <div class="column is-4-desktop is-6-tablet">
+                        <div class="box is-flex is-flex-direction-column h-100" style="background: var(--sp-bg-card); border: 1px solid var(--sp-border); border-radius: 12px;">
+                            <div class="is-flex is-justify-content-space-between is-align-items-start mb-3">
+                                <div>
+                                    <span class="tag is-dark is-small mb-1">TOP {airport.rank}</span>
+                                    <h3 class="title is-4 mb-0">{airport.name}</h3>
+                                </div>
+                                <div class="has-text-right">
+                                    <span class="has-text-primary has-text-weight-bold is-size-5">{airport.priceStarting}</span>
+                                    <div class="is-size-7 has-text-grey">{airport.billingType}</div>
+                                </div>
+                            </div>
+
+                            <div class="tags mb-3">
+                                <span class="tag is-info is-light">{airport.lineType}</span>
+                                <span class="tag is-light">{airport.protocol}</span>
+                                {airport.coupon && <span class="tag is-warning is-light">券: {airport.coupon}</span>}
+                            </div>
+
+                            <p class="is-size-6 has-text-grey-light mb-4 is-flex-grow-1">
+                                {airport.summary}
+                            </p>
+
+                            <div class="p-3 mb-4 has-background-dark is-size-7" style="border-radius: 6px;">
+                                <div class="mb-1"><strong>核心特点：</strong> {airport.features[0]}</div>
+                                <div><strong>解锁概况：</strong> ChatGPT {airport.unlockStatus.chatgpt} · Netflix {airport.unlockStatus.netflix}</div>
+                            </div>
+
+                            <div class="buttons is-flex is-justify-content-space-between mt-auto">
+                                <a class="button is-primary is-small has-text-weight-semibold" href={airport.affUrl} target="_blank" rel="nofollow sponsored noopener">
+                                    直达注册 →
+                                </a>
+                                <a class="button is-outlined is-small" href={`/airports/${airport.id}`}>
+                                    查看档案与测速
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                ))}
+            </div>
+
+            <div class="has-text-centered mt-5">
+                <a class="button is-primary is-outlined is-large" href="/airports">
+                    查看全部 42 家机场品牌库完整清单与即时筛选 →
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 核心评测技术与图表方法论 -->
+    <section class="section has-bg-elevated py-6" aria-labelledby="lab-method-heading">
+        <div class="container">
+            <div class="columns is-vcentered">
+                <div class="column is-5">
+                    <p class="u-label-overline">OBSERVATORY LAB</p>
+                    <h2 id="lab-method-heading" class="title is-2 mt-2">
+                        拒绝廉价海报<br />坚持客观数据可观测
+                    </h2>
+                    <p class="has-text-grey-light is-size-6 mb-4">
+                        小火箭评测实验室严格遵循《网络图表规范》，摒弃传统夸张虚浮的营销语言，打造高密度、真实可溯的技术仪表盘。
+                    </p>
+                    <div class="content has-text-grey-light is-size-6">
+                        <ul>
+                            <li><strong>晚高峰实测：</strong> 重点记录 20:30~22:30 高峰期真实带宽与 TLS 握手 RTT 抖动。</li>
+                            <li><strong>流媒体与 AI 解锁矩阵：</strong> 区分原生全区解锁与自制剧伪解锁，标记 Claude 与 ChatGPT 降级状态。</li>
+                            <li><strong>真实物理拓扑：</strong> 区分公网普通中转与 IEPL/IPLC 真实物理内网专线。</li>
+                        </ul>
+                    </div>
+                    <a class="button is-primary mt-3" href="/reviews">
+                        浏览 17+ 份实测原始报告 →
+                    </a>
+                </div>
+
+                <div class="column is-7">
+                    <div class="box has-background-black p-4" style="border: 1px solid var(--sp-border); border-radius: 12px;">
+                        <div class="is-flex is-justify-content-space-between is-align-items-center mb-3">
+                            <span class="has-text-weight-bold has-text-success">🌐 典型 IEPL 专线网络拓扑观测模型</span>
+                            <span class="tag is-dark is-small">小火箭实验室技术规范</span>
+                        </div>
+                        <pre style="background: transparent; color: #a1a1aa; font-size: 0.82rem; line-height: 1.5; padding: 0;">
+[用户本地设备] (iOS小火箭 / Windows Clash / Android)
+       │
+       ▼ (加密隧道 VLESS / Trojan, 隐藏真实本地 IP)
+[国内三网 BGP 智能中转入口] (上海 / 广州 / 深圳 BGP)
+       │
+       ════════════════════════════════════════ (IEPL 物理内网专线跨境直连, 0公网GFW损耗)
+       │
+       ▼
+[海外原生落地机房] (香港 / 东京 / 新加坡 / 洛杉矶)
+       │
+       ├─▶ [ChatGPT / Claude / Netflix 官方服务] (原生住宅 IP 清洗, 无降级风险)
+       └─▶ [常规全球互联网高速访问]
+                        </pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 客户端全平台指南导流 -->
+    <section class="section py-6" aria-labelledby="clients-heading">
+        <div class="container has-text-centered">
+            <p class="u-label-overline">CLIENT ECOSYSTEM</p>
+            <h2 id="clients-heading" class="title is-2 mt-2">
+                全平台客户端无缝配置指南
+            </h2>
+            <p class="subtitle is-5 has-text-grey-light u-constrained">
+                无论您使用 iPhone 小火箭、Windows 电脑、Mac 还是家庭软路由，我们均为您准备了详尽的订阅导入与规则分流实操教程。
+            </p>
+
+            <div class="columns is-multiline mt-5">
+                <div class="column is-4">
+                    <a class="box p-5 h-100 is-block has-text-left" href="/clients#ios" style="background: var(--sp-bg-card); border: 1px solid var(--sp-border);">
+                        <span class="is-size-2 mb-2 is-block">🍎</span>
+                        <h3 class="title is-4 mb-2">iOS / iPadOS</h3>
+                        <p class="has-text-primary has-text-weight-bold mb-2">Shadowrocket（小火箭）权威实战</p>
+                        <p class="is-size-6 has-text-grey-light">配置模式分流、一键添加节点、按需连接与低耗电优化指南。</p>
+                    </a>
+                </div>
+                <div class="column is-4">
+                    <a class="box p-5 h-100 is-block has-text-left" href="/clients#windows" style="background: var(--sp-bg-card); border: 1px solid var(--sp-border);">
+                        <span class="is-size-2 mb-2 is-block">🪟</span>
+                        <h3 class="title is-4 mb-2">Windows 电脑</h3>
+                        <p class="has-text-primary has-text-weight-bold mb-2">Clash Verge Rev & v2rayN</p>
+                        <p class="is-size-6 has-text-grey-light">开启 TUN 虚拟网卡接管全系统终端与容器流量，解决命令行卡顿。</p>
+                    </a>
+                </div>
+                <div class="column is-4">
+                    <a class="box p-5 h-100 is-block has-text-left" href="/clients#android" style="background: var(--sp-bg-card); border: 1px solid var(--sp-border);">
+                        <span class="is-size-2 mb-2 is-block">🤖</span>
+                        <h3 class="title is-4 mb-2">Android 安卓</h3>
+                        <p class="has-text-primary has-text-weight-bold mb-2">v2rayNG & FlClash</p>
+                        <p class="is-size-6 has-text-grey-light">分应用代理控制、自动优选节点与后台长效保活配置技巧。</p>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 底部行动呼吁 -->
+    <section class="section has-bg-elevated py-6" aria-labelledby="cta-heading">
+        <div class="container has-text-centered u-constrained">
+            <h2 id="cta-heading" class="title is-2">
+                找到最适合您的国际专线
+            </h2>
+            <p class="subtitle is-5 mt-3 has-text-grey-light">
+                从 8 元超低月付到企业级定制专线，42 家真实数据与测速结果已全部就绪。
+            </p>
+            <div class="buttons is-centered mt-5">
+                <a class="button is-primary is-large has-text-weight-bold" href="/airports">
+                    进入 42 家机场品牌库 →
+                </a>
+                <a class="button is-outlined is-large" href="/guides">
+                    查看 GEO 场景选型专题
+                </a>
+            </div>
+        </div>
+    </section>
 </Layout>

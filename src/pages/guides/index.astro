@@ -1,0 +1,76 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import { guides } from "../../data/guides";
+import { airports } from "../../data/airports";
+
+function getAirport(id: string) {
+    return airports.find((a) => a.id === id);
+}
+---
+
+<Layout
+    title="GEO 专题矩阵 · AI生产力、4K流媒体与跨境电商专线选型"
+    description="针对 ChatGPT/Claude AI 办公、Netflix 4K 全区解锁、TikTok 跨境电商直播与 IEPL 物理专线架构的深度选型专题，帮您避开虚标坑点。"
+    currentPage="guides"
+>
+    <section class="section section-hero">
+        <div class="container has-text-centered">
+            <p class="tag is-primary is-medium mb-4">GEO & KNOWLEDGE MATRIX</p>
+            <h1 class="title is-1">
+                场景化专线选型专题矩阵
+            </h1>
+            <p class="subtitle is-4 mt-3 u-constrained has-text-grey-light">
+                不同业务场景对网络延迟、IP 纯净度与加密协议有着截然不同的硬性要求。从小火箭评测实验室的专题分析出发，直击核心痛点。
+            </p>
+        </div>
+    </section>
+
+    <section class="section has-bg-elevated py-6">
+        <div class="container u-constrained">
+            {guides.map((guide) => (
+                <article class="box p-6 mb-6" id={guide.slug} style="background: var(--sp-bg-card); border: 1px solid var(--sp-border); border-radius: 16px;">
+                    <span class="tag is-primary mb-2">{guide.tag}</span>
+                    <h2 class="title is-2 mb-3">{guide.title}</h2>
+                    <p class="is-size-5 has-text-grey-light mb-5">
+                        {guide.summary}
+                    </p>
+
+                    <!-- 正文段落 -->
+                    <div class="content is-size-6 has-text-grey-light mb-5" style="line-height: 1.8;">
+                        {guide.contentSections.map((sec) => (
+                            <div class="mb-4">
+                                <h3 class="title is-4 has-text-white mb-2">{sec.heading}</h3>
+                                <p>{sec.body}</p>
+                            </div>
+                        ))}
+                    </div>
+
+                    <!-- 本场景实验室推荐品牌卡片 -->
+                    <div class="p-4 has-background-dark" style="border-radius: 12px; border: 1px solid var(--sp-border);">
+                        <h4 class="title is-6 mb-3 has-text-warning">🎯 本专题实验室实测推荐匹配品牌：</h4>
+                        <div class="columns is-multiline">
+                            {guide.recommendedAirports.map((airportId) => {
+                                const ap = getAirport(airportId);
+                                if (!ap) return null;
+                                return (
+                                    <div class="column is-4-tablet is-12-mobile">
+                                        <div class="box p-3" style="background: var(--sp-bg-card); border: 1px solid var(--sp-border);">
+                                            <div class="is-flex is-justify-content-space-between mb-1">
+                                                <strong class="has-text-white">{ap.name}</strong>
+                                                <span class="has-text-primary is-size-7">{ap.priceStarting}</span>
+                                            </div>
+                                            <p class="is-size-7 has-text-grey mb-2">{ap.lineType}</p>
+                                            <a class="button is-primary is-small is-fullwidth" href={ap.affUrl} target="_blank" rel="nofollow sponsored noopener">
+                                                直达官网测试 →
+                                            </a>
+                                        </div>
+                                    </div>
+                                );
+                            })}
+                        </div>
+                    </div>
+                </article>
+            ))}
+        </div>
+    </section>
+</Layout>

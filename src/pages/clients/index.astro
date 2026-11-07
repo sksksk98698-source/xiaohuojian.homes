@@ -1,0 +1,93 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import { platformClients } from "../../data/clients";
+---
+
+<Layout
+    title="第三方代理客户端大全 · 小火箭 Shadowrocket & Clash 下载与配置"
+    description="2026 全平台代理客户端官方下载与订阅导入指南。包含 iOS Shadowrocket（小火箭）购买与导入教程、Windows Clash Verge Rev TUN 模式、Android v2rayNG 与软路由 OpenClash 配置。"
+    currentPage="clients"
+>
+    <section class="section section-hero">
+        <div class="container has-text-centered">
+            <p class="tag is-primary is-medium mb-4">CLIENT DIRECTORY & SETUP</p>
+            <h1 class="title is-1">
+                全平台客户端下载与订阅配置实战
+            </h1>
+            <p class="subtitle is-4 mt-3 u-constrained has-text-grey-light">
+                针对 iOS、Windows、Android、macOS 及软路由，精选经过安全审计的开源主流代理客户端，手把手带您完成订阅导入与规则分流。
+            </p>
+        </div>
+    </section>
+
+    <section class="section has-bg-elevated py-6">
+        <div class="container u-constrained">
+            <!-- 快速平台锚点导航 -->
+            <div class="box p-3 mb-6 has-text-centered" style="background: var(--sp-bg-card); border: 1px solid var(--sp-border); border-radius: 9999px;">
+                <div class="buttons is-centered mb-0">
+                    {platformClients.map((p) => (
+                        <a href={`#${p.slug}`} class="button is-small is-dark">
+                            <span class="mr-1">{p.icon}</span> {p.platform.split(" ")[0]}
+                        </a>
+                    ))}
+                </div>
+            </div>
+
+            <!-- 分平台指南详情 -->
+            {platformClients.map((item) => (
+                <article class="box p-6 mb-6" id={item.slug} style="background: var(--sp-bg-card); border: 1px solid var(--sp-border); border-radius: 16px;">
+                    <div class="is-flex is-align-items-center mb-3">
+                        <span class="is-size-2 mr-3">{item.icon}</span>
+                        <div>
+                            <span class="tag is-primary is-light mb-1">{item.platform}</span>
+                            <h2 class="title is-3 mb-0">{item.headline}</h2>
+                        </div>
+                    </div>
+
+                    <p class="is-size-5 has-text-grey-light mb-5">
+                        {item.description}
+                    </p>
+
+                    <!-- 推荐工具列表 -->
+                    <h3 class="title is-5 mb-3 has-text-white">推荐使用的客户端软件</h3>
+                    <div class="columns is-multiline mb-5">
+                        {item.tools.map((tool) => (
+                            <div class="column is-6">
+                                <div class="box p-4 h-100 has-background-dark" style="border: 1px solid var(--sp-border); border-radius: 8px;">
+                                    <div class="is-flex is-justify-content-space-between is-align-items-start mb-2">
+                                        <h4 class="title is-5 mb-0 has-text-white">{tool.name}</h4>
+                                        <span class={`tag is-small ${tool.isRecommended ? 'is-primary has-text-weight-bold' : 'is-dark'}`}>
+                                            {tool.tag}
+                                        </span>
+                                    </div>
+                                    <p class="is-size-7 has-text-grey-light mb-3">
+                                        {tool.features}
+                                    </p>
+                                    <a class="button is-small is-outlined" href={tool.downloadUrl} target="_blank" rel="noopener noreferrer">
+                                        官方下载与项目地址 ↗
+                                    </a>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+
+                    <!-- 订阅配置手把手步骤 -->
+                    <h3 class="title is-5 mb-3 has-text-success">🛠️ 订阅导入与分流配置实操步骤</h3>
+                    <div class="notification is-dark p-4" style="border-radius: 8px; border: 1px solid var(--sp-border);">
+                        <ol class="content has-text-grey-light is-size-6 pl-4 mb-0" style="line-height: 1.8;">
+                            {item.setupSteps.map((step) => (
+                                <li class="mb-2">{step}</li>
+                            ))}
+                        </ol>
+                    </div>
+
+                    <div class="has-text-centered mt-5">
+                        <a class="button is-primary is-medium has-text-weight-bold" href="/airports">
+                            获取适配本平台的优质机场订阅（首推光速云） →
+                        </a>
+                    </div>
+                </article>
+            ))}
+        </div>
+    </section>
+</Layout>

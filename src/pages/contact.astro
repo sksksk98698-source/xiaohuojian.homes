@@ -2,70 +2,73 @@
 import Layout from "../layouts/Layout.astro";
 ---
 
-<Layout title="Contact" description="Get in touch with Studio Pulse for brand strategy, creative direction, and digital projects." currentPage="contact">
-	<section class="section section-hero" aria-labelledby="contact-heading">
+<Layout
+    title="联系我们 · 评测送测与数据纠错"
+    description="联系小火箭 (xiaohuojian.homes) 评测实验室：商务合作、品牌入库送测申请、数据纠错与用户反馈。"
+    currentPage="contact"
+>
+	<section class="section section-hero">
 		<div class="container has-text-centered">
-			<p class="tag is-primary is-medium mb-5">Contact</p>
-			<h1 id="contact-heading" class="title is-1">
-				Let's make something great
+			<p class="tag is-primary is-medium mb-4">FEEDBACK & CONTACT</p>
+			<h1 class="title is-1">
+				联系小火箭评测实验室
 			</h1>
-			<p class="subtitle is-4 mt-4 u-constrained-sm">
-				New project, partnership, or just want to say hello?
-				We read every message.
+			<p class="subtitle is-4 mt-3 u-constrained-sm has-text-grey-light">
+				发现数据变动？新机场申请入库实测？或有关于规则分流的技术探讨？我们重视每一条反馈。
 			</p>
 		</div>
 	</section>
 
-	<section class="section has-bg-elevated" aria-label="Contact form">
+	<section class="section has-bg-elevated py-6">
 		<div class="container u-constrained-md">
-			<form class="box is-spacious">
-				<div class="field">
-					<label class="label" for="name">Full name</label>
-					<div class="control">
-						<input class="input is-medium" id="name" type="text" placeholder="Jane Cooper" required autocomplete="name" />
-					</div>
-				</div>
-				<div class="field">
-					<label class="label" for="email">Work email</label>
-					<div class="control">
-						<input class="input is-medium" id="email" type="email" placeholder="jane@company.com" required autocomplete="email" />
-					</div>
-				</div>
-				<div class="field">
-					<label class="label" for="budget">Budget range</label>
-					<div class="control">
-						<div class="select is-medium is-fullwidth">
-							<select id="budget" required>
-								<option value="" disabled selected>Select a range</option>
-								<option value="10k-25k">$10k – $25k</option>
-								<option value="25k-50k">$25k – $50k</option>
-								<option value="50k-100k">$50k – $100k</option>
-								<option value="100k+">$100k+</option>
-							</select>
+			<div class="box p-5 mb-5" style="background: var(--sp-bg-card); border: 1px solid var(--sp-border); border-radius: 12px;">
+				<h2 class="title is-4 mb-4">在线留言与送测申请</h2>
+				<form>
+					<div class="field">
+						<label class="label" for="name">称呼或品牌名</label>
+						<div class="control">
+							<input class="input is-medium" id="name" type="text" placeholder="例如：光速云团队 / 独立网络工程师" required />
 						</div>
 					</div>
-				</div>
-				<div class="field">
-					<label class="label" for="message">Tell us about the project</label>
-					<div class="control">
-						<textarea class="textarea is-medium" id="message" placeholder="Goals, timeline, what success looks like..." rows="5"></textarea>
+					<div class="field">
+						<label class="label" for="email">联系邮箱</label>
+						<div class="control">
+							<input class="input is-medium" id="email" type="email" placeholder="contact@example.com" required />
+						</div>
 					</div>
-				</div>
-				<div class="field mt-5">
-					<div class="control">
-						<button class="button is-primary is-medium is-fullwidth" type="submit">
-							Send message
-						</button>
+					<div class="field">
+						<label class="label" for="category">咨询类型</label>
+						<div class="control">
+							<div class="select is-medium is-fullwidth">
+								<select id="category">
+									<option value="test">申请加入 42 家机场品牌库实测</option>
+									<option value="correct">现有品牌数据更正 (价格/套餐/优惠码)</option>
+									<option value="cooperate">商务合作与资源互换</option>
+									<option value="other">技术交流与客户端规则探讨</option>
+								</select>
+							</div>
+						</div>
 					</div>
-				</div>
-			</form>
+					<div class="field">
+						<label class="label" for="message">详细内容说明</label>
+						<div class="control">
+							<textarea class="textarea is-medium" id="message" placeholder="请详细提供您的说明、测试节点信息或更正依据..." rows="5"></textarea>
+						</div>
+					</div>
+					<div class="field mt-5">
+						<div class="control">
+							<button class="button is-primary is-medium is-fullwidth has-text-weight-bold" type="submit">
+								提交信息
+							</button>
+						</div>
+					</div>
+				</form>
+			</div>
 
-			<div class="has-text-centered mt-6">
-				<p class="is-size-5 has-text-weight-semibold has-text-white mb-4">
-					Prefer to reach out directly?
-				</p>
-				<p class="mb-2">
-					<a href="mailto:contact@xiaohuojian.homes" class="has-text-primary">contact@xiaohuojian.homes</a>
+			<div class="has-text-centered mt-5">
+				<p class="is-size-6 has-text-grey mb-1">官方直连技术联络通道：</p>
+				<p class="is-size-5">
+					<a href="mailto:contact@xiaohuojian.homes" class="has-text-primary has-text-weight-semibold">contact@xiaohuojian.homes</a>
 				</p>
 			</div>
 		</div>

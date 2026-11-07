@@ -28,16 +28,16 @@ const canonicalURL = new URL(Astro.url.pathname, siteUrl);
 const ogImageURL = new URL(image, siteUrl);
 
 const defaultDescription =
-    "Studio Pulse — Full-service communication agency. Brand strategy, creative direction, digital craft, and content.";
+    "小火箭 (xiaohuojian.homes) — 全球网络基础设施与42家精选机场评测智库。专注IEPL/IPLC内网专线、晚高峰带宽实测、流媒体与ChatGPT/Claude原生解锁测评。";
 const metaDescription = description ?? defaultDescription;
-const pageTitle = currentPage === "home" ? "Studio Pulse — Brand Strategy, Creative Direction & Digital Craft" : `${title} — Studio Pulse`;
+const pageTitle = currentPage === "home" ? "小火箭 — 42家机场品牌测评智库与节点实测实验室" : `${title} — 小火箭`;
 
 // Base JSON-LD schemas for search engines
 const baseSchemas = [
     {
         "@context": "https://schema.org",
         "@type": "Organization",
-        "name": "Studio Pulse",
+        "name": "小火箭网络评测智库",
         "url": siteUrl.href,
         "logo": new URL("/favicon.svg", siteUrl).href,
         "description": defaultDescription,
@@ -46,11 +46,11 @@ const baseSchemas = [
     {
         "@context": "https://schema.org",
         "@type": "WebSite",
-        "name": "Studio Pulse",
+        "name": "小火箭",
         "url": siteUrl.href,
         "potentialAction": {
             "@type": "SearchAction",
-            "target": `${siteUrl.href}blog?q={search_term_string}`,
+            "target": `${siteUrl.href}airports?q={search_term_string}`,
             "query-input": "required name=search_term_string"
         }
     }
@@ -62,7 +62,7 @@ if (schema) {
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="zh-CN">
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -73,22 +73,22 @@ if (schema) {
         <!-- Canonical URL -->
         <link rel="canonical" href={canonicalURL} />
 
-        <!-- Independent Native Favicon & Web Manifest (100% self-hosted) -->
+        <!-- Independent Native Favicon & Web Manifest -->
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
         <link rel="manifest" href="/site.webmanifest" />
         <meta name="theme-color" content="#0C0E14" />
 
         <!-- RSS Feed Discovery -->
-        <link rel="alternate" type="application/rss+xml" title="Studio Pulse Journal RSS" href="/rss.xml" />
+        <link rel="alternate" type="application/rss+xml" title="小火箭评测智库 RSS" href="/rss.xml" />
 
-        <!-- Open Graph / Facebook -->
-        <meta property="og:site_name" content="Studio Pulse" />
+        <!-- Open Graph / Social Media -->
+        <meta property="og:site_name" content="小火箭" />
         <meta property="og:type" content={type} />
         <meta property="og:url" content={canonicalURL} />
         <meta property="og:title" content={pageTitle} />
         <meta property="og:description" content={metaDescription} />
         <meta property="og:image" content={ogImageURL} />
-        <meta property="og:locale" content="en_US" />
+        <meta property="og:locale" content="zh_CN" />
 
         <!-- Twitter Card -->
         <meta name="twitter:card" content="summary_large_image" />
@@ -97,7 +97,7 @@ if (schema) {
         <meta name="twitter:description" content={metaDescription} />
         <meta name="twitter:image" content={ogImageURL} />
 
-        <!-- Structured Data (JSON-LD) for Search Engines -->
+        <!-- Structured Data (JSON-LD) -->
         {baseSchemas.map((s) => (
             <script type="application/ld+json" is:inline set:html={JSON.stringify(s)} />
         ))}
@@ -114,7 +114,7 @@ if (schema) {
         <ClientRouter />
     </head>
     <body>
-        <a class="skip-link" href="#main-content">Skip to main content</a>
+        <a class="skip-link" href="#main-content">跳转至正文内容</a>
 
         <Navbar currentPage={currentPage} />
 

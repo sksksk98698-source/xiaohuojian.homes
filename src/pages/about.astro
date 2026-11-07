@@ -1,103 +1,62 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import Card from "../components/Card.astro";
 ---
 
-<Layout title="About Us" description="Learn about Studio Pulse: a multidisciplinary communication and branding studio dedicated to craft, strategy, and long-term partnership." currentPage="about">
-	<section class="section section-hero" aria-labelledby="about-heading">
-		<div class="container has-text-centered">
-			<p class="tag is-primary is-medium mb-5">About</p>
-			<h1 id="about-heading" class="title is-1">
-				We are Studio Pulse
-			</h1>
-			<p class="subtitle is-4 mt-4 u-constrained">
-				A tight-knit team of strategists, designers, writers,
-				and developers obsessed with making brands unforgettable.
-			</p>
-		</div>
-	</section>
+<Layout
+    title="关于小火箭评测实验室 · 评测标准与免责透明声明"
+    description="了解小火箭 (xiaohuojian.homes) 评测实验室的运作方法论：我们如何坚持客观真实测速、抵制虚假营销、保护用户知情权。"
+    currentPage="about"
+>
+    <section class="section section-hero">
+        <div class="container has-text-centered">
+            <p class="tag is-primary is-medium mb-4">METHODOLOGY & EEAT</p>
+            <h1 class="title is-1">
+                客观、可复现、无干扰<br />小火箭评测实验室准则
+            </h1>
+            <p class="subtitle is-4 mt-3 u-constrained has-text-grey-light">
+                在充斥着虚标倍率和劣质推广的代理市场中，我们致力于为用户建立一份真实、透明、具备工程级参考价值的网络可观测性数据库。
+            </p>
+        </div>
+    </section>
 
-	<section class="section has-bg-elevated" aria-labelledby="story-heading">
-		<div class="container">
-			<div class="columns is-vcentered">
-				<div class="column is-half">
-					<p class="u-label-overline mb-3">
-						Our story
-					</p>
-					<h2 id="story-heading" class="title is-2">
-						Born from the belief that great communication changes everything
-					</h2>
-				</div>
-				<div class="column is-half">
-					<div class="content is-medium">
-						<p>
-							Studio Pulse was founded on a simple conviction: every brand
-							has a story worth telling, and telling it well is the difference
-							between being seen and being remembered.
-						</p>
-						<p>
-							We bring together strategic rigor and creative fire. No filler,
-							no templates — just sharp thinking and meticulous craft, tailored
-							to the people you're trying to reach.
-						</p>
-						<p>
-							From startups finding their voice to established brands rewriting
-							their narrative, we partner with ambitious teams who refuse to blend in.
-						</p>
-					</div>
-				</div>
-			</div>
-		</div>
-	</section>
+    <section class="section has-bg-elevated py-6">
+        <div class="container u-constrained">
+            <div class="box p-6 mb-6" style="background: var(--sp-bg-card); border: 1px solid var(--sp-border); border-radius: 16px;">
+                <h2 class="title is-3 mb-4">一、我们的三大评测红线</h2>
+                <div class="content is-size-6 has-text-grey-light" style="line-height: 1.8;">
+                    <p>
+                        <strong>1. 严禁编造或臆测测试数据：</strong> 所有实测图均来自 MAI-TEST-BOT 及原生测速环境的真实截图；没有可靠测试依据的参数统一标注为“待核实”或“品牌资料显示”，绝不以确信口吻误导用户。
+                    </p>
+                    <p>
+                        <strong>2. 穿透价格迷雾与虚假计费：</strong> 我们要求必须同时标注月付门槛与折算年付价格。对于存在暗扣倍率（如2倍、3倍）或特殊商品不可退款的情况，均在品牌卡片中显眼标注。
+                    </p>
+                    <p>
+                        <strong>3. 拒绝廉价海报风格：</strong> 坚持采用 Dark Network Observatory 风格的技术监控看板语言，注重延迟中位数、丢包率与网络拓扑。
+                    </p>
+                </div>
 
-	<section class="section" aria-labelledby="principles-heading">
-		<div class="container">
-			<div class="has-text-centered mb-6">
-				<p class="u-label-overline">
-					How we work
-				</p>
-				<h2 id="principles-heading" class="title is-2 mt-3">
-					Principles we live by
-				</h2>
-			</div>
-			<ul class="columns is-multiline">
-				<li class="column is-one-third">
-					<Card title="Craft over volume">
-						We take on fewer projects so we can go deeper. Every pixel,
-						every word, every frame matters.
-					</Card>
-				</li>
-				<li class="column is-one-third">
-					<Card title="Strategy drives creative">
-						Beautiful work without thinking behind it is decoration.
-						We anchor every idea in insight.
-					</Card>
-				</li>
-				<li class="column is-one-third">
-					<Card title="No egos, just outcomes">
-						Ideas win on merit. We check titles at the door and
-						rally around the best path forward.
-					</Card>
-				</li>
-				<li class="column is-one-third">
-					<Card title="Ship, learn, iterate">
-						Perfectionism kills momentum. We bias toward action,
-						measure real results, and refine relentlessly.
-					</Card>
-				</li>
-				<li class="column is-one-third">
-					<Card title="Radical transparency">
-						Clients see everything: timelines, work-in-progress,
-						challenges. Trust is built in the open.
-					</Card>
-				</li>
-				<li class="column is-one-third">
-					<Card title="Long-term partnership">
-						We're not a one-and-done agency. We invest in
-						relationships that grow with every collaboration.
-					</Card>
-				</li>
-			</ul>
-		</div>
-	</section>
+                <h2 class="title is-3 mt-6 mb-4">二、评测设备与工具链说明</h2>
+                <div class="content is-size-6 has-text-grey-light" style="line-height: 1.8;">
+                    <ul>
+                        <li><strong>客户端基准：</strong> iOS 采用 Shadowrocket（小火箭）最新官方版；Windows 采用 Clash Verge Rev (Mihomo 内核)。</li>
+                        <li><strong>测试脚本：</strong> RegionRestrictionCheck 验证 Netflix 奈飞跨区与 OpenAI IP 风险评分。</li>
+                        <li><strong>物理环境：</strong> 依托国内上海、广州三网 BGP 探针节点，进行定时连续 Ping、TCPing 与并发下载吞吐测试。</li>
+                    </ul>
+                </div>
+
+                <h2 class="title is-3 mt-6 mb-4">三、透明合规与推广佣金披露</h2>
+                <div class="notification is-dark p-4" style="border: 1px solid var(--sp-border);">
+                    <p class="is-size-6 has-text-grey-light mb-0">
+                        本站包含第三方机场品牌的推广转介链接（Affiliate Links）。当您通过本站链接前往第三方平台并产生消费时，本站可能会获得由服务商支付的小额技术运维佣金。该机制<strong>完全不会增加您的任何付款金额</strong>，且服务商无法干预本站评测报告的客观性与真实排版。
+                    </p>
+                </div>
+
+                <div class="has-text-centered mt-6">
+                    <a class="button is-primary is-medium has-text-weight-bold" href="/airports">
+                        前往 42 家机场品牌库选型 →
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
 </Layout>
