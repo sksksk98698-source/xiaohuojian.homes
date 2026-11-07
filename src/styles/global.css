@@ -984,8 +984,20 @@ ul.columns {
 }
 
 /* ========================================================
-   小火箭 (xiaohuojian.homes) 评测实验室 — 辅助类与增强样式
+   小火箭 (xiaohuojian.homes) 评测实验室 — 辅助类与高对比度主题适配
    ======================================================== */
+
+:root {
+    --sp-text: hsl(240 10% 10%);
+    --sp-text-muted: hsl(240 6% 30%);
+    --sp-text-dim: hsl(240 5% 42%);
+}
+
+[data-theme="dark"] {
+    --sp-text: hsl(220 15% 95%);
+    --sp-text-muted: hsl(220 10% 74%);
+    --sp-text-dim: hsl(220 8% 62%);
+}
 
 .h-100 {
     height: 100%;
@@ -1014,10 +1026,158 @@ ul.columns {
     line-height: 1;
 }
 
-/* 增强 Dark Observatory 表格样式 */
+/* 1. 解决明暗主题下深色背景块对比度问题（自适应表面色与高对比度文字） */
+.has-background-dark,
+.has-background-black,
+.has-background-black-ter {
+    background-color: var(--sp-surface) !important;
+    color: var(--sp-text) !important;
+    border: 1px solid var(--sp-border);
+}
+
+.has-background-dark strong,
+.has-background-black strong,
+.has-background-black-ter strong {
+    color: var(--sp-text) !important;
+}
+
+/* 2. 解决全站灰色文字在浅色与深色模式下的可读性 */
+.has-text-grey-light {
+    color: var(--sp-text-muted) !important;
+}
+
+.has-text-grey {
+    color: var(--sp-text-dim) !important;
+}
+
+/* 3. 状态文字颜色在明暗模式下的高对比度优化 */
+.has-text-success {
+    color: hsl(150, 75%, 28%) !important;
+}
+
+.has-text-warning {
+    color: hsl(32, 90%, 34%) !important;
+}
+
+.has-text-danger {
+    color: hsl(4, 82%, 42%) !important;
+}
+
+[data-theme="dark"] .has-text-success {
+    color: hsl(150, 70%, 54%) !important;
+}
+
+[data-theme="dark"] .has-text-warning {
+    color: hsl(42, 96%, 62%) !important;
+}
+
+[data-theme="dark"] .has-text-danger {
+    color: hsl(4, 85%, 64%) !important;
+}
+
+/* 4. 标签 (Tags) 与通知框 (Notifications) 明暗高对比度适配 */
+.tag.is-dark,
+.tag.is-light {
+    background-color: var(--sp-surface) !important;
+    color: var(--sp-text) !important;
+    border: 1px solid var(--sp-border);
+}
+
+.tag.is-info.is-light {
+    background-color: hsl(210 90% 92%) !important;
+    color: hsl(210 85% 28%) !important;
+}
+
+.tag.is-success.is-light {
+    background-color: hsl(150 65% 90%) !important;
+    color: hsl(150 75% 22%) !important;
+}
+
+.tag.is-warning.is-light,
+.notification.is-warning.is-light {
+    background-color: hsl(38 95% 90%) !important;
+    color: hsl(32 90% 24%) !important;
+    border: 1px solid hsl(38 80% 78%);
+}
+
+.tag.is-danger.is-light,
+.tag.is-primary.is-light {
+    background-color: hsl(4 90% 92%) !important;
+    color: hsl(4 85% 32%) !important;
+}
+
+[data-theme="dark"] .tag.is-info.is-light {
+    background-color: hsl(210 60% 18%) !important;
+    color: hsl(210 90% 78%) !important;
+}
+
+[data-theme="dark"] .tag.is-success.is-light {
+    background-color: hsl(150 55% 16%) !important;
+    color: hsl(150 75% 72%) !important;
+}
+
+[data-theme="dark"] .tag.is-warning.is-light,
+[data-theme="dark"] .notification.is-warning.is-light {
+    background-color: hsl(38 65% 16%) !important;
+    color: hsl(42 95% 75%) !important;
+    border: 1px solid hsl(38 50% 28%);
+}
+
+[data-theme="dark"] .tag.is-danger.is-light,
+[data-theme="dark"] .tag.is-primary.is-light {
+    background-color: hsl(4 65% 18%) !important;
+    color: hsl(4 90% 78%) !important;
+}
+
+.notification.is-dark {
+    background-color: var(--sp-surface) !important;
+    color: var(--sp-text) !important;
+    border: 1px solid var(--sp-border) !important;
+}
+
+.notification.is-dark strong {
+    color: var(--sp-text) !important;
+}
+
+/* 5. 按钮与筛选状态适配 */
+.button.is-dark {
+    background-color: var(--sp-surface) !important;
+    color: var(--sp-text) !important;
+    border: 1px solid var(--sp-border) !important;
+}
+
+.button.is-dark:hover {
+    border-color: var(--sp-primary) !important;
+    color: var(--sp-primary) !important;
+}
+
+.filter-btn {
+    background-color: var(--sp-surface);
+    color: var(--sp-text);
+    border: 1px solid var(--sp-border);
+}
+
+.filter-btn:hover {
+    border-color: var(--sp-primary);
+    color: var(--sp-primary);
+}
+
+.filter-btn.is-active {
+    background-color: var(--sp-primary) !important;
+    border-color: var(--sp-primary) !important;
+    color: #fff !important;
+}
+
+/* 6. 表格高对比度适配 */
+.table {
+    background-color: transparent !important;
+    color: var(--sp-text) !important;
+}
+
 .table th {
     color: var(--sp-text) !important;
     border-color: var(--sp-border) !important;
+    background-color: var(--sp-surface) !important;
 }
 
 .table td {
@@ -1025,9 +1185,36 @@ ul.columns {
     color: var(--sp-text) !important;
 }
 
-/* 过滤按钮激活态 */
-.filter-btn.is-active {
-    background-color: var(--sp-primary) !important;
-    border-color: var(--sp-primary) !important;
-    color: #fff !important;
+.table.is-striped tbody tr:not(.is-selected):nth-child(even) {
+    background-color: var(--sp-surface) !important;
+}
+
+/* 7. 页脚 (.footer) 始终保持深色底，内部文字强制高对比度浅色 */
+.footer .has-text-white,
+.footer .title {
+    color: #ffffff !important;
+}
+
+.footer .has-text-grey-light {
+    color: hsl(240 6% 78%) !important;
+}
+
+.footer .has-text-grey {
+    color: hsl(240 5% 64%) !important;
+}
+
+.footer .notification.is-dark {
+    background-color: hsl(240 8% 14%) !important;
+    color: hsl(240 6% 84%) !important;
+    border: 1px solid hsl(240 8% 24%) !important;
+}
+
+.footer .notification.is-dark strong {
+    color: #ffffff !important;
+}
+
+.footer .tag.is-dark {
+    background-color: hsl(240 8% 18%) !important;
+    color: hsl(240 6% 90%) !important;
+    border: 1px solid hsl(240 8% 26%) !important;
 }
