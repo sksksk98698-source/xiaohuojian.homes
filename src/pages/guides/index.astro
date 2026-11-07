@@ -1,76 +1,794 @@
 ---
 import Layout from "../../layouts/Layout.astro";
-import { guides } from "../../data/guides";
-import { airports } from "../../data/airports";
+import {
+    quickScenarioPicks,
+    coreComparisonRows,
+    brandMonographProfiles,
+    guides,
+    technicalPrinciples,
+    decisionBranches,
+    guidesFaqs,
+} from "../../data/guides";
 
-function getAirport(id: string) {
-    return airports.find((a) => a.id === id);
-}
+const siteUrl = Astro.site ?? new URL("https://xiaohuojian.homes");
+const pageUrl = new URL("/guides", siteUrl).href;
+
+const pageTitle = "2026 场景化机场专线选型指南：AI解锁、4K流媒体、TikTok跨境与IEPL/IPLC实测对比";
+const pageDescription =
+    "小火箭实验室专著级选型手册：直接给出 ChatGPT/Claude 防封、Netflix 4K 全区解锁、TikTok 跨境直播、IEPL/IPLC 物理专线及永久不限时套餐的实测对比表、决策分支与客户端分流验证步骤。";
+
+const pageSchema = {
+    "@context": "https://schema.org",
+    "@graph": [
+        {
+            "@type": "TechArticle",
+            "@id": `${pageUrl}#article`,
+            "headline": pageTitle,
+            "description": pageDescription,
+            "url": pageUrl,
+            "datePublished": "2026-08-11",
+            "dateModified": "2026-11-07",
+            "inLanguage": "zh-CN",
+            "proficiencyLevel": "Beginner to Expert",
+            "author": {
+                "@type": "Organization",
+                "name": "小火箭网络基础设施评测智库 (xiaohuojian.homes)",
+                "url": siteUrl.href
+            },
+            "publisher": {
+                "@type": "Organization",
+                "name": "小火箭评测智库",
+                "logo": {
+                    "@type": "ImageObject",
+                    "url": new URL("/favicon.svg", siteUrl).href
+                }
+            },
+            "mainEntityOfPage": {
+                "@type": "WebPage",
+                "@id": pageUrl
+            }
+        },
+        {
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+                {
+                    "@type": "ListItem",
+                    "position": 1,
+                    "name": "首页",
+                    "item": siteUrl.href
+                },
+                {
+                    "@type": "ListItem",
+                    "position": 2,
+                    "name": "GEO 场景化专线选型专题矩阵",
+                    "item": pageUrl
+                }
+            ]
+        },
+        {
+            "@type": "ItemList",
+            "name": "2026 五大核心场景推荐专线机场清单",
+            "itemListElement": brandMonographProfiles.map((b, idx) => ({
+                "@type": "ListItem",
+                "position": idx + 1,
+                "name": b.name,
+                "url": new URL(`/airports/${b.id}`, siteUrl).href,
+                "description": b.recommendationBasis
+            }))
+        },
+        {
+            "@type": "FAQPage",
+            "mainEntity": guidesFaqs.map((faq) => ({
+                "@type": "Question",
+                "name": faq.question,
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": `${faq.conclusion} ${faq.details}`
+                }
+            }))
+        }
+    ]
+};
 ---
 
 <Layout
-    title="GEO 专题矩阵 · AI生产力、4K流媒体与跨境电商专线选型"
-    description="针对 ChatGPT/Claude AI 办公、Netflix 4K 全区解锁、TikTok 跨境电商直播与 IEPL 物理专线架构的深度选型专题，帮您避开虚标坑点。"
+    title={pageTitle}
+    description={pageDescription}
     currentPage="guides"
+    type="article"
+    schema={pageSchema}
 >
-    <section class="section section-hero">
-        <div class="container has-text-centered">
-            <p class="tag is-primary is-medium mb-4">GEO & KNOWLEDGE MATRIX</p>
-            <h1 class="title is-1">
-                场景化专线选型专题矩阵
+    <!-- 顶部面包屑与专著级 Hero 头部 -->
+    <section class="section section-hero py-6" aria-labelledby="guides-main-heading">
+        <div class="container">
+            <nav class="breadcrumb is-small mb-4" aria-label="breadcrumbs">
+                <ul>
+                    <li><a href="/">首页</a></li>
+                    <li><a href="/airports">42家机场品牌库</a></li>
+                    <li class="is-active"><a href="/guides" aria-current="page">GEO 场景化专线选型指南</a></li>
+                </ul>
+            </nav>
+
+            <div class="tags mb-3">
+                <span class="tag is-primary is-medium">GEO & SCENARIO ENGINEERING MATRIX</span>
+                <span class="tag is-dark">数据核实日期：2026-10-19 / 2026-08-11</span>
+                <span class="tag is-dark">最后修订：2026-11-07</span>
+                <span class="tag is-success is-light">维护团队：小火箭网络可观测性实验室</span>
+            </div>
+
+            <h1 id="guides-main-heading" class="title is-1 mb-4">
+                2026 场景化机场专线选型全书：AI 生产力、4K 流媒体、TikTok 跨境与 IEPL/IPLC 架构实测
             </h1>
-            <p class="subtitle is-4 mt-3 u-constrained has-text-grey-light">
-                不同业务场景对网络延迟、IP 纯净度与加密协议有着截然不同的硬性要求。从小火箭评测实验室的专题分析出发，直击核心痛点。
+
+            <p class="subtitle is-5 has-text-grey-light mb-5" style="max-width: 920px; line-height: 1.75;">
+                不同跨国网络任务对<strong>出口 IP 纯净度（ASN 属性）</strong>、<strong>晚高峰单线程突发吞吐</strong>、<strong>过境段物理内网隔离（IEPL/IPLC）</strong>以及<strong>客户端订阅开放性</strong>有着截然不同的硬性边界。本页基于本站收录的 <a href="/airports" class="has-text-primary has-text-weight-semibold">42 家机场品牌库</a> 与 <a href="/reviews" class="has-text-primary has-text-weight-semibold">17+ 份 MAI-TEST-BOT 晚高峰实测抓包档案</a>，在页面前部直接给出分场景优选结论与双轨价格对比表，并系统拆解从底层协议原理到终端自检排障的完整闭环。
             </p>
+
+            <!-- 页内锚点快速目录 (Topic Cluster TOC) -->
+            <div class="box p-4" style="background: var(--sp-bg-card); border: 1px solid var(--sp-border); border-radius: 12px;">
+                <div class="is-flex is-justify-content-space-between is-align-items-center is-flex-wrap-wrap mb-3">
+                    <strong class="is-size-6">📑 本页章节快速导航（点击直达对应锚点）：</strong>
+                    <span class="is-size-7 has-text-grey">阅读说明：所有价格均严格区分「月付实价」与「年付折算价」，含推广链接已按规范标记</span>
+                </div>
+                <div class="buttons are-small mb-0">
+                    <a href="#quick-answer" class="button is-primary">1. 开头直接选：五大场景结论</a>
+                    <a href="#core-comparison-table" class="button is-dark">2. 16家核心参数与价格总表</a>
+                    <a href="#ai-chatgpt-claude-unlock" class="button is-dark">3. 专题一：ChatGPT/Claude 防封</a>
+                    <a href="#streaming-4k-netflix-disney" class="button is-dark">4. 专题二：4K Netflix/Disney+ 解锁</a>
+                    <a href="#cross-border-tiktok-ecommerce" class="button is-dark">5. 专题三：TikTok 跨境直播与独享IP</a>
+                    <a href="#iepl-vs-iplc-architecture" class="button is-dark">6. 专题四：IEPL vs IPLC 专线科普</a>
+                    <a href="#remote-dev-gaming-low-latency" class="button is-dark">7. 专题五：程序员 TUN 与永久流量包</a>
+                    <a href="#brand-deep-profiles" class="button is-dark">8. 10大主力品牌集中深度档案</a>
+                    <a href="#technical-principles" class="button is-dark">9. 协议/DNS/ASN 底层技术原理</a>
+                    <a href="#decision-matrix" class="button is-dark">10. 预算决策树与终端自检命令</a>
+                    <a href="#faq" class="button is-dark">11. 10大边界问题 FAQ</a>
+                </div>
+            </div>
         </div>
     </section>
 
-    <section class="section has-bg-elevated py-6">
-        <div class="container u-constrained">
+    <!-- 模块一：开头直接提供答案 (五大核心场景速查矩阵) -->
+    <section class="section has-bg-elevated py-6" id="quick-answer" aria-labelledby="quick-answer-heading">
+        <div class="container">
+            <div class="mb-5">
+                <p class="u-label-overline">DIRECT ANSWER & EXECUTIVE SUMMARY</p>
+                <h2 id="quick-answer-heading" class="title is-2 mt-1 mb-2">
+                    一、按核心需求直接对号入座：五大场景首选与备选结论
+                </h2>
+                <p class="has-text-grey-light is-size-6">
+                    如果你不想通读上万字的技术原理，请直接根据你<strong>最核心的一项日常用途</strong>查看下方结论表。每个推荐均附带真实月付起价、年付折算门槛及必须避开的配置雷区：
+                </p>
+            </div>
+
+            <div class="columns is-multiline">
+                {quickScenarioPicks.map((item, idx) => (
+                    <div class="column is-12 mb-3">
+                        <div class="box p-5" style="background: var(--sp-bg-card); border-left: 4px solid var(--sp-primary); border-radius: 12px;">
+                            <div class="columns is-vcentered">
+                                <div class="column is-4">
+                                    <span class="tag is-primary is-light mb-2">场景 0{idx + 1}</span>
+                                    <h3 class="title is-4 mb-2">
+                                        <a href={`#${item.scenarioId}`} class="hover-text-primary">{item.scenarioName}</a>
+                                    </h3>
+                                    <p class="is-size-7 has-text-grey mb-2">
+                                        <strong>典型痛点：</strong>{item.corePainPoint}
+                                    </p>
+                                    <p class="is-size-7">
+                                        <strong>硬性技术指标：</strong>{item.keyMetricsRequired}
+                                    </p>
+                                </div>
+
+                                <div class="column is-5">
+                                    <div class="p-3 has-background-dark mb-2" style="border-radius: 8px;">
+                                        <div class="is-flex is-justify-content-space-between is-align-items-center mb-1">
+                                            <span class="tag is-primary is-small">首选方案</span>
+                                            <a href={`#profile-${item.primaryPick.id}`} class="has-text-weight-bold is-size-5 hover-text-primary">
+                                                {item.primaryPick.name} ↓
+                                            </a>
+                                        </div>
+                                        <p class="is-size-7 mb-1">{item.primaryPick.reason}</p>
+                                        <p class="is-size-7 has-text-primary has-text-weight-semibold mb-0">
+                                            💰 费用核实：{item.primaryPick.priceInfo}
+                                        </p>
+                                    </div>
+
+                                    <div class="is-size-7">
+                                        <strong>同场景互补备选：</strong>
+                                        <ul class="mt-1 pl-4">
+                                            {item.alternativePicks.map((alt) => (
+                                                <li class="mb-1">
+                                                    <a href={`/airports/${alt.id}`} class="has-text-weight-bold hover-text-primary">{alt.name}</a>：{alt.positioning}（{alt.priceInfo}）
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <div class="column is-3">
+                                    <div class="notification is-warning is-light p-3 mb-3 is-size-7">
+                                        <strong>⚠️ 避坑铁律：</strong><br />
+                                        {item.avoidPitfall}
+                                    </div>
+                                    <div class="buttons are-small">
+                                        <a href={`#${item.scenarioId}`} class="button is-outlined is-fullwidth">
+                                            阅读本场景深度方案 ↓
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                ))}
+            </div>
+        </div>
+    </section>
+
+    <!-- 模块二：有依据的核心对比表 (16家代表性品牌双轨价格+实测吞吐+永久包精算) -->
+    <section class="section py-6" id="core-comparison-table" aria-labelledby="comparison-heading">
+        <div class="container">
+            <div class="mb-5">
+                <p class="u-label-overline">EVIDENCE-BASED MASTER MATRIX</p>
+                <h2 id="comparison-heading" class="title is-2 mt-1 mb-2">
+                    二、16 家核心代表机场规格、双轨价格与实测参数总表
+                </h2>
+                <p class="has-text-grey-light is-size-6 mb-3">
+                    为杜绝行业常见的「拿年付折算均价冒充月付实价」误导消费者，下表将<strong>单月购买实价（Monthly Real Price）</strong>与<strong>年付折算价 / 一次性永久包（Annual / Permanent）</strong>严格分列。所有测速与解锁状态均对应 <code>2026-10-19</code> 品牌资料原文与 <code>2026-08-11</code> MAI-TEST-BOT 实验室抓包记录，缺失或未统一测试的字段如实标注为「待核实」：
+                </p>
+                <div class="notification is-dark is-size-7 py-2 px-3 mb-4">
+                    💡 <strong>移动端阅读提示：</strong> 在 375px 手机屏幕下，下方表格支持<strong>区域内左右平滑滑动</strong>，不会撑破页面整体宽度。点击品牌名称可跳转至对应的独立测评详情页。
+                </div>
+            </div>
+
+            <!-- 主对比表：移动端安全横向滚动容器 -->
+            <div class="table-container box p-0" style="overflow-x: auto; -webkit-overflow-scrolling: touch; border-radius: 12px; border: 1px solid var(--sp-border);">
+                <table class="table is-fullwidth is-striped is-hoverable mb-0" style="min-width: 1180px; font-size: 0.85rem;">
+                    <thead>
+                        <tr>
+                            <th style="min-width: 110px;">品牌名称</th>
+                            <th style="min-width: 135px;">单月购买实价</th>
+                            <th style="min-width: 165px;">年付折算 / 永久不限时</th>
+                            <th style="min-width: 105px;">流量范围 & 倍率</th>
+                            <th style="min-width: 95px;">设备限制</th>
+                            <th style="min-width: 140px;">线路架构 & 协议</th>
+                            <th style="min-width: 130px;">客户端导入方式</th>
+                            <th style="min-width: 160px;">AI 与流媒体解锁状态</th>
+                            <th style="min-width: 150px;">主要限制与注意事项</th>
+                            <th style="min-width: 95px;">核实日期</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {coreComparisonRows.map((row) => (
+                            <tr>
+                                <td>
+                                    <span class="tag is-dark is-small mr-1">#{row.rank}</span>
+                                    <a href={`/airports/${row.id}`} class="has-text-weight-bold hover-text-primary">
+                                        {row.name}
+                                    </a>
+                                </td>
+                                <td class="has-text-primary has-text-weight-bold">{row.monthlyRealPrice}</td>
+                                <td>{row.annualConvertedPrice}</td>
+                                <td>
+                                    <div>{row.trafficRange}</div>
+                                    <span class="tag is-success is-light is-small mt-1">{row.multiplier}</span>
+                                </td>
+                                <td>{row.deviceLimit}</td>
+                                <td>
+                                    <div class="has-text-weight-semibold">{row.lineArchitecture}</div>
+                                    <div class="is-size-7 has-text-grey">协议: {row.protocols}</div>
+                                </td>
+                                <td>{row.clientMode}</td>
+                                <td>{row.ipAndUnlock}</td>
+                                <td class="is-size-7">{row.mainLimitations}</td>
+                                <td class="is-size-7">
+                                    <div>{row.verifiedDate}</div>
+                                    <span class="has-text-grey">{row.dataSource.includes("实测") ? "实测+原文" : "品牌原文"}</span>
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- 分项对比表 2.1：2026-10-19 五地节点延迟与下行吞吐实测分项表 -->
+            <div class="mt-6" id="speedtest-comparison-table">
+                <h3 class="title is-4 mb-2">📊 分项对比表一：12 家主力专线五地节点延迟 (RTT) 与下行带宽实测横向对照</h3>
+                <p class="is-size-7 has-text-grey mb-3">
+                    数据来源：2026-10-19 统一测试记录（非晚高峰基准快照）及 2026-08-11 MAI-TEST-BOT 实测图包。注意观察真 IEPL/IPLC 专线在香港（21–27ms）、新加坡（42–46ms）、日本（53–57ms）三个核心枢纽的延迟高度一致性：
+                </p>
+                <div class="table-container box p-0" style="overflow-x: auto; -webkit-overflow-scrolling: touch; border-radius: 12px; border: 1px solid var(--sp-border);">
+                    <table class="table is-fullwidth is-striped mb-0" style="min-width: 820px; font-size: 0.85rem;">
+                        <thead>
+                            <tr>
+                                <th>品牌名称</th>
+                                <th>线路类型</th>
+                                <th>香港 (延迟 / 下载)</th>
+                                <th>新加坡 (延迟 / 下载)</th>
+                                <th>日本 (延迟 / 下载)</th>
+                                <th>台湾 (延迟 / 下载)</th>
+                                <th>美国 (延迟 / 下载)</th>
+                                <th>实测截图档案</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><a href="/airports/guangsu" class="has-text-weight-bold">光速云</a></td>
+                                <td>IEPL + 企业内网</td>
+                                <td class="has-text-success has-text-weight-semibold">22ms / 529Mbps</td>
+                                <td>46ms / 387Mbps</td>
+                                <td>57ms / 135Mbps</td>
+                                <td>41ms / 114Mbps</td>
+                                <td>143ms / 18Mbps</td>
+                                <td><a href="/airports/guangsu" class="tag is-primary is-light">查看测速+5张解锁图</a></td>
+                            </tr>
+                            <tr>
+                                <td><a href="/airports/firefly" class="has-text-weight-bold">Firefly 萤火</a></td>
+                                <td>纯 IPLC 专线</td>
+                                <td class="has-text-success has-text-weight-semibold">27ms / 547Mbps</td>
+                                <td class="has-text-success has-text-weight-semibold">42ms / 445Mbps</td>
+                                <td>57ms / 147Mbps</td>
+                                <td>39ms / 135Mbps</td>
+                                <td class="has-text-success has-text-weight-semibold">143ms / 30Mbps</td>
+                                <td><a href="/airports/firefly" class="tag is-info is-light">2026-10-19 记录</a></td>
+                            </tr>
+                            <tr>
+                                <td><a href="/airports/shanyue" class="has-text-weight-bold">闪跃</a></td>
+                                <td>纯 IPLC 骨干网</td>
+                                <td class="has-text-success has-text-weight-semibold">23ms / 548Mbps</td>
+                                <td>44ms / 383Mbps</td>
+                                <td>53ms / 144Mbps</td>
+                                <td>38ms / 110Mbps</td>
+                                <td>143ms / 18Mbps</td>
+                                <td><a href="/airports/shanyue" class="tag is-info is-light">2026-10-19 记录</a></td>
+                            </tr>
+                            <tr>
+                                <td><a href="/airports/weifeng" class="has-text-weight-bold">微风网络</a></td>
+                                <td>IEPL 专线</td>
+                                <td class="has-text-success has-text-weight-semibold">25ms / 546Mbps</td>
+                                <td>43ms / 384Mbps</td>
+                                <td>54ms / 131Mbps</td>
+                                <td>40ms / 115Mbps</td>
+                                <td>167ms / 17Mbps</td>
+                                <td><a href="/airports/weifeng" class="tag is-primary is-light">查看实测图</a></td>
+                            </tr>
+                            <tr>
+                                <td><a href="/airports/u1s1" class="has-text-weight-bold">U1S1</a></td>
+                                <td>IPLC 专线</td>
+                                <td class="has-text-success has-text-weight-semibold">24ms / 538Mbps</td>
+                                <td>46ms / 414Mbps</td>
+                                <td>57ms / 133Mbps</td>
+                                <td>39ms / 107Mbps</td>
+                                <td class="has-text-success has-text-weight-semibold">134ms / 20Mbps</td>
+                                <td><a href="/airports/u1s1" class="tag is-primary is-light">查看实测图</a></td>
+                            </tr>
+                            <tr>
+                                <td><a href="/airports/wuyou" class="has-text-weight-bold">无忧链接</a></td>
+                                <td>跨境专线</td>
+                                <td class="has-text-success has-text-weight-semibold">23ms / 531Mbps</td>
+                                <td class="has-text-success has-text-weight-semibold">42ms / 418Mbps</td>
+                                <td>55ms / 147Mbps</td>
+                                <td>41ms / 107Mbps</td>
+                                <td>145ms / 17Mbps</td>
+                                <td><a href="/airports/wuyou" class="tag is-primary is-light">查看双测速解锁图</a></td>
+                            </tr>
+                            <tr>
+                                <td><a href="/airports/feimao" class="has-text-weight-bold">飞猫云</a></td>
+                                <td>多区优化专线</td>
+                                <td class="has-text-success has-text-weight-semibold">21ms / 526Mbps</td>
+                                <td>45ms / 413Mbps</td>
+                                <td>54ms / 138Mbps</td>
+                                <td>41ms / 116Mbps</td>
+                                <td>178ms / 14Mbps</td>
+                                <td><a href="/airports/feimao" class="tag is-primary is-light">查看实测图</a></td>
+                            </tr>
+                            <tr>
+                                <td><a href="/airports/muguang" class="has-text-weight-bold">暮光加速</a></td>
+                                <td>BGP 智能专线</td>
+                                <td>26ms / 509Mbps</td>
+                                <td class="has-text-success has-text-weight-semibold">43ms / 419Mbps</td>
+                                <td class="has-text-success has-text-weight-semibold">53ms / 150Mbps</td>
+                                <td>40ms / 107Mbps</td>
+                                <td>160ms / 19Mbps</td>
+                                <td><a href="/airports/muguang" class="tag is-primary is-light">查看实测图</a></td>
+                            </tr>
+                            <tr>
+                                <td><a href="/airports/xingdaomeng" class="has-text-weight-bold">星岛梦</a></td>
+                                <td>IEPL 专线</td>
+                                <td>27ms / 504Mbps</td>
+                                <td>44ms / 411Mbps</td>
+                                <td>57ms / 136Mbps</td>
+                                <td>41ms / 103Mbps</td>
+                                <td>177ms / 18Mbps</td>
+                                <td><a href="/airports/xingdaomeng" class="tag is-primary is-light">查看实测图</a></td>
+                            </tr>
+                            <tr>
+                                <td><a href="/airports/weitu" class="has-text-weight-bold">唯兔云</a></td>
+                                <td>IPLC 专线</td>
+                                <td>27ms / 500Mbps</td>
+                                <td>44ms / 414Mbps</td>
+                                <td>56ms / 147Mbps</td>
+                                <td class="has-text-success has-text-weight-semibold">37ms / 100Mbps</td>
+                                <td>179ms / 17Mbps</td>
+                                <td><a href="/airports/weitu" class="tag is-primary is-light">查看实测图</a></td>
+                            </tr>
+                            <tr>
+                                <td><a href="/airports/ermao" class="has-text-weight-bold">二猫云</a></td>
+                                <td>全线 IEPL</td>
+                                <td class="has-text-success has-text-weight-semibold">22ms / 481Mbps</td>
+                                <td>46ms / 407Mbps</td>
+                                <td>53ms / 143Mbps</td>
+                                <td>41ms / 118Mbps</td>
+                                <td class="has-text-success has-text-weight-semibold">134ms / 17Mbps</td>
+                                <td><a href="/airports/ermao" class="tag is-primary is-light">查看实测图</a></td>
+                            </tr>
+                            <tr>
+                                <td><a href="/airports/yifan" class="has-text-weight-bold">一翻云</a></td>
+                                <td>IEPL 物理专线</td>
+                                <td>23ms / 477Mbps</td>
+                                <td>42ms / 390Mbps</td>
+                                <td>53ms / 136Mbps</td>
+                                <td>40ms / 117Mbps</td>
+                                <td>180ms / 20Mbps</td>
+                                <td><a href="/airports/yifan" class="tag is-primary is-light">查看实测图</a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 模块三：围绕用户问题展开五大场景 H2 与 H3 -->
+    <section class="section has-bg-elevated py-6" aria-label="五大核心场景深度工程解析">
+        <div class="container">
+            <div class="mb-5">
+                <p class="u-label-overline">DEEP-DIVE SCENARIO ENGINEERING</p>
+                <h2 class="title is-2 mt-1 mb-2">
+                    三、五大高意向业务场景深度拆解与排障实操
+                </h2>
+                <p class="has-text-grey-light is-size-6">
+                    以下五个章节分别对应 AI 大模型生产力、4K 流媒体观影、TikTok 跨境直播、IEPL/IPLC 物理专线鉴别以及程序员终端接管与不限时备份。每个小节严格按照<strong>「是什么问题与何时关注 → 如何判断与操作 → 条件与限制 → 下一步行动」</strong>工程逻辑展开：
+                </p>
+            </div>
+
             {guides.map((guide) => (
-                <article class="box p-6 mb-6" id={guide.slug} style="background: var(--sp-bg-card); border: 1px solid var(--sp-border); border-radius: 16px;">
-                    <span class="tag is-primary mb-2">{guide.tag}</span>
-                    <h2 class="title is-2 mb-3">{guide.title}</h2>
-                    <p class="is-size-5 has-text-grey-light mb-5">
+                <article class="box p-5 mb-6" id={guide.slug} style="background: var(--sp-bg-card); border: 1px solid var(--sp-border); border-radius: 16px;">
+                    <div class="is-flex is-justify-content-space-between is-align-items-center is-flex-wrap-wrap gap-2 mb-3">
+                        <div>
+                            <span class="tag is-primary mr-2">{guide.number}</span>
+                            <span class="tag is-dark">{guide.tag}</span>
+                        </div>
+                        <span class="is-size-7 has-text-grey">适用对象：{guide.targetAudience}</span>
+                    </div>
+
+                    <h2 class="title is-3 mb-3">{guide.title}</h2>
+
+                    <!-- 开头直接给本节核心结论 -->
+                    <div class="notification is-dark p-4 mb-4" style="border-left: 4px solid var(--sp-primary) !important;">
+                        <div class="is-size-6 mb-1"><strong>💡 本章核心选型与工程结论：</strong></div>
+                        <p class="is-size-6 mb-0">{guide.coreConclusion}</p>
+                    </div>
+
+                    <p class="is-size-6 has-text-grey-light mb-5">
                         {guide.summary}
                     </p>
 
-                    <!-- 正文段落 -->
-                    <div class="content is-size-6 has-text-grey-light mb-5" style="line-height: 1.8;">
-                        {guide.contentSections.map((sec) => (
-                            <div class="mb-4">
-                                <h3 class="title is-4 has-text-white mb-2">{sec.heading}</h3>
-                                <p>{sec.body}</p>
+                    <!-- H3 子章节展开 -->
+                    {guide.subSections.map((sub) => (
+                        <div class="mb-5 p-4 has-background-dark" id={sub.id} style="border-radius: 10px;">
+                            <h3 class="title is-4 mb-3">{sub.title}</h3>
+                            <div class="content is-size-6" style="line-height: 1.8;">
+                                <p class="mb-3">{sub.whatAndWhen}</p>
+                                <p class="mb-3">{sub.howToJudgeAndOperate}</p>
+                                <p class="mb-3">{sub.conditionsAndLimits}</p>
+                                <p class="mb-0 has-text-primary has-text-weight-semibold">{sub.nextAction}</p>
                             </div>
-                        ))}
-                    </div>
+                            {sub.codeOrRuleSnippet && (
+                                <pre class="mt-3 p-3" style="background: var(--sp-bg-card); color: var(--sp-text); border: 1px solid var(--sp-border); border-radius: 8px; font-size: 0.8rem; overflow-x: auto;"><code>{sub.codeOrRuleSnippet}</code></pre>
+                            )}
+                        </div>
+                    ))}
 
-                    <!-- 本场景实验室推荐品牌卡片 -->
-                    <div class="p-4 has-background-dark" style="border-radius: 12px; border: 1px solid var(--sp-border);">
-                        <h4 class="title is-6 mb-3 has-text-warning">🎯 本专题实验室实测推荐匹配品牌：</h4>
-                        <div class="columns is-multiline">
-                            {guide.recommendedAirports.map((airportId) => {
-                                const ap = getAirport(airportId);
-                                if (!ap) return null;
+                    <!-- 针对流媒体与专线章节嵌入真实实测图证据 -->
+                    {guide.slug === "streaming-4k-netflix-disney" && (
+                        <div class="p-4 mb-4 has-background-dark" style="border-radius: 10px;">
+                            <h4 class="title is-5 mb-2">📸 实验室流媒体与节点吞吐实测证据切片（光速云 & 无忧链接）</h4>
+                            <p class="is-size-7 has-text-grey mb-3">
+                                下图为实验室归档的光速云节点测速实测图与流媒体解锁实拍切片（更多 17+ 家完整大图请访问 <a href="/reviews" class="has-text-primary">/reviews 实测实验室</a>）：
+                            </p>
+                            <div class="columns is-multiline">
+                                <div class="column is-6">
+                                    <figure class="image">
+                                        <img src="/images/reviews/guangsu-speedtest-2026.png" alt="光速云节点延迟与下行带宽实测报告" width="800" height="450" loading="lazy" style="border-radius: 8px; border: 1px solid var(--sp-border);" />
+                                        <figcaption class="is-size-7 has-text-grey mt-1 has-text-centered">图1：光速云 MAI-TEST-BOT 节点延迟与速度实测档案（2026-08-11）</figcaption>
+                                    </figure>
+                                </div>
+                                <div class="column is-6">
+                                    <figure class="image">
+                                        <img src="/images/reviews/guangsu-unlock-matrix-01.jpg" alt="光速云流媒体与解锁实拍验证切片" width="800" height="450" loading="lazy" style="border-radius: 8px; border: 1px solid var(--sp-border);" />
+                                        <figcaption class="is-size-7 has-text-grey mt-1 has-text-centered">图2：光速云多区域流媒体与海外应用解锁实测记录（2026-08-19）</figcaption>
+                                    </figure>
+                                </div>
+                            </div>
+                        </div>
+                    )}
+
+                    <div class="p-3 has-background-dark is-size-6" style="border-radius: 8px;">
+                        <strong>📊 场景横向对比小结：</strong> {guide.scenarioComparisonNote}
+                        <div class="mt-2 is-size-7">
+                            <strong>关联品牌深度档案与测评入口：</strong>
+                            {guide.recommendedAirports.map((aid) => {
+                                const hasLocalProfile = brandMonographProfiles.some((p) => p.id === aid);
+                                const targetHref = hasLocalProfile ? `#profile-${aid}` : `/airports/${aid}`;
+                                const labelSuffix = hasLocalProfile ? "查看本页集中档案 ↓" : "查看独立测评详情页 →";
                                 return (
-                                    <div class="column is-4-tablet is-12-mobile">
-                                        <div class="box p-3" style="background: var(--sp-bg-card); border: 1px solid var(--sp-border);">
-                                            <div class="is-flex is-justify-content-space-between mb-1">
-                                                <strong class="has-text-white">{ap.name}</strong>
-                                                <span class="has-text-primary is-size-7">{ap.priceStarting}</span>
-                                            </div>
-                                            <p class="is-size-7 has-text-grey mb-2">{ap.lineType}</p>
-                                            <a class="button is-primary is-small is-fullwidth" href={ap.affUrl} target="_blank" rel="nofollow sponsored noopener">
-                                                直达官网测试 →
-                                            </a>
-                                        </div>
-                                    </div>
+                                    <a href={targetHref} class="tag is-primary is-light mr-2">
+                                        #{aid} ({labelSuffix})
+                                    </a>
                                 );
                             })}
+                            <a href="/airports" class="tag is-dark">去 42 家机场库筛选全部 →</a>
                         </div>
                     </div>
                 </article>
             ))}
+        </div>
+    </section>
+
+    <!-- 模块四：10大核心推荐品牌集中深度档案与真实转化卡片 (每个品牌集中介绍一次) -->
+    <section class="section py-6" id="brand-deep-profiles" aria-labelledby="profiles-heading">
+        <div class="container">
+            <div class="mb-5">
+                <p class="u-label-overline">CENTRALIZED BRAND MONOGRAPH PROFILES</p>
+                <h2 id="profiles-heading" class="title is-2 mt-1 mb-2">
+                    四、10 大场景主力品牌集中深度档案与透明转化入口
+                </h2>
+                <p class="has-text-grey-light is-size-6">
+                    为避免在不同场景重复堆砌同一品牌的介绍，我们将本页高频引用的 10 家核心机场品牌在此集中建档。每份档案均列明<strong>推荐依据、适合与不适合人群、月付实价与年付折算核算、主要限制、同类横向对比及数据核实时间</strong>。
+                    <br />
+                    <span class="is-size-7 has-text-grey">⚖️ 推广合规说明：下方卡片中的「查看套餐」按钮包含推广转介参数（已标记 <code>rel="nofollow sponsored noopener"</code>），通过链接注册可能为本站带来佣金支持，但完全不影响您的实际支付价格。</span>
+                </p>
+            </div>
+
+            <div class="columns is-multiline">
+                {brandMonographProfiles.map((b) => (
+                    <div class="column is-12 mb-4" id={`profile-${b.id}`}>
+                        <div class="box p-5" style="background: var(--sp-bg-card); border: 1px solid var(--sp-border); border-radius: 14px;">
+                            <div class="columns">
+                                <div class="column is-8">
+                                    <div class="tags mb-2">
+                                        <span class="tag is-primary has-text-weight-bold">综合排名 #{b.rank}</span>
+                                        <span class="tag is-warning is-light">{b.badge}</span>
+                                        <span class="tag is-dark">{b.foundedYear}</span>
+                                        <span class="tag is-dark">{b.lineType}</span>
+                                        <span class="tag is-dark">协议: {b.protocol}</span>
+                                    </div>
+
+                                    <h3 class="title is-3 mb-2">
+                                        <a href={`/airports/${b.id}`} class="hover-text-primary">{b.name}</a>
+                                    </h3>
+
+                                    <p class="is-size-6 mb-3">
+                                        <strong>📌 核心推荐依据：</strong>{b.recommendationBasis}
+                                    </p>
+
+                                    <div class="p-3 has-background-dark mb-3 is-size-7" style="border-radius: 8px; line-height: 1.7;">
+                                        <div><strong>💳 实际费用核算（区分月付实价与年付折算）：</strong>{b.actualCostBreakdown}</div>
+                                        <div class="mt-1"><strong>📦 完整月付梯度：</strong>{b.monthlyRealPrice}</div>
+                                        <div class="mt-1"><strong>⏳ 年付 / 永久包：</strong>{b.annualConvertedPrice} ｜ {b.permanentPlanInfo}</div>
+                                        <div class="mt-1"><strong>💻 客户端与订阅：</strong>{b.clientMode}</div>
+                                        <div class="mt-1"><strong>⚡ 实测表现摘要：</strong>{b.speedtestSummary}</div>
+                                    </div>
+
+                                    <div class="columns is-multiline is-size-7 mb-2">
+                                        <div class="column is-6">
+                                            <div class="p-3 has-background-dark h-100" style="border-radius: 8px;">
+                                                <strong class="has-text-success">✅ 适合人群：</strong>
+                                                <ul class="mt-1 pl-4">
+                                                    {b.suitableFor.map((s) => <li class="mb-1">{s}</li>)}
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="column is-6">
+                                            <div class="p-3 has-background-dark h-100" style="border-radius: 8px;">
+                                                <strong class="has-text-danger">⚠️ 主要限制与不适合人群：</strong>
+                                                <ul class="mt-1 pl-4">
+                                                    {b.keyLimitations.map((l) => <li class="mb-1">{l}</li>)}
+                                                    {b.unsuitableFor.map((u) => <li class="mb-1">不适合：{u}</li>)}
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <p class="is-size-7 has-text-grey mb-0">
+                                        <strong>🔄 同类品牌横向边界对比：</strong>{b.peerComparison}
+                                    </p>
+                                </div>
+
+                                <!-- 右侧真实且相关的转化卡片 -->
+                                <div class="column is-4">
+                                    <div class="p-4 has-background-dark h-100 is-flex is-flex-direction-column is-justify-content-space-between" style="border-radius: 12px; border: 1px solid var(--sp-border);">
+                                        <div>
+                                            <div class="is-size-7 has-text-grey mb-1">转化与套餐核实卡片</div>
+                                            <h4 class="title is-5 mb-2">{b.name}</h4>
+                                            <div class="notification is-warning is-light py-2 px-3 mb-3 is-size-7">
+                                                <div><strong>优惠码：</strong><code>{b.coupon}</code></div>
+                                                <div class="mt-1">{b.couponRule}</div>
+                                            </div>
+                                            <ul class="is-size-7 mb-4" style="line-height: 1.7;">
+                                                <li><strong>最后核实日期：</strong>{b.verifiedDate}</li>
+                                                <li><strong>资料来源：</strong>{b.dataSourceType}</li>
+                                                <li><strong>退款与试用限制：</strong>无免费试用，建议先小额月付实测</li>
+                                            </ul>
+                                        </div>
+
+                                        <div>
+                                            <a
+                                                class="button is-primary is-fullwidth has-text-weight-bold mb-2"
+                                                href={b.affUrl}
+                                                target="_blank"
+                                                rel="nofollow sponsored noopener"
+                                            >
+                                                查看套餐（官网直达） ↗
+                                            </a>
+                                            <a
+                                                class="button is-outlined is-small is-fullwidth"
+                                                href={`/airports/${b.id}`}
+                                            >
+                                                了解详情与完整评测报告 →
+                                            </a>
+                                            <p class="is-size-7 has-text-grey has-text-centered mt-2" style="font-size: 0.7rem;">
+                                                含推广链接 · 不影响用户支付价格
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                ))}
+            </div>
+        </div>
+    </section>
+
+    <!-- 模块五：与本页有关的技术原理 (协议栈、DNS防泄漏、原生IP与ASN) -->
+    <section class="section has-bg-elevated py-6" id="technical-principles" aria-labelledby="tech-principles-heading">
+        <div class="container">
+            <div class="mb-5">
+                <p class="u-label-overline">NETWORK ENGINEERING PRINCIPLES</p>
+                <h2 id="tech-principles-heading" class="title is-2 mt-1 mb-2">
+                    五、影响选型与排障结果的三大底层网络工程原理
+                </h2>
+                <p class="has-text-grey-light is-size-6">
+                    我们不堆砌无关的教科书定义，只聚焦会直接决定你「买哪个套餐」「怎么配客户端」以及「为什么连上了却被拒」的三个核心技术原理：
+                </p>
+            </div>
+
+            {technicalPrinciples.map((tp) => (
+                <div class="box p-5 mb-4" id={tp.id} style="background: var(--sp-bg-card); border: 1px solid var(--sp-border); border-radius: 12px;">
+                    <h3 class="title is-4 mb-1">{tp.title}</h3>
+                    <p class="is-size-7 has-text-primary has-text-weight-semibold mb-3">{tp.subtitle}</p>
+                    <p class="is-size-6 mb-3"><strong>💡 对你选型决策的实际影响：</strong>{tp.impactOnDecision}</p>
+                    <ul class="content is-size-6 mb-4 pl-4" style="line-height: 1.8;">
+                        {tp.engineeringDetails.map((detail) => (
+                            <li class="mb-2">{detail}</li>
+                        ))}
+                    </ul>
+                    <div class="notification is-dark py-3 px-4 is-size-6 mb-0">
+                        {tp.practicalAdvice}
+                    </div>
+                </div>
+            ))}
+        </div>
+    </section>
+
+    <!-- 模块六：决策与操作路径 + 本地终端验证手册 -->
+    <section class="section py-6" id="decision-matrix" aria-labelledby="decision-heading">
+        <div class="container">
+            <div class="mb-5">
+                <p class="u-label-overline">DECISION PATHS & VERIFICATION PLAYBOOK</p>
+                <h2 id="decision-heading" class="title is-2 mt-1 mb-2">
+                    六、五步预算与设备决策树 & 开通后 3 分钟本地验证命令
+                </h2>
+                <p class="has-text-grey-light is-size-6">
+                    请先根据你的<strong>预算区间、持有设备与技术熟练度</strong>在下方匹配唯一分支，随后按照 6.2 节的终端命令验证节点质量：
+                </p>
+            </div>
+
+            <!-- 6.1 决策分支卡片 -->
+            <div class="columns is-multiline mb-6">
+                {decisionBranches.map((branch) => (
+                    <div class="column is-6-desktop is-12-tablet">
+                        <div class="box p-4 h-100 is-flex is-flex-direction-column" style="background: var(--sp-bg-card); border: 1px solid var(--sp-border); border-radius: 12px;">
+                            <h3 class="title is-5 mb-2 has-text-primary">{branch.profileName}</h3>
+                            <div class="is-size-7 mb-3" style="line-height: 1.7;">
+                                <div><strong>💰 预算区间：</strong>{branch.budgetRange}</div>
+                                <div><strong>📱 设备与技术栈：</strong>{branch.deviceAndTechLevel}</div>
+                                <div><strong>🎯 核心用途：</strong>{branch.primaryUseCase}</div>
+                            </div>
+                            <p class="is-size-6 mb-4 is-flex-grow-1">
+                                <strong>👉 决策结论：</strong>{branch.recommendedSolution}
+                            </p>
+                            <div class="buttons are-small mt-auto">
+                                {branch.targetLinks.map((link) => (
+                                    <a href={link.url} class="button is-dark">
+                                        {link.label} →
+                                    </a>
+                                ))}
+                            </div>
+                        </div>
+                    </div>
+                ))}
+            </div>
+
+            <!-- 6.2 可执行的终端与浏览器自检步骤 -->
+            <div class="box p-5" id="client-routing-verification" style="background: var(--sp-bg-card); border: 1px solid var(--sp-border); border-radius: 12px;">
+                <h3 class="title is-4 mb-3">🛠️ 6.2 节点开通后的 4 步可复现工程验收法（Windows / macOS / iOS 通用）</h3>
+                <p class="is-size-6 has-text-grey-light mb-4">
+                    无论你购买了光速云、暮光加速还是微风网络，导入 <a href="/clients#ios" class="has-text-primary">Shadowrocket（小火箭）</a> 或 <a href="/clients#windows" class="has-text-primary">Clash Verge Rev</a> 后，请按顺序执行以下 4 步自检，确认代理隧道、DNS 防泄漏与 IP 纯净度全部达标：
+                </p>
+                <div class="columns is-multiline">
+                    <div class="column is-6">
+                        <div class="p-4 has-background-dark h-100" style="border-radius: 8px;">
+                            <h4 class="title is-6 mb-2">步骤 1：终端验证当前出口 IP、ASN 与地理位置</h4>
+                            <p class="is-size-7 mb-2">打开电脑终端（PowerShell / Terminal），执行以下 curl 命令查看接管状态：</p>
+                            <pre class="p-2" style="background: var(--sp-bg-card); color: var(--sp-text); border-radius: 6px; font-size: 0.78rem; overflow-x: auto;"><code># 查看当前出口 IP 详情与 ASN 机构属性
+curl -s https://ipinfo.io/json
+
+# 测试访问 OpenAI 接口的 HTTP 状态码与延迟
+curl -o /dev/null -s -w "HTTP: %&#123;http_code&#125; | Time: %&#123;time_total&#125;s\n" https://api.openai.com/v1/models</code></pre>
+                        </div>
+                    </div>
+                    <div class="column is-6">
+                        <div class="p-4 has-background-dark h-100" style="border-radius: 8px;">
+                            <h4 class="title is-6 mb-2">步骤 2：验证 Fake-IP 与 DNS 防泄漏状态</h4>
+                            <p class="is-size-7 mb-2">在终端执行 nslookup，若返回 <code>198.18.x.x</code> 则证明 Fake-IP 内核拦截已生效：</p>
+                            <pre class="p-2" style="background: var(--sp-bg-card); color: var(--sp-text); border-radius: 6px; font-size: 0.78rem; overflow-x: auto;"><code># 验证域名是否被 Mihomo / 小火箭 Fake-IP 接管
+nslookup chatgpt.com
+nslookup netflix.com
+# 随后浏览器访问 browserleaks.com/dns 确认无国内运营商 DNS 泄露</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 模块七：FAQ 与边界问题 (10 个高价值实操问答) -->
+    <section class="section has-bg-elevated py-6" id="faq" aria-labelledby="faq-heading">
+        <div class="container u-constrained">
+            <div class="has-text-centered mb-5">
+                <p class="u-label-overline">BOUNDARY QUESTIONS & FAQ</p>
+                <h2 id="faq-heading" class="title is-2 mt-1 mb-2">
+                    七、常见问题与选购边界解答（FAQ）
+                </h2>
+                <p class="has-text-grey-light is-size-6">
+                    聚焦正文未完全展开的价格折算陷阱、退款边界、5.6元同质化方案差异、多设备合租风控及历史档案有效性：
+                </p>
+            </div>
+
+            {guidesFaqs.map((faq) => (
+                <div class="box p-4 mb-4" style="background: var(--sp-bg-card); border: 1px solid var(--sp-border); border-radius: 12px;">
+                    <h3 class="title is-5 mb-2">{faq.question}</h3>
+                    <p class="is-size-6 has-text-primary has-text-weight-semibold mb-2">{faq.conclusion}</p>
+                    <p class="is-size-6 has-text-grey-light mb-2" style="line-height: 1.75;">{faq.details}</p>
+                    <div class="is-size-7">
+                        <span>🔗 延伸阅读与核验入口：</span>
+                        <a href={faq.relatedAnchorOrUrl} class="has-text-weight-semibold hover-text-primary">{faq.relatedLabel} →</a>
+                    </div>
+                </div>
+            ))}
+
+            <!-- 资料来源、待核实缺口与维护信息透明公示 -->
+            <div class="box p-5 mt-6" style="background: var(--sp-bg-card); border: 1px dashed var(--sp-border); border-radius: 12px;">
+                <h3 class="title is-5 mb-3">📋 数据来源、待核实信息与资料缺口公示</h3>
+                <div class="content is-size-7" style="line-height: 1.8;">
+                    <ul>
+                        <li><strong>核心数据来源：</strong> 本页所有套餐价格、优惠码与线路说明均严格提取自《42家机场品牌清单》（2026-10-19 核实批次）、《光速云品牌信息》及《16/17个机场测速实测资料包（2026-08-11 MAI-TEST-BOT 抓包归档）》。</li>
+                        <li><strong>明确标注的资料缺口（待核实项）：</strong> ① <a href="/airports/yuzhou">宇宙云</a>仅保留 ¥96/年历史起价与 60+ 节点记录，缺乏当期完整月付阶梯与统一流媒体实测；② <a href="/airports/kexin">可信云</a>（¥25/月 150GB）在品牌资料中诚实声明「AI 与流媒体目前缺乏统一实测数据」；③ <a href="/airports/liulianyun">榴莲云</a>（5.6元档）未明确标注底层协议类型；④ 榜单第 29–42 名（WgetCloud、白月光、龙猫云、FATCAT、TNTCloud、浪网、EdgeNova、sslar 等）属于 2026 年 5 月–8 月历史项目记录，部分缺乏直接月付报价，下单前请务必以官网实时显示为准。</li>
+                        <li><strong>维护与纠错通道：</strong> 若您发现某品牌套餐价格调整、优惠码失效或希望提交最新晚高峰实测抓包，欢迎前往 <a href="/contact">联系与数据纠错页 (/contact)</a> 提交工单，或参阅 <a href="/about">评测方法论与免责声明 (/about)</a>。</li>
+                    </ul>
+                </div>
+            </div>
         </div>
     </section>
 </Layout>
